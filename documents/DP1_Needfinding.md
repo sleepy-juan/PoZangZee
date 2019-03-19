@@ -5,13 +5,16 @@ Jeongeon Park, Changhyeon Park, Juan Lee, Hyunchang Oh
 # DP1. Needfinding
 
 ## Experience
-Redesign heavy Email users’ experience of more efficient email using.
+Redesign heavy Email users’ experience of more efficient email using.  
+> The definition of *heavy users* is those whose occupation will be significantly disturbed if do not send emails
 
 ## Observations & Interviews
 
 ### Interviewees
 The common criterion was that they send a lot of emails.
 * Appointed by email, met at office
+
+-----
 
 ![Staff in KGLC](./interviewee_kglc.png)  
 **A Staff in KGLC**: *Jeongeon, Changhyeon, Hyunchang*
@@ -23,8 +26,11 @@ The common criterion was that they send a lot of emails.
 > * Suggested ‘It would be useful if I could store the frequently used email formats in a special mailbox’
 > * Confessed that he has made mistakes when receiving individual replies from a big recipient group
 
+-----
+
 ![Staff in IRT](./interviewee_irt.png)  
-**A Staff in IRT**: *Jeongeon, Juan*
+**A Staff in IRT**: *Jeongeon, Juan*  
+*extreme user: more than 70 groups in mailbox, sends more than 20 emails every day*
 * Frequent interactions with international students and partner colleges
 > * Interview took place in the IRT office
 > * Sends 70% emails in English, 30% emails in Korean
@@ -32,6 +38,8 @@ The common criterion was that they send a lot of emails.
 > * Taught us the “individual sending” function, has made few mistakes when he/she began to work
 > * Greeting formats differ for the status of the recipients, often shorter for students than partner colleges and professors
 > * Uses the forwarding function to urge email replies
+
+-----
 
 ![Staff in Herald](./interviewee_herald.png)  
 **A Staff in KAIST Herald**: *Jeongeon*
@@ -43,10 +51,12 @@ The common criterion was that they send a lot of emails.
 > * Uses an old computer > wanted auto saving system because of the network matters
 > * Talked in details about comparing Korean and English emails, about how English emails are more wordy but easier to write, whereas Korean Emails are more concise but harder to choose the right formality
 
+-----
+
 ![Staff in Times](./interviewee_times.jpeg)  
 **A Staff in KAIST Times**: *Jeongeon, Changhyeon, Juan*
 * Requests interviews and materials for newspaper via emails
-> The most common purpose of using emails during work was to request for travel expenses as he has to cover important events within the country. The burden here was the school required a lot of information along with extensive formatting. How he dealt with the issue was to save the previously sent emails to MS Word document and use them as a format for next emails. However, because there are lots of details, he commented that it not only took effort, but also caused many errors. 
+> The most common purpose of using emails during work was to request for travel expenses as he has to cover important events within the country. The burden here was the school required a lot of information along with extensive formatting. How he dealt with the issue was to save the previously sent emails to MS Word document and use them as a format for next emails. However, because there are lots of details, he commented that it not only took effort, but also caused many errors.
 
 ### Questions Arose During the Course of Interview
 * **Q0**: Show me your mailbox and how you write your emails.  
@@ -93,7 +103,7 @@ The common criterion was that they send a lot of emails.
 * Users often call the recipient if an important email is not read.
 
 # Feedback of DP1. Needfinding
-Going through the whole feedback, quite a lot of people questioned about the details of the presentation. For the efficient delivery of our presentation, we can concentrate on the points we thought are important from next time.
+Overall Reflection: Going through the whole feedback, quite a lot of people questioned about the details of the presentation. For the efficient delivery of our presentation, we can concentrate on the points we thought are important from next time.
 A lot of people had an interest in the re-re-re emails and the comparison between Gmail and KAIST email. It was also nice to see people telling us the functions of Gmail we did not realize. There were also ideas that we had not thought about - such as mobile emails and visualizing the number of re’s.
 
 ## Feedback from Studio
