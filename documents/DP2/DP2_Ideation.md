@@ -45,6 +45,11 @@ Jeongeon Park, Changhyeon Park, Juan Lee, Hyunchang Oh
 2. **Summarize and Visualize by states and inform** important, unread, etc.
 3. Make email system like **monthly scheduler** with due date not received date
 
+### How we chose them
+1. If it is feasible
+2. If different solutions cover different areas
+3. If the solutions are not solution-driven but more problem-driven
+
 ### Solution 1
 **Classify importance or states** of conversation and **pin on the top of mailbox**
 ![solution1](./solution1.png)
@@ -57,9 +62,12 @@ Jeongeon Park, Changhyeon Park, Juan Lee, Hyunchang Oh
 * Resize individual emails by the importance and date
 * Automatically categorize by ★s
 * Add “priority” option to mail protocol
+* Marks ★s if the mail has some keywords that user has set up manually.
+* Seperate the mail list into two: One has normal ones, another has important ones. 
 
 #### Storyboard #1
-![storyboard1](./storyboard1.png)
+![storyboard1](./storyboard1.png)  
+The main focus of this solution was that the users, after receiving the email, can label the state/importance at the instant. This will be efficient because the extra time used for labeling will be just a few seconds.
 
 ### Solution 2
 * **Summarize and Visualize by states and inform** important, unread, etc.
@@ -73,11 +81,14 @@ Jeongeon Park, Changhyeon Park, Juan Lee, Hyunchang Oh
 * Organize emails to visualize how frequently emails are sent in between departments (ex. thickness of the line)
 * Make email system like monthly scheduler and users can check each day’s email
 * Visualize where they are sent or sent and return or finished chat
+* Resize the unread mails whose size is proportional to days from received date.
+* If someone repeatedly sends mails, automatically groups those and make new category for it.
 
 #### Storyboard #2
 ![storyboard21](./storyboard21.png)
 ![storyboard22](./storyboard22.png)
-![storyboard23](./storyboard23.png)
+![storyboard23](./storyboard23.png)  
+We have observed that users suffer from procrastinated replies, so we came up with a way to persuade users to send replies on time. Our solution arranges the emails into two groups, one which the user has not yet replied to, and the other which the user has taken care of. This way, we can also ensure that users do not miss any important emails.
 
 ### Solution 3
 * Make email system like **monthly scheduler** with due date not received date
@@ -97,7 +108,8 @@ Jeongeon Park, Changhyeon Park, Juan Lee, Hyunchang Oh
 * For important email, invite to chat
 
 #### Storyboard #3
-![storyboard3](./storyboard3.jpeg)
+![storyboard3](./storyboard3.jpeg)  
+From our previous interviews, we reallized that users had experience of missing some replies. This helps the user to prevent missing reply issues by automatically uploading the events on calender when the email is sent.
 
 # Feedback of DP2. Ideation
 Overall Reflection: We were very happy to get many positive and even fun comments. First of all, we want to say Thank you for everyone to enjoy our idea and presentation. This motivates us to develop our idea.  
