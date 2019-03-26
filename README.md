@@ -15,8 +15,8 @@ Following a [user-centered design process](https://www.kixlab.org/courses/cs374-
 
 ## Design Project Milestones
 * Design Project 0: Team Formation
-* [Design Project 1: Needfinding](./documents/DP1_Needfinding.md)
-* Design Project 2: Ideation
+* [Design Project 1: Needfinding](./documents/DP1/DP1_Needfinding.md)
+* [Design Project 2: Ideation](./documents/DP2/DP2_Ideation.md)
 * Design Project 3: Paper Prototyping
 * Design Project 4: Lo-fi Prototyping
 * Design Project 5: Mid-fi Prototyping
