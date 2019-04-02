@@ -8,12 +8,13 @@ Jeongeon Park, Changhyeon Park, Juan Lee, Hyunchang Oh
 ## Briefing
 ![prototype](./prototype1.jpeg)  
 Dear User,  
-The following is the main page of an **anonymous email platform(familiar UI)**.  
-You are going to be Juana Leer, a 34-year-old **administrative officer(background information)** who sends many, many emails to professors, students, and other people. To help Juana in her works in sending and keeping track of emails, we developed several new features to **increase efficiency and decrease the likeliness to make mistakes(purpose)**. Enjoy!  
+The following is the main page of an **anonymous email platform**.  
+You are going to be Juana Leer, a 34-year-old **administrative officer** who sends many, many emails to professors, students, and other people. To help Juana in her works in sending and keeping track of emails, we developed several new features to **increase efficiency and decrease the likeliness to make mistakes**. Enjoy!  
 Best Regards,  
 PoZangZee  
-> the computer can be slow   
-> any type of mouse movements are possible
+> - Our anonymous system was designed to resemble the common Email UI.
+> - We provided the background information to the users, using the persona we created, as well as the purpose of the project.
+> - We also explained that the computer can be slow, and any type of mouse movements are possible including clicks, drag and drop.
 
 ## Tasks
 * Task 1
@@ -32,9 +33,9 @@ PoZangZee
 
 ### Task 1: Email Auto-formating
 ![task1-1](task1-1.png)  
-When we click *Send* button after writing the mail, the *Save Format* buttion appeared.
+When the user clicks the *Send* button after writing the email, the *Save Format* button appears
 ![task1-2](task1-2.png)  
-By highlighting the part we want to change we can create format easily, and also can use them whenever we write new email.  
+By highlighting the part the user wanted to change, the user can create formats easily, and also can use them whenever he/she writes new emails.  
 The part will be auto-selected on the email format, so that user may easily change the email contents.
 
 ### Task 2: Email Labeling & Grouping
@@ -70,7 +71,7 @@ Contact with other college students, organizations, and administrative office.
   * I don’t make groups
 
 ### KAIST Herald reporter
-> KAIST Undergrad, 22, SoC, born in S.Korea
+> KAIST Undergrad, 22, SoC and AE, born in S.Korea
 
 Asks for Interviews and materials for newspaper, receives and replies to voices of the people
 * Q1. How often do you send email? 
@@ -81,8 +82,8 @@ Asks for Interviews and materials for newspaper, receives and replies to voices 
   * Manages address books for groups of 30~40
 
 ## Observation
-> **How we classify the problems**: Those issues that critically hamper the successful execution of the key functionality that we opt to provide via the service have been classified as highly critical and feedback that regards such an issue has been given high criticality.  
-> **How we will solve**: The primary rule and reason that underlies all of the decisions regarding distribution and allocation of resources including but not limited to our time and effort and determining the priority through which the order of implementation of features will be set in cases of contradicting demands from the users is the order of criticality that was assigned to each of the users needs that have been discovered in the course of observation that took place during our paper prototyping and each test to the users who are chosen to resemble our model persona as much as we and our pool of human resources and relations could afford in due time.
+> **How we classified the problems**: Those issues that critically hamper the successful execution of the key functionality that we opt to provide via the service have been classified as highly critical and feedback that regards such an issue has been given high criticality.  
+> **How we will plan to address each problems**: The primary rule and reason that underlies all of the decisions regarding distribution and allocation of resources including, but not limited to, our time and effort and determining the priority, through which the order of implementation of features will be set in cases of contradicting demands from the users, is the order of criticality.
 
 ### Theme A: affordance.
 * Task 1 (The **Formatting** Feature)
@@ -121,10 +122,33 @@ Overall Reflection: We were very pleased to get many *liked* feedback, and we wi
 We got some interesting *what if* suggestions which worth discussing. These feedback can be critical in some cases, so we decided to talk more about this. Also, some people said we need more detailed explanation, and we promise we will do better! Thank you!
 
 ## Individual Reflection
-###Jeongeon Park
-###Changhyeon Park
-###Juan Lee
-###Hyunchang Oh  
+
+### Jeongeon Park
+* What role did you play in each round?
+  * I played the **facilitator** role throughout the three user testings.
+* What were some of the difficulties you faced playing the role(s)?
+  * Although we had the briefs given for consistency, it was still kind of hard to keep my words throughout the testing consistent.
+  * My role was to inform the user about the task but not telling them step by step on what to do (for example, telling the users to click on the close button). It was sometimes difficult when I saw the users struggling with the task but could not tell them what to do since that was the whole point of the observation.
+
+### Changhyeon Park
+* What role did you play in each round?
+  * I played **computer** role of all interviews. 
+* What were some of the difficulties you faced playing the role(s)?
+  * Our prototypes had many pieces of papers, so I had difficulty to observe the user’s behavior and conduct the operations. There were quite lots of pieces of papers, it’s tough to find proper one for user behavior. We just cut all elements separately and it was the problem. 
+  * We made pop-up dialog for unprepared functionality, but I was confused whether the functionality that user chose is implemented in our prototype. For example, if the user clicks the reply issue on the calender, our UI should show the email directly, but we didn’t make platform for containing the email that users wrote. 
+  * I always placed in opposite of my users, I think it was a mistake because it made me difficult to observe what user operated.
+
+### Juan Lee
+* What role did you play in each round?
+  * I was an **observer**, observing user and writing down the user's feedback, interesting moment or behavior, and insights during the user study. I mainly focused on the reaction of users to our interface, for example, frowing face when they can't understand, muttering something related to their task(e.g. *is this same group as before?*), or the order of interface uses.
+* What were some of the difficulties you faced playing the role(s)?
+  * Since I was observer and sitting next to the user I think I could see many reactions of users. However, I could not ask what I wondered at the moment since I must be silent during the user study. The most difficult moment I've faced is when only I recognized some irregular reaction of user during observing, since I can't ask it even if I saw it.
+
+### Hyunchang Oh  
+* What role did you play in each round?
+  * In the zeroth interview in class I played the role of **facilitator**, but in all other I played the role of **facilitator-computer**. We had many tasks and many operations along with them, so it was difficult for a single person to hold all object and operate them efficiently. The solution our team came up with was to divide the roles. 
+* What were some of the difficulties you faced playing the role(s)?
+  * The email service had lots of operations we either couldn't imagine or didn't consider as core features and thus excluded in the paper prototype. The users still bumped to these issues and we had to explain what they were supposed to do and what they were not. This not only made it difficult for facilitotors to provide the right guidance, but also for the users as it restricted the users' freedom and limited the range of feedback we could be getting otherwise. 
 
 ## Feedback from Studio
 **People liked …**
@@ -141,7 +165,7 @@ We got some interesting *what if* suggestions which worth discussing. These feed
 
 **People wished ...**
 * can it be served for users who send mails for one-many receivers?
-> Yes it can! The entire system is designed for one-may receivers. If you don't mind, can you elaborate your question at the next studio? We want to listen more about this!
+> Yes it can! The entire system is designed for one-many receivers. If you don't mind, can you elaborate your question at the next studio? We want to listen more about this!
 * you could explain more about the “categorization by name just by looking”, do you mean filtering by name like in other mailing services?
 > Sometimes, we may know or guess the contents of email, especially for the case the mail is coming from important person or the title contains meaningless keyword. This is what meant for *categorization by name just by looking*.  
 > One of our user suggested this issue and we thought this is important for efficiency, so we introduced it!
