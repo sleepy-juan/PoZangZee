@@ -98,6 +98,8 @@ Asks for Interviews and materials for newspaper, receives and replies to voices 
 * Task 3 (The **Calendar** Feature)
   * **Mid**: P2 got confused of on which criteria the dates were selected as due dates.
 
+> **plan for Theme A**: Affordance was the most critical theme that arose during the user study. We will try to make the overall UI (the main page) more learnable, as well as coming up with better names for the functions/labels we wish to create.
+
 ### Theme B: Customization + More Suggestions
 * Task 1 (The **Formatting** Feature)
   * **Low**: P3 tried to send the email to multiple recipients, by stacking their names.
@@ -108,14 +110,18 @@ Asks for Interviews and materials for newspaper, receives and replies to voices 
 * Task 3 (The **Calendar** Feature)
   * **Mid**: P3 wished to change the calendar design (changed the colour of the tags, post things other than those from emails, etc.)
 
+> **plan for Theme B**: We realized that the each user organizes his/her inbox very differently. We wish to create some kind of customization such as using excel with the email and calendar with colors to meet with more users’ need as possible.
+
 ### Theme C: Instant feedback of the computer.
 * Task 1 (The Formatting Feature)
   * **Mid**: P2 got confused when the email was sent, but there was no feedback.
 * Task 2 (The Categorizing Feature)
-  * -
+  * N/A
 * Task 3 (The Calendar Feature) 
   * **Mid**: P3 wished to know if the mail posted on the calendar was replied.
   * **Mid**: P2 wished to know when the mail has been updated on the calendar, before visiting it.
+
+> **plan for Theme C**: Our paper prototype had so many  tasks and different functions so that the user was confused on what to do during the testing. If instant feedbacks, such as alert or change of the read/unread state was included, the users will be on track with the task. We wish to include very understandable feedbacks after each task.
 
 # Feedback of DP3. Paper Prototyping
 Overall Reflection: We were very pleased to get many *liked* feedback, and we will do our best for our potential-future target users =)  
