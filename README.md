@@ -23,3 +23,24 @@ Following a [user-centered design process](https://www.kixlab.org/courses/cs374-
 * Design Project 6: Hi-fi Prototyping
 * Design Project 7: User Testing
 * Design Project 8: Iteration & Wrap-up
+
+## About the Project
+
+> TODO: Write *About* of the project
+
+### How to run?
+You can see our [demo](https://sleepy-juan.github.io/PoZangZee).  
+
+For development,
+```
+cd src
+yarn install
+yarn start
+```
+
+For deployment,
+```
+cd src
+yarn install
+yarn build
+```
