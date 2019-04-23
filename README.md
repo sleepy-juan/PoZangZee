@@ -29,7 +29,7 @@ Following a [user-centered design process](https://www.kixlab.org/courses/cs374-
 > TODO: Write *About* of the project
 
 ### How to run?
-You can see our [demo](https://sleepy-juan.github.io/PoZangZee).  
+You can see our [demo](https://pozangzee.com/).  
 
 For development,
 ```
