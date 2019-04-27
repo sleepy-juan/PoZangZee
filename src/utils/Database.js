@@ -51,6 +51,8 @@ export function getMails(user, what){
             mail = mail.data();
 
             if(mail.to === user){
+                mail.sent = new Date(mail.sent).toLocaleString();
+
                 mails.push(mail);
             }
         })

@@ -32,7 +32,7 @@ const styles = theme => ({
 
 class PermanentDrawerLeft extends React.Component{
   state = {
-    readMail: true
+    readMail: false
   }
 
   render() {
@@ -43,7 +43,9 @@ class PermanentDrawerLeft extends React.Component{
           <CssBaseline />
           <NavBar />
           <main className={classes.content}>
-            {this.state.readMail? <ReadMail />: <MailList />}
+            {this.state.readMail? 
+            <ReadMail mail={this.state.mail} onBack={() => {this.setState({readMail: false})}}/>: 
+            <MailList onRead={mail => this.setState({mail, readMail: true})} />}
           </main>
         </div>
     );

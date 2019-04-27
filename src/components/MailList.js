@@ -48,6 +48,13 @@ class CheckboxList extends React.Component {
     });
   };
 
+  readMail = index => () => {
+    if(this.props.onRead){
+      this.props.onRead(this.state.mails[index]);
+    }
+
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -59,11 +66,12 @@ class CheckboxList extends React.Component {
       <Divider />
         {this.state.mails.map((mail, index) => (
         <div>
-          <ListItem key={index} role={undefined} dense button onClick={this.handleToggle(index)}>
+          <ListItem key={index} role={undefined} dense button onClick={this.readMail(index)} >
             <Checkbox
               checked={this.state.checked.indexOf(index) !== -1}
               tabIndex={-1}
               disableRipple
+              onClick={this.handleToggle(index)}
             />
             <ListItemText className={classes.text} primary={mail.from} />
             <ListItemText className={classes.text} primary={mail.subject} />

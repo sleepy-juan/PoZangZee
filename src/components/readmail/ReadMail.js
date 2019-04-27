@@ -7,9 +7,7 @@ import './readmail.css';
 import Button2 from './button.js'
 import NavigationIcon from '@material-ui/icons/Navigation';
 import Fab from '@material-ui/core/Fab';
-import Button from '@material-ui/core/Button';
 import Dropdown from './dropdown.js';
-
 
 const styles = theme => ({
     root: {
@@ -61,23 +59,25 @@ const styles = theme => ({
         backgroundColor:"#FA7268",
     }
   });
+
+class PaperSheet extends React.Component{
   
-  function PaperSheet(props) {
-    const { classes } = props;
+  render() {
+    const { classes } = this.props;
   
     return (
         
       <div>
         <Paper className={classes.read} elevation={1}>
-        <Button2/>
+        <Button2 onBack={this.props.onBack} onDelete={this.props.onDelete}/>
             <div className={classes.text}>
           <Typography variant="h5" component="h3">
-              Who are you? <Dropdown/> 
+              {this.props.mail.subject} <Dropdown/> 
           </Typography>
           <br/>
           <Typography component="p">
-            <b> Juana Leer </b> 	&lt;juana@leer.com&gt;
-            <a href="www.google.com"> Block </a> <span className={classes.text3}> Received: 4/24 8:15pm </span> <span className={classes.text2}>  Reply by: 5/1 </span>
+            <b> {this.props.mail.from} </b> 	&lt;{this.props.mail.from}@pozangzee.com&gt;
+            <a href="www.google.com"> Block </a> <span className={classes.text3}> Received: {this.props.mail.sent} </span> <span className={classes.text2}>  Reply by: {this.props.mail.replyBy} </span>
           </Typography>
           <Typography component="p" className={classes.text2}>
           
@@ -87,10 +87,7 @@ const styles = theme => ({
           <br/>
 
           <Typography component="p" className={classes.scro}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean condimentum tellus massa, sit amet ornare ex imperdiet dictum. Donec convallis, urna a bibendum hendrerit, ipsum quam pellentesque nisl, vitae euismod augue mauris ut nisl. Sed convallis, nulla tincidunt malesuada sodales, lectus ante consectetur velit, non eleifend lorem nibh ac mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel tortor velit. Donec consectetur faucibus lorem ac elementum. Mauris sagittis ipsum eu euismod interdum. Phasellus laoreet diam nec ex ullamcorper, quis rhoncus sem imperdiet. Nulla dui ante, semper id ligula non, gravida volutpat lacus. Ut malesuada, lorem at blandit rhoncus, nulla ipsum consectetur velit, vel venenatis orci elit quis libero. Nam turpis augue, congue facilisis lorem vel, pulvinar placerat mi.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean condimentum tellus massa, sit amet ornare ex imperdiet dictum. Donec convallis, urna a bibendum hendrerit, ipsum quam pellentesque nisl, vitae euismod augue mauris ut nisl. Sed convallis, nulla tincidunt malesuada sodales, lectus ante consectetur velit, non eleifend lorem nibh ac mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel tortor velit. Donec consectetur faucibus lorem ac elementum. Mauris sagittis ipsum eu euismod interdum. Phasellus laoreet diam nec ex ullamcorper, quis rhoncus sem imperdiet. Nulla dui ante, semper id ligula non, gravida volutpat lacus. Ut malesuada, lorem at blandit rhoncus, nulla ipsum consectetur velit, vel venenatis orci elit quis libero. Nam turpis augue, congue facilisis lorem vel, pulvinar placerat mi.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean condimentum tellus massa, sit amet ornare ex imperdiet dictum. Donec convallis, urna a bibendum hendrerit, ipsum quam pellentesque nisl, vitae euismod augue mauris ut nisl. Sed convallis, nulla tincidunt malesuada sodales, lectus ante consectetur velit, non eleifend lorem nibh ac mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel tortor velit. Donec consectetur faucibus lorem ac elementum. Mauris sagittis ipsum eu euismod interdum. Phasellus laoreet diam nec ex ullamcorper, quis rhoncus sem imperdiet. Nulla dui ante, semper id ligula non, gravida volutpat lacus. Ut malesuada, lorem at blandit rhoncus, nulla ipsum consectetur velit, vel venenatis orci elit quis libero. Nam turpis augue, congue facilisis lorem vel, pulvinar placerat mi.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean condimentum tellus massa, sit amet ornare ex imperdiet dictum. Donec convallis, urna a bibendum hendrerit, ipsum quam pellentesque nisl, vitae euismod augue mauris ut nisl. Sed convallis, nulla tincidunt malesuada sodales, lectus ante consectetur velit, non eleifend lorem nibh ac mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel tortor velit. Donec consectetur faucibus lorem ac elementum. Mauris sagittis ipsum eu euismod interdum. Phasellus laoreet diam nec ex ullamcorper, quis rhoncus sem imperdiet. Nulla dui ante, semper id ligula non, gravida volutpat lacus. Ut malesuada, lorem at blandit rhoncus, nulla ipsum consectetur velit, vel venenatis orci elit quis libero. Nam turpis augue, congue facilisis lorem vel, pulvinar placerat mi.
+          {this.props.mail.content}
           </Typography>
           <Fab variant="extended" aria-label="Delete" className={classes.fab}>
              <NavigationIcon className={classes.extendedIcon} />
@@ -104,9 +101,10 @@ const styles = theme => ({
           
     );
   }
-  
-  PaperSheet.propTypes = {
-    classes: PropTypes.object.isRequired,
-  };
-  
-  export default withStyles(styles)(PaperSheet);
+}
+
+PaperSheet.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(PaperSheet);
