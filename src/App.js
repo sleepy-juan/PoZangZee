@@ -1,13 +1,18 @@
 import React from 'react';
+import { Route, Switch, BrowserRouter } from "react-router-dom";
 
 import Home from './pages/Home';
 import ReadMail from './components/ReadMail';
+import Sign from './pages/Sign';
 
 function App() {
   return (
-    <div className="App">
-      <Home />
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/home" component={Home} />
+        <Route path="/" component={Sign} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
