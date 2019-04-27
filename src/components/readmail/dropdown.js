@@ -14,7 +14,7 @@ const styles = theme => ({
   root: {
     display: 'flex',
     position: 'absolute',
-    right: 15,
+    right: 0,
     top: 0,
     zIndex: 2,
     borderRadius: 7,

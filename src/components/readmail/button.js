@@ -11,7 +11,7 @@ const styles = theme => ({
     left:0,
   },
   button2: {
-    right:10,
+    right: 30,
     position: 'absolute',
   },
   input: {
