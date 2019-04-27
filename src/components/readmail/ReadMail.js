@@ -9,8 +9,10 @@ import NavigationIcon from '@material-ui/icons/Navigation';
 import Fab from '@material-ui/core/Fab';
 import Button from '@material-ui/core/Button';
 import Dropdown from './dropdown.js';
+import $ from 'jquery';
 
-
+var wid = $(window).width()-300;
+var heigh = $(window).height()-15;
 const styles = theme => ({
     root: {
       ...theme.mixins.gutters(),
@@ -22,13 +24,14 @@ const styles = theme => ({
     },
     
     read:{
-        position: 'relative',
+        position: 'absolute',
         color: "red",
-        width: '100%',
-        height: "100vh",
+        width: wid,
+        height: heigh,
         border: '0.5px solid rgba(240,240,240,1)',
         padding: 20,
         boxSizing: 'border-box',
+        overflow: 'hidden',
     },
     text:{
         left: 40,
@@ -52,14 +55,12 @@ const styles = theme => ({
     },
     fab:{
         position:'relative',
-        right: 40,
+        float:'right',
         top:10,
         backgroundColor:"#FA7268",
         color:'white',
     },
-    extendedIcon:{
-        backgroundColor:"#FA7268",
-    }
+    
   });
   
   function PaperSheet(props) {

@@ -31,24 +31,18 @@ const styles = theme => ({
   }
 });
 
-class PermanentDrawerLeft extends React.Component{
-  state = {
-    readMail: true
-  }
+function PermanentDrawerLeft(props) {
+  const { classes } = props;
 
-  render() {
-    const { classes } = this.props;
-  
-    return (
-        <div className={classes.root}>
-          <CssBaseline />
-          <NavBar />
-          <main className={classes.content}>
-            {this.state.readMail? <ReadMail />: <MailList />}
-          </main>
-        </div>
-    );
-  }
+  return (
+      <div className={classes.root}>
+        <CssBaseline />
+        <NavBar />
+        
+        
+        <ReadMail />
+      </div>
+  );
 }
 
 PermanentDrawerLeft.propTypes = {
