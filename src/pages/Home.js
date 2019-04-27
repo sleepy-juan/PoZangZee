@@ -5,6 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import ReadMail from '../components/readmail/ReadMail'
 import NavBar from '../components/NavBar';
 import MailList from '../components/MailList';
+import WriteMail from '../components/WriteMail';
 
 const drawerWidth = 270;
 const styles = theme => ({
