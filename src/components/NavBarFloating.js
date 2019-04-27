@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import WriteMail from './WriteMail';
 
 const theme = createMuiTheme({
   palette: {
@@ -18,15 +19,32 @@ const styles = theme => ({
     },
 });
 
-function FabButton(props) {
-  const { classes } = props;
-  return (
-    <MuiThemeProvider theme={theme}>
-        <Fab size="large" variant="extended" aria-label="Add" color="primary" className={classes.fab}>
-            Compose
-        </Fab>
-    </MuiThemeProvider>
-  );
+class FabButton extends React.Component{
+  state = {
+    compose: false
+  }
+  
+  render() {
+    const { classes } = this.props;
+    return (
+      <MuiThemeProvider theme={theme}>
+          <Fab size="large" variant="extended" aria-label="Add" color="primary" className={classes.fab}
+            onClick={() => {
+              this.setState({
+                compose: !this.state.compose
+              })
+            }}
+          >
+              Compose
+          </Fab>
+          {this.state.compose ? <WriteMail onClose={() => {
+            this.setState({
+              compose: false
+            })
+          }} /> : null}
+      </MuiThemeProvider>
+    );
+  }
 }
 
 FabButton.propTypes = {

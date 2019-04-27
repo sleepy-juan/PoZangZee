@@ -11,6 +11,8 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Clear';
+import { sendMail } from '../utils/Database';
+import queryString from 'query-string';
 
 const styles = theme => ({
   card: {
@@ -62,7 +64,13 @@ class ReadMail extends React.Component {
 
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
-  };
+	};
+	
+	sendMail = () => {
+		const query = queryString.parse(window.location.search);
+		var from = query.email;
+		sendMail(from, this.to, this.subject, this.content);
+	}
 
   render() {
     const { classes } = this.props;
@@ -80,7 +88,13 @@ class ReadMail extends React.Component {
 					</Button>
 				</MuiThemeProvider>
 				<MuiThemeProvider theme={theme}>
-					<Fab size="small" color="primary" aria-label="Add" className={classes.margin}>
+					<Fab size="small" color="primary" aria-label="Add" className={classes.margin}
+						onClick={() => {
+							if(this.props.onClose){
+								this.props.onClose();
+							}
+						}}
+					>
 					  <AddIcon />
 					</Fab>
 				</MuiThemeProvider>
@@ -96,10 +110,10 @@ class ReadMail extends React.Component {
 			  id="to"
 			  label="To"
 			  className={classes.textField}
-			  type="password"
 			  autoComplete="current-password"
 				margin="dense"
 				fullWidth
+				onChange={event => { this.to = event.target.value; }}
 			/>
 		  </Typography>
 		  <Typography style={{ marginLeft: 8 }}>
@@ -107,10 +121,10 @@ class ReadMail extends React.Component {
 			  id="subject"
 			  label="Subject"
 			  className={classes.textField}
-			  type="password"
 			  autoComplete="current-password"
 				margin="dense"
 				fullWidth
+				onChange={event => { this.subject = event.target.value; }}
 			/>
 			
 		  </Typography>
@@ -129,13 +143,14 @@ class ReadMail extends React.Component {
 			  variant="outlined"
 			  InputLabelProps={{
 				shrink: true,
-			  }}
+				}}
+				onChange={event => { this.content = event.target.value; }}
 			/>
 		  </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing style={{justifyContent: 'center'}}>
 		  <MuiThemeProvider theme={theme}  >
-				<Button variant="contained" color="primary" className={classes.margin} style={{ marginBottom: 20  }}>
+				<Button variant="contained" color="primary" className={classes.margin} style={{ marginBottom: 20  }} onClick={this.sendMail}>
 				  SEND
 				</Button>
 		  </MuiThemeProvider>
