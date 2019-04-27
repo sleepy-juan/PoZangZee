@@ -39,7 +39,21 @@ export function sendMail(from, to, subject, content){
         to,
         subject,
         content,
-        date_sent: Date.now(),
-        date_reply: null,
+        sent: Date.now(),
+        replyBy: null,
     });
+}
+
+export function getMails(user, what){
+    db.collection('mailbox').get().then(snapshot => {
+        var mails = [];
+        snapshot.forEach(mail => {
+            mail = mail.data();
+
+            if(mail.to === user){
+                mails.push(mail);
+            }
+        })
+        what(mails);
+    })
 }

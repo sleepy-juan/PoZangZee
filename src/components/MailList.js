@@ -7,6 +7,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import MailListSwitch from './MailListSwitch';
 import { Divider } from '@material-ui/core';
+import { getMails } from '../utils/Database';
+import queryString from 'query-string';
 
 const styles = theme => ({
   root: {
@@ -18,133 +20,17 @@ const styles = theme => ({
   },
 });
 
-var mails = [
-    {
-        from: "Juan Lee",
-        subject: "Who are you?",
-        sent: "4/28",
-        replayBy: "Reply by 5/1",
-    },
-    {
-        from: "Hyunchang Oh",
-        subject: "This is better",
-        sent: "4/28",
-        replayBy: "Reply by 5/12",
-    },
-    {
-        from: "Hyunchang Oh",
-        subject: "Hi, DP4 score is announced",
-        sent: "4/27",
-        replayBy: "Reply by 5/11",
-    },
-    {
-        from: "Juan Lee",
-        subject: "Hi, Juana",
-        sent: "4/27",
-        replayBy: "Not specified",
-    },
-    {
-        from: "Changhyeon Park",
-        subject: "I am pch from Korea",
-        sent: "4/25",
-        replayBy: "Not specified",
-    },
-    {
-        from: "Jeongeon Park",
-        subject: "I hate HCI",
-        sent: "4/22",
-        replayBy: "Reply by 4/27",
-    },
-    {
-        from: "Hyunchang Oh",
-        subject: "About my roommate Changhyeon",
-        sent: "4/22",
-        replayBy: "Reply by 4/23",
-    },
-    {
-        from: "Juho Kim",
-        subject: "You don't have to make Hi-fi",
-        sent: "4/21",
-        replayBy: "Not specified",
-    },
-    {
-        from: "Eunyoung Ko",
-        subject: "PR3 is announced",
-        sent: "4/21",
-        replayBy: "Reply by 4/22",
-    },
-    {
-        from: "Hyunchang Oh",
-        subject: "About my roommate Changhyeon",
-        sent: "4/21",
-        replayBy: "Reply by 4/22",
-    },
-    {
-        from: "Juan Lee",
-        subject: "Who are you?",
-        sent: "4/28",
-        replayBy: "Reply by 5/1",
-    },
-    {
-        from: "Hyunchang Oh",
-        subject: "This is better",
-        sent: "4/28",
-        replayBy: "Reply by 5/12",
-    },
-    {
-        from: "Hyunchang Oh",
-        subject: "Hi, DP4 score is announced",
-        sent: "4/27",
-        replayBy: "Reply by 5/11",
-    },
-    {
-        from: "Juan Lee",
-        subject: "Hi, Juana",
-        sent: "4/27",
-        replayBy: "Not specified",
-    },
-    {
-        from: "Changhyeon Park",
-        subject: "I am pch from Korea",
-        sent: "4/25",
-        replayBy: "Not specified",
-    },
-    {
-        from: "Jeongeon Park",
-        subject: "I hate HCI",
-        sent: "4/22",
-        replayBy: "Reply by 4/27",
-    },
-    {
-        from: "Hyunchang Oh",
-        subject: "About my roommate Changhyeon",
-        sent: "4/22",
-        replayBy: "Reply by 4/23",
-    },
-    {
-        from: "Juho Kim",
-        subject: "You don't have to make Hi-fi",
-        sent: "4/21",
-        replayBy: "Not specified",
-    },
-    {
-        from: "Eunyoung Ko",
-        subject: "PR3 is announced",
-        sent: "4/21",
-        replayBy: "Reply by 4/22",
-    },
-    {
-        from: "Hyunchang Oh",
-        subject: "About my roommate Changhyeon",
-        sent: "4/21",
-        replayBy: "Reply by 4/22",
-    },
-]
-
 class CheckboxList extends React.Component {
   state = {
     checked: [],
+    mails: [],
   };
+
+  componentDidMount(){
+    const query = queryString.parse(window.location.search);
+		var user = query.email;
+    getMails(user, (mails)=>{this.setState({mails})});
+  }
 
   handleToggle = value => () => {
     const { checked } = this.state;
@@ -171,7 +57,7 @@ class CheckboxList extends React.Component {
         <MailListSwitch />
       </ListItem>
       <Divider />
-        {mails.map((mail, index) => (
+        {this.state.mails.map((mail, index) => (
         <div>
           <ListItem key={index} role={undefined} dense button onClick={this.handleToggle(index)}>
             <Checkbox

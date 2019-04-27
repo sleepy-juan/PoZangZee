@@ -70,6 +70,10 @@ class ReadMail extends React.Component {
 		const query = queryString.parse(window.location.search);
 		var from = query.email;
 		sendMail(from, this.to, this.subject, this.content);
+
+		if(this.props.onClose){
+			this.props.onClose();
+		}
 	}
 
   render() {
