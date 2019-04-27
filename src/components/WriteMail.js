@@ -9,6 +9,8 @@ import red from '@material-ui/core/colors/red';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Clear';
 
 const styles = theme => ({
   card: {
@@ -71,11 +73,19 @@ class ReadMail extends React.Component {
 		  style={{ marginLeft: 8 }}
           title="New Email"
 		  action={
-			<MuiThemeProvider theme={theme}>
-				<Button variant="contained" color="primary" className={classes.margin} style={{ marginTop: 13, marginRight: 18 }}>
-				  Get Format
-				</Button>
-			</MuiThemeProvider>
+			<div style={{ marginTop: 13, marginRight: 18 }}>
+				<MuiThemeProvider theme={theme}>
+					<Button variant="contained" color="primary" className={classes.margin} style={{ marginRight: 15 }}>
+					  Get Format
+					</Button>
+				</MuiThemeProvider>
+				<MuiThemeProvider theme={theme}>
+					<Fab size="small" color="primary" aria-label="Add" className={classes.margin}>
+					  <AddIcon />
+					</Fab>
+				</MuiThemeProvider>
+				
+			</div>
 		  }
           //subheader="New Email"
         />
