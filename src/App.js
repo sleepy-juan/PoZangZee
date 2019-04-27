@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 
 import Home from './pages/Home';
-import ReadMail from './components/ReadMail';
 import Sign from './pages/Sign';
 
 function App() {

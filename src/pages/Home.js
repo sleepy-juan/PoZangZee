@@ -5,6 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import NavBar from '../components/NavBar';
 import MailList from '../components/MailList';
+import WriteMail from '../components/WriteMail';
 
 const drawerWidth = 270;
 
@@ -28,22 +29,21 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-  },
+  }
 });
 
 function PermanentDrawerLeft(props) {
   const { classes } = props;
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      
-      <NavBar />
-
-      <main className={classes.content}>
-        <MailList />
-      </main>
-    </div>
+      <div className={classes.root}>
+        <CssBaseline />
+        <NavBar />
+        <main className={classes.content}>
+          <MailList />
+        </main>
+        <WriteMail />
+      </div>
   );
 }
 

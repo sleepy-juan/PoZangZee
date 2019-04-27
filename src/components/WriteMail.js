@@ -1,27 +1,23 @@
 ﻿import React from 'react';
 import PropTypes from 'prop-types';
-//import { withStyles } from '@material-ui/core/styles';
-import classnames from 'classnames';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-
-
 const styles = theme => ({
   card: {
-    maxWidth: 600,
+		maxWidth: 600,
+		minWidth: 600,
+		position: "fixed",
+		bottom: 0,
+		right: 30,
+		border: "2px solid #FA7268"
   },
   media: {
     height: 0,
@@ -42,13 +38,16 @@ const styles = theme => ({
   },
   avatar: {
     backgroundColor: red[500],
-  },
+	},
+	margin: {
+		color: "white"
+	}
 });
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-	main: '#FA7268'
+		main: '#FA7268'
 	},
   },
   typography: {
@@ -89,7 +88,8 @@ class ReadMail extends React.Component {
 			  className={classes.textField}
 			  type="password"
 			  autoComplete="current-password"
-			  margin="dense"
+				margin="dense"
+				fullWidth
 			/>
 		  </Typography>
 		  <Typography style={{ marginLeft: 8 }}>
@@ -99,7 +99,8 @@ class ReadMail extends React.Component {
 			  className={classes.textField}
 			  type="password"
 			  autoComplete="current-password"
-			  margin="dense"
+				margin="dense"
+				fullWidth
 			/>
 			
 		  </Typography>
