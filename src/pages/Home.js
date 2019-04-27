@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-
+import ReadMail from '../components/readmail/ReadMail'
 import NavBar from '../components/NavBar';
 import MailList from '../components/MailList';
 
 const drawerWidth = 270;
-
 const styles = theme => ({
   root: {
     display: 'flex',
@@ -31,18 +30,24 @@ const styles = theme => ({
   }
 });
 
-function PermanentDrawerLeft(props) {
-  const { classes } = props;
+class PermanentDrawerLeft extends React.Component{
+  state = {
+    readMail: true
+  }
 
-  return (
-      <div className={classes.root}>
-        <CssBaseline />
-        <NavBar />
-        <main className={classes.content}>
-          <MailList />
-        </main>
-      </div>
-  );
+  render() {
+    const { classes } = this.props;
+  
+    return (
+        <div className={classes.root}>
+          <CssBaseline />
+          <NavBar />
+          <main className={classes.content}>
+            {this.state.readMail? <ReadMail />: <MailList />}
+          </main>
+        </div>
+    );
+  }
 }
 
 PermanentDrawerLeft.propTypes = {
