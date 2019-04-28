@@ -83,7 +83,7 @@ class ReadMail extends React.Component {
       <Card className={classes.card}>
         <CardHeader 
 		  style={{ marginLeft: 8 }}
-          title="New Email"
+          title={this.props.replyInfo ? "Reply" : "New Email"}
 		  action={
 			<div style={{ marginTop: 13, marginRight: 18 }}>
 				<MuiThemeProvider theme={theme}>
@@ -114,10 +114,11 @@ class ReadMail extends React.Component {
 			  id="to"
 			  label="To"
 			  className={classes.textField}
-			  autoComplete="current-password"
 				margin="dense"
 				fullWidth
 				onChange={event => { this.to = event.target.value; }}
+				defaultValue={this.props.replyInfo ? this.props.replyInfo.from : null}
+				autoFocus={!this.props.replyInfo}
 			/>
 		  </Typography>
 		  <Typography style={{ marginLeft: 8 }}>
@@ -125,10 +126,10 @@ class ReadMail extends React.Component {
 			  id="subject"
 			  label="Subject"
 			  className={classes.textField}
-			  autoComplete="current-password"
 				margin="dense"
 				fullWidth
 				onChange={event => { this.subject = event.target.value; }}
+				defaultValue={this.props.replyInfo ? "re: " + this.props.replyInfo.subject : null}
 			/>
 			
 		  </Typography>
@@ -149,6 +150,7 @@ class ReadMail extends React.Component {
 				shrink: true,
 				}}
 				onChange={event => { this.content = event.target.value; }}
+				autoFocus={this.props.replyInfo}
 			/>
 		  </Typography>
         </CardContent>

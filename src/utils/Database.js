@@ -59,3 +59,19 @@ export function getMails(user, what){
         what(mails);
     })
 }
+
+export function getSentMails(user, what){
+    db.collection('mailbox').get().then(snapshot => {
+        var mails = [];
+        snapshot.forEach(mail => {
+            mail = mail.data();
+
+            if(mail.from === user){
+                mail.sent = new Date(mail.sent).toLocaleString();
+
+                mails.push(mail);
+            }
+        })
+        what(mails);
+    })
+}

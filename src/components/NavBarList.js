@@ -40,6 +40,10 @@ class NestedList extends React.Component {
           this.setState({
               selected: what,
           })
+
+          if(this.props.onSelect){
+            this.props.onSelect(what);
+          }
       }
   };
 

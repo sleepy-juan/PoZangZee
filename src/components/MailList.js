@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import MailListSwitch from './MailListSwitch';
 import { Divider } from '@material-ui/core';
-import { getMails } from '../utils/Database';
+import { getMails, getSentMails } from '../utils/Database';
 import queryString from 'query-string';
 
 const styles = theme => ({
@@ -28,8 +28,24 @@ class CheckboxList extends React.Component {
 
   componentDidMount(){
     const query = queryString.parse(window.location.search);
-		var user = query.email;
+    var user = query.email;
     getMails(user, (mails)=>{this.setState({mails})});
+  }
+
+  componentWillReceiveProps(props){
+    var selected = props.selected;
+    const query = queryString.parse(window.location.search);
+    var user = query.email;
+
+    if(selected === "Inbox"){
+      getMails(user, (mails)=>{this.setState({mails})});
+    }
+    else if(selected === "Sent"){
+      getSentMails(user, mails => this.setState({mails}));
+    }
+    else {
+      this.setState({mails: []})
+    }
   }
 
   handleToggle = value => () => {
@@ -52,7 +68,6 @@ class CheckboxList extends React.Component {
     if(this.props.onRead){
       this.props.onRead(this.state.mails[index]);
     }
-
   }
 
   render() {
@@ -65,7 +80,7 @@ class CheckboxList extends React.Component {
       </ListItem>
       <Divider />
         {this.state.mails.map((mail, index) => (
-        <div>
+        <div key={index}>
           <ListItem key={index} role={undefined} dense button onClick={this.readMail(index)} >
             <Checkbox
               checked={this.state.checked.indexOf(index) !== -1}
