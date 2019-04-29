@@ -41,6 +41,8 @@ export function sendMail(from, to, subject, content){
         content,
         sent: Date.now(),
         replyBy: null,
+        category: null,
+        status: null,
     });
 }
 
@@ -48,10 +50,12 @@ export function getMails(user, what){
     db.collection('mailbox').get().then(snapshot => {
         var mails = [];
         snapshot.forEach(mail => {
+            var id = mail.id
             mail = mail.data();
 
-            if(mail.to === user){
+            if(mail.to === user && mail.category !== 'Trash'){
                 mail.sent = new Date(mail.sent).toLocaleString();
+                mail.id = id;
 
                 mails.push(mail);
             }
@@ -64,10 +68,36 @@ export function getSentMails(user, what){
     db.collection('mailbox').get().then(snapshot => {
         var mails = [];
         snapshot.forEach(mail => {
+            var id = mail.id
             mail = mail.data();
 
-            if(mail.from === user){
+            if(mail.from === user && mail.category !== 'Trash'){
                 mail.sent = new Date(mail.sent).toLocaleString();
+                mail.id = id;
+
+                mails.push(mail);
+            }
+        })
+        what(mails);
+    })
+}
+
+export function setCategory(id, category){
+    db.collection('mailbox').doc(id).update({
+        category
+    })
+}
+
+export function getTrashMails(user, what){
+    db.collection('mailbox').get().then(snapshot => {
+        var mails = [];
+        snapshot.forEach(mail => {
+            var id = mail.id
+            mail = mail.data();
+
+            if(mail.category === 'Trash'){
+                mail.sent = new Date(mail.sent).toLocaleString();
+                mail.id = id;
 
                 mails.push(mail);
             }
