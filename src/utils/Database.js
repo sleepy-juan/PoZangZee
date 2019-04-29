@@ -34,7 +34,7 @@ export function initDatabase(){
 //      subject, content,
 // }
 export function sendMail(from, to, subject, content){
-    db.collection('mailbox').add({
+    var mail = {
         from,
         to,
         subject,
@@ -43,11 +43,14 @@ export function sendMail(from, to, subject, content){
         replyBy: null,
         category: null,
         status: null,
-    });
+    }
+
+    db.collection('inbox').add(mail);
+    db.collection('outbox').add(mail);
 }
 
 export function getMails(user, what){
-    db.collection('mailbox').get().then(snapshot => {
+    db.collection('inbox').get().then(snapshot => {
         var mails = [];
         snapshot.forEach(mail => {
             var id = mail.id
@@ -65,7 +68,7 @@ export function getMails(user, what){
 }
 
 export function getSentMails(user, what){
-    db.collection('mailbox').get().then(snapshot => {
+    db.collection('outbox').get().then(snapshot => {
         var mails = [];
         snapshot.forEach(mail => {
             var id = mail.id
@@ -83,19 +86,19 @@ export function getSentMails(user, what){
 }
 
 export function setCategory(id, category){
-    db.collection('mailbox').doc(id).update({
+    db.collection('inbox').doc(id).update({
         category
     })
 }
 
 export function getTrashMails(user, what){
-    db.collection('mailbox').get().then(snapshot => {
+    db.collection('inbox').get().then(snapshot => {
         var mails = [];
         snapshot.forEach(mail => {
             var id = mail.id
             mail = mail.data();
 
-            if(mail.category === 'Trash'){
+            if(mail.to === user && mail.category === 'Trash'){
                 mail.sent = new Date(mail.sent).toLocaleString();
                 mail.id = id;
 
@@ -103,5 +106,13 @@ export function getTrashMails(user, what){
             }
         })
         what(mails);
+    })
+}
+
+export function setReplyBy(id, date){
+    console.log(id, date)
+    
+    db.collection('inbox').doc(id).update({
+        replyBy: date
     })
 }

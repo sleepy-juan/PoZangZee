@@ -94,7 +94,7 @@ class CheckboxList extends React.Component {
             <ListItemText className={classes.text} primary={mail.from} />
             <ListItemText className={classes.text} primary={mail.subject} />
             <ListItemText className={classes.text} primary={mail.sent} />
-            <ListItemText className={classes.text} primary={mail.replayBy} />
+            <ListItemText className={classes.text} primary={mail.replyBy} />
           </ListItem>
           <Divider />
         </div>
