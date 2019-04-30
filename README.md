@@ -19,8 +19,8 @@ Following a [user-centered design process](https://www.kixlab.org/courses/cs374-
 * [Design Project 2: Ideation](./documents/DP2/DP2_Ideation.md)
 * [Design Project 3: Paper Prototyping](./documents/DP3/DP3_PaperPrototyping.md)
 * [Design Project 4: Lo-fi Prototyping](./documents/DP4/DP4.md)
-* Design Project 5: Mid-fi Prototyping
-* Design Project 6: Hi-fi Prototyping
+* [Design Project 5: Mid-fi Prototyping](https://pozangzee.com/)
+* [Design Project 6: Hi-fi Prototyping](https://pozangzee.com/)
 * Design Project 7: User Testing
 * Design Project 8: Iteration & Wrap-up
 
