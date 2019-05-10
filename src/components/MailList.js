@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import MailListSwitch from './MailListSwitch';
 import { Divider } from '@material-ui/core';
-import { getMails, getSentMails } from '../utils/Database';
+import { getMails, getSentMails, getTrashMails } from '../utils/Database';
 import queryString from 'query-string';
 
 const styles = theme => ({
@@ -28,20 +28,23 @@ class CheckboxList extends React.Component {
 
   componentDidMount(){
     const query = queryString.parse(window.location.search);
-    var user = query.email;
+    var user = query.username;
     getMails(user, (mails)=>{this.setState({mails})});
   }
 
   componentWillReceiveProps(props){
     var selected = props.selected;
     const query = queryString.parse(window.location.search);
-    var user = query.email;
+    var user = query.username;
 
     if(selected === "Inbox"){
       getMails(user, (mails)=>{this.setState({mails})});
     }
     else if(selected === "Sent"){
       getSentMails(user, mails => this.setState({mails}));
+    }
+    else if(selected === 'Trash'){
+      getTrashMails(user, mails => this.setState({mails}));
     }
     else {
       this.setState({mails: []})
@@ -91,7 +94,7 @@ class CheckboxList extends React.Component {
             <ListItemText className={classes.text} primary={mail.from} />
             <ListItemText className={classes.text} primary={mail.subject} />
             <ListItemText className={classes.text} primary={mail.sent} />
-            <ListItemText className={classes.text} primary={mail.replayBy} />
+            <ListItemText className={classes.text} primary={mail.replyBy} />
           </ListItem>
           <Divider />
         </div>

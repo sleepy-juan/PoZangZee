@@ -34,24 +34,31 @@ export function initDatabase(){
 //      subject, content,
 // }
 export function sendMail(from, to, subject, content){
-    db.collection('mailbox').add({
+    var mail = {
         from,
         to,
         subject,
         content,
         sent: Date.now(),
         replyBy: null,
-    });
+        category: null,
+        status: null,
+    }
+
+    db.collection('inbox').add(mail);
+    db.collection('outbox').add(mail);
 }
 
 export function getMails(user, what){
-    db.collection('mailbox').get().then(snapshot => {
+    db.collection('inbox').get().then(snapshot => {
         var mails = [];
         snapshot.forEach(mail => {
+            var id = mail.id
             mail = mail.data();
 
-            if(mail.to === user){
+            if(mail.to === user && mail.category !== 'Trash'){
                 mail.sent = new Date(mail.sent).toLocaleString();
+                mail.id = id;
 
                 mails.push(mail);
             }
@@ -61,17 +68,51 @@ export function getMails(user, what){
 }
 
 export function getSentMails(user, what){
-    db.collection('mailbox').get().then(snapshot => {
+    db.collection('outbox').get().then(snapshot => {
         var mails = [];
         snapshot.forEach(mail => {
+            var id = mail.id
             mail = mail.data();
 
-            if(mail.from === user){
+            if(mail.from === user && mail.category !== 'Trash'){
                 mail.sent = new Date(mail.sent).toLocaleString();
+                mail.id = id;
 
                 mails.push(mail);
             }
         })
         what(mails);
+    })
+}
+
+export function setCategory(id, category){
+    db.collection('inbox').doc(id).update({
+        category
+    })
+}
+
+export function getTrashMails(user, what){
+    db.collection('inbox').get().then(snapshot => {
+        var mails = [];
+        snapshot.forEach(mail => {
+            var id = mail.id
+            mail = mail.data();
+
+            if(mail.to === user && mail.category === 'Trash'){
+                mail.sent = new Date(mail.sent).toLocaleString();
+                mail.id = id;
+
+                mails.push(mail);
+            }
+        })
+        what(mails);
+    })
+}
+
+export function setReplyBy(id, date){
+    console.log(id, date)
+    
+    db.collection('inbox').doc(id).update({
+        replyBy: date
     })
 }

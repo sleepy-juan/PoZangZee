@@ -12,6 +12,8 @@ import $ from 'jquery';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import WriteMail from '../WriteMail';
+import { setCategory, setReplyBy } from '../../utils/Database';
+import DatePicker from './date';
 
 const theme = createMuiTheme({
   palette: {
@@ -55,7 +57,7 @@ const styles = theme => ({
     },
     text3:{
         position:'absolute',
-        right:200,
+        right:400,
     },
     scro:{
         overflow: 'auto',
@@ -74,15 +76,23 @@ class PaperSheet extends React.Component{
   state = {
     compose: false,
   }
+
+  onDelete(){
+    setCategory(this.props.mail.id, "Trash");
+  }
+
+  onDateChanged(date){
+    setReplyBy(this.props.mail.id, date);
+  }
   
   render() {
     const { classes } = this.props;
   
-    return (
+    return (//
         
       <div>
         <Paper className={classes.read} elevation={1}>
-        <Button2 onBack={this.props.onBack} onDelete={this.props.onDelete}/>
+        <Button2 onBack={this.props.onBack} onDelete={this.onDelete.bind(this)}/>
             <div className={classes.text}>
           <Typography variant="h5" component="h3">
               {this.props.mail.subject} <Dropdown/> 
@@ -90,7 +100,7 @@ class PaperSheet extends React.Component{
           <br/>
           <Typography component="p">
             <b> {this.props.mail.from} </b> 	&lt;{this.props.mail.from}@pozangzee.com&gt;
-            <a href="www.google.com"> Block </a> <span className={classes.text3}> Received: {this.props.mail.sent} </span> <span className={classes.text2}>  Reply by: {this.props.mail.replyBy} </span>
+            <a href="www.google.com"> Block </a> <span className={classes.text3}> Received {this.props.mail.sent} </span> <span className={classes.text2}>  Reply by <DatePicker value={this.props.mail.replyBy} onChange={this.onDateChanged.bind(this)} />  </span>
           </Typography>
           <Typography component="p" className={classes.text2}>
           
@@ -99,7 +109,7 @@ class PaperSheet extends React.Component{
 
           <br/>
 
-          <Typography component="p" className={classes.scro}>
+          <Typography component="pre" className={classes.scro}>
           {this.props.mail.content}
           </Typography>
 
