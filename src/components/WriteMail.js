@@ -13,6 +13,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Clear';
 import { sendMail } from '../utils/Database';
 import queryString from 'query-string';
+import MailSentPopup from './MailSentPopup';
 
 const styles = theme => ({
   card: {
@@ -60,7 +61,19 @@ const theme = createMuiTheme({
 });
 
 class ReadMail extends React.Component {
-  state = { expanded: false };
+  state = {
+	expanded: false,
+	popup: false
+   }
+
+  onSendClicked = () => {
+    this.setState({popup: true});
+	if(this.props.onClose){
+		this.props.onClose();
+		this.sendMail();
+		
+	}
+}
 
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
@@ -78,9 +91,12 @@ class ReadMail extends React.Component {
 
   render() {
     const { classes } = this.props;
+	//const { popup } = this.state;
 
     return (
       <Card className={classes.card}>
+		{this.state.popup ? <MailSentPopup ></MailSentPopup> : null}
+	    
         <CardHeader 
 		  style={{ marginLeft: 8 }}
           title={this.props.replyInfo ? "Reply" : "New Email"}
@@ -155,10 +171,11 @@ class ReadMail extends React.Component {
 		  </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing style={{justifyContent: 'center'}}>
-		  <MuiThemeProvider theme={theme}  >
-				<Button variant="contained" color="primary" className={classes.margin} style={{ marginBottom: 20  }} onClick={this.sendMail}>
-				  SEND
-				</Button>
+		  <MuiThemeProvider theme={theme}>
+			<Button variant="contained" color="primary" className={classes.margin} style={{ marginBottom: 20  }} 
+				onClick={this.onSendClicked}>
+				SEND
+			</Button>
 		  </MuiThemeProvider>
           
         </CardActions>
