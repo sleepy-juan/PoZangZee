@@ -6,11 +6,13 @@
 
 1. When similar emails have to be sent to many different people with little amendments, heavy email users tend to make a format on an external text editors.
 2. Heavy email users make mistakes. They sometimes miss an important email, or manage to bring it into attention, but forget to send a reply.
-3. For heavy email users, email is an integral part of their job. They need to organise the email as tasks in a timely manner.
+3. For heavy email users, email is an integral part of their job. They need to organize the email as tasks faster.
 
 ------
 
-### Target Users
+### Target Users 
+
+> *redefined
 
 ​	Heavy email users
 

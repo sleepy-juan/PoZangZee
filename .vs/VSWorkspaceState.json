@@ -3,8 +3,9 @@
     "",
     "\\src",
     "\\src\\components",
-    "\\src\\pages"
+    "\\src\\pages",
+    "\\src\\utils"
   ],
-  "SelectedNode": "\\src\\pages\\Home.js",
+  "SelectedNode": "\\src\\pages\\Docs-En.js",
   "PreviewInSolutionExplorer": false
 }

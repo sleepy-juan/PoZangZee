@@ -14,6 +14,8 @@ import AddIcon from '@material-ui/icons/Clear';
 import { sendMail } from '../utils/Database';
 import queryString from 'query-string';
 import MailSentPopup from './MailSentPopup';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = theme => ({
   card: {
@@ -73,7 +75,9 @@ class ReadMail extends React.Component {
 		this.sendMail();
 		
 	}
-}
+  }
+
+
 
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
@@ -89,9 +93,25 @@ class ReadMail extends React.Component {
 		}
 	}
 
+
+  state = {
+    anchorEl: null,
+	value: "DEFAULT FOR TESTING",
+  };
+
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = (ev) => {
+    this.setState({ anchorEl: null });
+	//get info from db and fill onto the email context
+	this.setState({value: ev.nativeEvent.target.outerText})
+  };
+
   render() {
     const { classes } = this.props;
-	//const { popup } = this.state;
+	const { anchorEl } = this.state;
 
     return (
       <Card className={classes.card}>
@@ -103,9 +123,21 @@ class ReadMail extends React.Component {
 		  action={
 			<div style={{ marginTop: 13, marginRight: 18 }}>
 				<MuiThemeProvider theme={theme}>
-					<Button variant="contained" color="primary" className={classes.margin} style={{ marginRight: 15 }}>
+					<Button variant="contained" color="primary" className={classes.margin} style={{ marginRight: 15 }} aria-owns={anchorEl ? 'simple-menu' : undefined}
+					  aria-haspopup="true"
+					  onClick={this.handleClick}>
 					  Get Format
 					</Button>
+					<Menu
+					  id="simple-menu"
+					  anchorEl={anchorEl}
+					  open={Boolean(anchorEl)}
+					  onClose={this.handleClose}
+					>
+					  <MenuItem onClick={this.handleClose}>Format1</MenuItem>
+					  <MenuItem onClick={this.handleClose}>Format2</MenuItem>
+					  <MenuItem onClick={this.handleClose}>format3</MenuItem>
+					</Menu>
 				</MuiThemeProvider>
 				<MuiThemeProvider theme={theme}>
 					<Fab size="small" color="primary" aria-label="Add" className={classes.margin}
@@ -121,12 +153,12 @@ class ReadMail extends React.Component {
 				
 			</div>
 		  }
-          //subheader="New Email"
         />
         
         <CardContent >
 		  <Typography style={{ marginLeft: 8 }}>
 			<TextField
+			  required
 			  id="to"
 			  label="To"
 			  className={classes.textField}
@@ -139,6 +171,7 @@ class ReadMail extends React.Component {
 		  </Typography>
 		  <Typography style={{ marginLeft: 8 }}>
 			<TextField
+			  required
 			  id="subject"
 			  label="Subject"
 			  className={classes.textField}
@@ -151,15 +184,14 @@ class ReadMail extends React.Component {
 		  </Typography>
 		  <Typography>
 			<TextField
-			  id="outlined-full-width"
+			  ref="context"
 			  label=""
+			  value={this.state.value}
 			  style={{ marginTop: 40, height: 160}}
 			  placeholder="Enter here"
-			  
 			  fullWidth
 			  multiline={true}
 			  rows={6}
-			  //rowsMax={4}
 			  marginTop="normal"
 			  variant="outlined"
 			  InputLabelProps={{
