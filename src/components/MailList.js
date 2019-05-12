@@ -5,10 +5,9 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
-import MailListSwitch from './MailListSwitch';
 import { Divider } from '@material-ui/core';
-import { getMails, getSentMails, getTrashMails } from '../utils/Database';
 import queryString from 'query-string';
+import firebase from 'firebase';
 
 const styles = theme => ({
   root: {
@@ -17,7 +16,11 @@ const styles = theme => ({
   },
   text: {
       maxWidth: "300px",
+      font: "bold"
   },
+  item: {
+    backgroundColor: "#fcc8c2",
+  }
 });
 
 class CheckboxList extends React.Component {
@@ -29,7 +32,16 @@ class CheckboxList extends React.Component {
   componentDidMount(){
     const query = queryString.parse(window.location.search);
     var user = query.username;
-    getMails(user, (mails)=>{this.setState({mails})});
+
+    firebase.database().ref(`/${user}/inbox`).once('value').then(snapshot => {
+      if(snapshot.val() === null) return;
+
+      var keys = Object.keys(snapshot.val());
+      var mails = keys.map(key => snapshot.val()[key]);
+      this.setState({
+        mails
+      })
+    });
   }
 
   componentWillReceiveProps(props){
@@ -38,13 +50,37 @@ class CheckboxList extends React.Component {
     var user = query.username;
 
     if(selected === "Inbox"){
-      getMails(user, (mails)=>{this.setState({mails})});
+      firebase.database().ref(`/${user}/inbox`).once('value').then(snapshot => {
+        if(snapshot.val() === null) return;
+  
+        var keys = Object.keys(snapshot.val());
+        var mails = keys.map(key => snapshot.val()[key]);
+        this.setState({
+          mails
+        })
+      });
     }
     else if(selected === "Sent"){
-      getSentMails(user, mails => this.setState({mails}));
+      firebase.database().ref(`/${user}/sent`).once('value').then(snapshot => {
+        if(snapshot.val() === null) return;
+  
+        var keys = Object.keys(snapshot.val());
+        var mails = keys.map(key => snapshot.val()[key]);
+        this.setState({
+          mails
+        })
+      });
     }
     else if(selected === 'Trash'){
-      getTrashMails(user, mails => this.setState({mails}));
+      firebase.database().ref(`/${user}/trash`).once('value').then(snapshot => {
+        if(snapshot.val() === null) return;
+  
+        var keys = Object.keys(snapshot.val());
+        var mails = keys.map(key => snapshot.val()[key]);
+        this.setState({
+          mails
+        })
+      });
     }
     else {
       this.setState({mails: []})
@@ -78,13 +114,9 @@ class CheckboxList extends React.Component {
 
     return (
       <List className={classes.root}>
-      <ListItem key={-1}>
-        <MailListSwitch />
-      </ListItem>
-      <Divider />
         {this.state.mails.map((mail, index) => (
         <div key={index}>
-          <ListItem key={index} role={undefined} dense button onClick={this.readMail(index)} >
+          <ListItem className={classes.item} key={index} role={undefined} dense button onClick={this.readMail(index)} >
             <Checkbox
               checked={this.state.checked.indexOf(index) !== -1}
               tabIndex={-1}
