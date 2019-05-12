@@ -4,9 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
 
 const styles = theme => ({
   root: {
@@ -33,18 +30,13 @@ class NestedList extends React.Component {
   };
 
   handleClick = (what) => {
-      if(what === "Status"){
-          this.setState(state => ({ open: !state.open }));
-      }
-      else {
-          this.setState({
-              selected: what,
-          })
+    this.setState({
+      selected: what,
+    })
 
-          if(this.props.onSelect){
-            this.props.onSelect(what);
-          }
-      }
+    if(this.props.onSelect){
+      this.props.onSelect(what);
+    }
   };
 
   render() {
@@ -64,20 +56,6 @@ class NestedList extends React.Component {
         <ListItem button className={classes.unnested} onClick={() => this.handleClick("Formats")} selected={this.state.selected === "Formats"} classes={{ selected: classes.selected }}>
           <ListItemText inset primary="Formats" />
         </ListItem>
-        <ListItem button className={classes.unnested} onClick={() => this.handleClick("Status")} selected={this.state.selected === "Status"} classes={{ selected: classes.selected }}>
-          <ListItemText inset primary="Status" />
-          {this.state.open ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={this.state.open} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button className={classes.nested} onClick={() => this.handleClick("To be replied")} selected={this.state.selected === "To be replied"} classes={{ selected: classes.selected }}> 
-              <ListItemText inset primary="To be replied" />
-            </ListItem>
-            <ListItem button className={classes.nested} onClick={() => this.handleClick("To be kept")} selected={this.state.selected === "To be kept"} classes={{ selected: classes.selected }}>
-              <ListItemText inset primary="To be kept" />
-            </ListItem>
-          </List>
-        </Collapse>
         <ListItem button className={classes.unnested} onClick={() => this.handleClick("Trash")} selected={this.state.selected === "Trash"} classes={{ selected: classes.selected }}>
           <ListItemText inset primary="Trash" />
         </ListItem>

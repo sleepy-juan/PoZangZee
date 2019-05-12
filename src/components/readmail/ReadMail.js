@@ -9,11 +9,11 @@ import NavigationIcon from '@material-ui/icons/Navigation';
 import Fab from '@material-ui/core/Fab';
 import Dropdown from './dropdown.js';
 import $ from 'jquery';
+import queryString from 'query-string';
+import firebase from 'firebase';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import WriteMail from '../WriteMail';
-import { setCategory, setReplyBy } from '../../utils/Database';
-import DatePicker from './date';
 
 const theme = createMuiTheme({
   palette: {
@@ -78,11 +78,27 @@ class PaperSheet extends React.Component{
   }
 
   onDelete(){
-    setCategory(this.props.mail.id, "Trash");
-  }
+    const query = queryString.parse(window.location.search);
+    var user = query.username;
+    const {from, to, id} = this.props.mail;
+    if(from === user){
+      firebase.database().ref(`/${user}/sent/${id}`).once('value').then(snapshot => {
+        if(snapshot.val() === null) return 0;
 
-  onDateChanged(date){
-    setReplyBy(this.props.mail.id, date);
+        firebase.database().ref(`/${user}/sent/${id}`).remove().then(() => {
+          firebase.database().ref(`/${user}/trash/${id}`).set(snapshot.val());
+        })
+      })
+    }
+    else if(to === user){
+      firebase.database().ref(`/${user}/inbox/${id}`).once('value').then(snapshot => {
+        if(snapshot.val() === null) return 0;
+
+        firebase.database().ref(`/${user}/inbox/${id}`).remove().then(() => {
+          firebase.database().ref(`/${user}/trash/${id}`).set(snapshot.val());
+        })
+      })
+    }
   }
   
   render() {
@@ -100,7 +116,7 @@ class PaperSheet extends React.Component{
           <br/>
           <Typography component="p">
             <b> {this.props.mail.from} </b> 	&lt;{this.props.mail.from}@pozangzee.com&gt;
-            <a href="www.google.com"> Block </a> <span className={classes.text3}> Received {this.props.mail.sent} </span> <span className={classes.text2}>  Reply by <DatePicker value={this.props.mail.replyBy} onChange={this.onDateChanged.bind(this)} />  </span>
+            <a href="www.google.com"> Block </a> <span className={classes.text3}> Received {this.props.mail.sent} </span> <span className={classes.text2}> </span>
           </Typography>
           <Typography component="p" className={classes.text2}>
           
