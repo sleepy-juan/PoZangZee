@@ -3,9 +3,10 @@
     "",
     "\\src",
     "\\src\\components",
+    "\\src\\components\\readmail",
     "\\src\\pages",
     "\\src\\utils"
   ],
-  "SelectedNode": "\\src\\pages\\Docs-En.js",
+  "SelectedNode": "\\node_modules",
   "PreviewInSolutionExplorer": false
 }

@@ -86,6 +86,10 @@ class CheckboxList extends React.Component {
         })
       });
     }
+	else if (selected === "Formats") {
+		//add format list (add function in utils/Database.js)
+		this.setState({mails: ["a", "b"]})
+	}
     else if(selected === 'Trash'){
       firebase.database().ref(`/${user}/trash`).once('value').then(snapshot => {
         if(snapshot.val() === null) return;
@@ -98,7 +102,7 @@ class CheckboxList extends React.Component {
       });
     }
     else {
-      this.setState({mails: []})
+      this.setState({mails: [{from: "format title", content: "format content"}]})
     }
   }
 
