@@ -45,10 +45,6 @@ class CheckboxList extends React.Component {
   };
 
   _sortCategoryMail(mails){
-    mails = mails.map(mail => ({
-      ...mail,
-      sent: (new Date(mail.sent)).getTime()
-    }));
     mails.sort((a,b) => b.sent - a.sent);
     mails = mails.map(mail => ({
       ...mail,
@@ -108,6 +104,7 @@ class CheckboxList extends React.Component {
   
         var keys = Object.keys(snapshot.val());
         var mails = keys.map(key => snapshot.val()[key]);
+        console.log(mails); window.mails = mails;
         this.setState({
           mails
         })
@@ -152,7 +149,7 @@ class CheckboxList extends React.Component {
       const query = queryString.parse(window.location.search);
       var user = query.username;
       firebase.database().ref(`/${user}/inbox/${mail.id}`).update({
-        read: new Date().toLocaleString()
+        read: new Date().getTime()
       })
     }
   }
@@ -161,8 +158,8 @@ class CheckboxList extends React.Component {
   handleKeydown = e => {
     if(!this.state.compose){
         //when up
-      if(e.keyCode==40){
-        if(this.state.index+1 != this.state.mails.length){
+      if(e.keyCode===40){
+        if(this.state.index+1 !== this.state.mails.length){
           this.setState({
             index : this.state.index +1,
           })
@@ -175,9 +172,9 @@ class CheckboxList extends React.Component {
       };
 
       //when down
-      if(e.keyCode==38){
+      if(e.keyCode===38){
         
-        if(this.state.index-1 == -1){
+        if(this.state.index-1 === -1){
           this.setState({
             index : this.state.mails.length-1,
           })
@@ -190,13 +187,13 @@ class CheckboxList extends React.Component {
       }
 
       //when pressed enter
-      if(e.keyCode==13){
+      if(e.keyCode===13){
         if(!this.state.compose){
           this.readMail(this.state.mails[this.state.index])();
         }
       }
 
-      if(e.keyCode==73||e.keyCode==75){
+      if(e.keyCode===73||e.keyCode===75){
         var mails = this._sortMails(this.state.mails);
         var mail = mails[this.state.index];
 
@@ -212,7 +209,7 @@ class CheckboxList extends React.Component {
 
   handleKeyup=e=>{
     if(!this.state.compose){
-      if(e.keyCode==82){
+      if(e.keyCode===82){
         this.onDirectReplied(this.state.mails[this.state.index])();
       }
     }
@@ -223,7 +220,7 @@ class CheckboxList extends React.Component {
   onIgnored = mail => () => {
     const query = queryString.parse(window.location.search);
     var user = query.username;
-    var replied = new Date().toLocaleString();
+    var replied = new Date().getTime();
 
     firebase.database().ref(`/${user}/inbox/${mail.id}`).update({
       replied
@@ -321,7 +318,7 @@ class CheckboxList extends React.Component {
           <List className={classes.root}>
             {mails.map((mail, index) => (
             <div key={index}>
-              <ListItem className={mail.replied ? (index==this.state.index ? classes.focus : classes.replied) : (index==this.state.index ? classes.focus : classes.unreplied) } key={index} role={undefined} dense button onClick={this.readMail(mail)} >
+              <ListItem className={mail.replied ? (index===this.state.index ? classes.focus : classes.replied) : (index===this.state.index ? classes.focus : classes.unreplied) } key={index} role={undefined} dense button onClick={this.readMail(mail)} >
                 <ListItemText className={classes.text} >
                   {mail.read ? mail.from : <strong>{mail.from}</strong>}
                 </ListItemText>
@@ -357,7 +354,7 @@ class CheckboxList extends React.Component {
             </div>
             ))}
           </List>
-          {this.state.compose ? <WriteMail onClose={this.onDirectReplyClosed(this.state.replyInfo).bind(this)} replyInfo = {this.state.replyInfo} /> : null}
+          {this.state.compose ? <WriteMail onJustClose={this.onDirectReplyClosed(this.state.replyInfo).bind(this)} onClose={this.onDirectReplyClosed(this.state.replyInfo).bind(this)} replyInfo = {this.state.replyInfo} /> : null}
         </div>
       );
     }
@@ -367,7 +364,7 @@ class CheckboxList extends React.Component {
         <List className={classes.root}>
           {mails.map((mail, index) => (
           <div key={index}>
-            <ListItem className={mail.replied ? (index==this.state.index ? classes.focus : classes.replied) : (index==this.state.index ? classes.focus : classes.unreplied) } key={index} role={undefined} dense button onClick={this.readMail(mail)} >
+            <ListItem className={mail.replied ? classes.replied : classes.undefined } key={index} role={undefined} dense button onClick={this.readMail(mail)} >
               <ListItemText className={classes.text} >
                 {mail.read ? mail.from : <strong>{mail.from}</strong>}
               </ListItemText>
