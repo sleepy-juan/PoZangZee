@@ -128,7 +128,7 @@ class ReadMail extends React.Component {
 
     return (
       <Card className={classes.card}>
-		{this.state.popup ? <MailSentPopup ></MailSentPopup> : null}
+		{this.state.popup ? <MailSentPopup context = {this.content} ></MailSentPopup> : null}
 	    
         <CardHeader 
 		  style={{ marginLeft: 8 }}
