@@ -11,8 +11,8 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Clear';
-import { sendMail } from '../utils/Database';
 import queryString from 'query-string';
+import firebase from 'firebase';
 
 const styles = theme => ({
   card: {
@@ -69,7 +69,15 @@ class ReadMail extends React.Component {
 	sendMail = () => {
 		const query = queryString.parse(window.location.search);
 		var from = query.username;
-		sendMail(from, this.to || this.props.replyInfo.from, this.subject || "re: " + this.props.replyInfo.subject, this.content);
+		var to = this.to || this.props.replyInfo.from;
+		var subject = this.subject || "re: " + this.props.replyInfo.subject;
+		var content = this.content;
+
+		var sent = firebase.database().ref(`/${from}/sent`).push();
+		sent.set({from, to, subject, content, id: sent.key});
+
+		var inbox = firebase.database().ref(`/${to}/inbox`).push();
+		inbox.set({from, to, subject, content, id: inbox.key});
 
 		if(this.props.onClose){
 			this.props.onClose();
