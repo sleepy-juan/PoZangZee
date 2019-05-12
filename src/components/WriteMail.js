@@ -61,7 +61,13 @@ const theme = createMuiTheme({
   },
 });
 
-class ReadMail extends React.Component {
+class WriteMail extends React.Component {
+	constructor(props){
+		super(props);
+
+		this.content = '';
+	}
+
   state = {
 	expanded: false,
 	popup: false
@@ -88,14 +94,14 @@ class ReadMail extends React.Component {
 		var content = this.content;
 
 		var sent = firebase.database().ref(`/${from}/sent`).push();
-		sent.set({from, to, subject, content, id: sent.key, sent: new Date().toLocaleString()});
+		sent.set({from, to, subject, content, id: sent.key, sent: new Date().getTime()});
 
 		var inbox = firebase.database().ref(`/${to}/inbox`).push();
-		inbox.set({from, to, subject, content, id: inbox.key, sent: new Date().toLocaleString()});
+		inbox.set({from, to, subject, content, id: inbox.key, sent: new Date().getTime()});
 
 		if(this.props.replyInfo){
 			firebase.database().ref(`/${from}/inbox/${this.props.replyInfo.id}`).update({
-				replied: new Date().toLocaleString()
+				replied: new Date().getTime()
 			})
 		}
 	}
@@ -242,8 +248,8 @@ class ReadMail extends React.Component {
   }
 }
 
-ReadMail.propTypes = {
+WriteMail.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ReadMail);
+export default withStyles(styles)(WriteMail);

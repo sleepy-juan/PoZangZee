@@ -22,7 +22,6 @@ const theme = createMuiTheme({
 
 var wid = $(window).width()-300;
 var heigh = $(window).height()-15;
-var textheight = $(window).height()-15;
 const styles = theme => ({
     root: {
       ...theme.mixins.gutters(),
