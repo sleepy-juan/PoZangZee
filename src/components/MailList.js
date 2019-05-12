@@ -18,9 +18,6 @@ const styles = theme => ({
       maxWidth: "300px",
       font: "bold"
   },
-  item: {
-    backgroundColor: "#fcc8c2",
-  }
 });
 
 class CheckboxList extends React.Component {
@@ -28,6 +25,24 @@ class CheckboxList extends React.Component {
     checked: [],
     mails: [],
   };
+
+  _sortMails(mails){
+    mails = mails.map(mail => ({
+      ...mail,
+      sent: (new Date(mail.sent)).getTime()
+    }));
+
+    console.log(mails);
+    window.mails = mails;
+
+    mails.sort((a,b) => b.sent - a.sent);
+    mails = mails.map(mail => ({
+      ...mail,
+      sent: (new Date(mail.sent)).toLocaleString()
+    }));
+
+    return mails;
+  }
 
   componentDidMount(){
     const query = queryString.parse(window.location.search);
@@ -39,7 +54,7 @@ class CheckboxList extends React.Component {
       var keys = Object.keys(snapshot.val());
       var mails = keys.map(key => snapshot.val()[key]);
       this.setState({
-        mails
+        mails: this._sortMails(mails)
       })
     });
   }
@@ -56,7 +71,7 @@ class CheckboxList extends React.Component {
         var keys = Object.keys(snapshot.val());
         var mails = keys.map(key => snapshot.val()[key]);
         this.setState({
-          mails
+          mails: this._sortMails(mails)
         })
       });
     }
@@ -67,7 +82,7 @@ class CheckboxList extends React.Component {
         var keys = Object.keys(snapshot.val());
         var mails = keys.map(key => snapshot.val()[key]);
         this.setState({
-          mails
+          mails: this._sortMails(mails)
         })
       });
     }
@@ -78,7 +93,7 @@ class CheckboxList extends React.Component {
         var keys = Object.keys(snapshot.val());
         var mails = keys.map(key => snapshot.val()[key]);
         this.setState({
-          mails
+          mails: this._sortMails(mails)
         })
       });
     }

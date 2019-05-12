@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 //import { withStyles } from '@material-ui/core/styles';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
 import CloseIcon from '@material-ui/icons/Clear';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 
@@ -48,7 +46,6 @@ class SimpleSnackbar extends React.Component {
 
   render() {
     const { classes } = this.props;
-	const { vertical, horizontal, open } = this.state;
     return (
       <div>
         <Snackbar

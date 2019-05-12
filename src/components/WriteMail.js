@@ -91,10 +91,10 @@ class ReadMail extends React.Component {
 		var content = this.content;
 
 		var sent = firebase.database().ref(`/${from}/sent`).push();
-		sent.set({from, to, subject, content, id: sent.key});
+		sent.set({from, to, subject, content, id: sent.key, sent: new Date().toLocaleString()});
 
 		var inbox = firebase.database().ref(`/${to}/inbox`).push();
-		inbox.set({from, to, subject, content, id: inbox.key});
+		inbox.set({from, to, subject, content, id: inbox.key, sent: new Date().toLocaleString()});
 
 		if(this.props.onClose){
 			this.props.onClose();
@@ -104,7 +104,6 @@ class ReadMail extends React.Component {
 
   state = {
     anchorEl: null,
-	value: "DEFAULT FOR TESTING",
   };
 
   handleClick = event => {
