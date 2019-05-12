@@ -149,8 +149,8 @@ class ReadMail extends React.Component {
 				<MuiThemeProvider theme={theme}>
 					<Fab size="small" color="primary" aria-label="Add" className={classes.margin}
 						onClick={() => {
-							if(this.props.onClose){
-								this.props.onClose();
+							if(this.props.onJustClose){
+								this.props.onJustClose();
 							}
 						}}
 					>

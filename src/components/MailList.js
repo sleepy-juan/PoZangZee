@@ -225,6 +225,34 @@ class CheckboxList extends React.Component {
     })
   }
 
+  onDeleted = mail => () => {
+    const query = queryString.parse(window.location.search);
+    var user = query.username;
+    const {from, to, id} = mail;
+    if(from === user){
+      firebase.database().ref(`/${user}/sent/${id}`).once('value').then(snapshot => {
+        if(snapshot.val() === null) return 0;
+
+        firebase.database().ref(`/${user}/sent/${id}`).remove().then(() => {
+          firebase.database().ref(`/${user}/trash/${id}`).set(snapshot.val());
+        })
+      })
+    }
+    else if(to === user){
+      firebase.database().ref(`/${user}/inbox/${id}`).once('value').then(snapshot => {
+        if(snapshot.val() === null) return 0;
+
+        firebase.database().ref(`/${user}/inbox/${id}`).remove().then(() => {
+          firebase.database().ref(`/${user}/trash/${id}`).set(snapshot.val());
+        })
+      })
+    }
+
+    this.setState({
+      mails: this.state.mails.filter(mail => mail.id !== id)
+    })
+  }
+
   render() {
     const { classes } = this.props;
     var { mails } = this.state;
@@ -261,6 +289,10 @@ class CheckboxList extends React.Component {
                   <Button color="secondary" className={classes.button} onClick={this.onDirectReplied(mail)}>
                     Reply
                     <Icon className={classes.rightIcon}>send</Icon>
+                  </Button>
+                  <Button className={classes.button} onClick={this.onDeleted(mail)}>
+                    Delete
+                    <Icon className={classes.rightIcon}>delete</Icon>
                   </Button>
                 </ListItemSecondaryAction>
               </ListItem>

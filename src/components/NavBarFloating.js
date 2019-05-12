@@ -38,7 +38,11 @@ class FabButton extends React.Component{
           >
               Compose
           </Fab>
-          {this.state.compose ? <WriteMail onClose={() => {
+          {this.state.compose ? <WriteMail onJustClose={()=>{
+            this.setState({
+              compose: false
+            })
+          }} onClose={() => {
             this.setState({
               compose: false,
               popup: true
