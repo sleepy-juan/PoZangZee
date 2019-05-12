@@ -13,6 +13,7 @@ import $ from 'jquery';
 
 var wid = $(window).width()-300;
 var heigh = $(window).height()-15;
+var textheight = $(window).height()-15;
 const styles = theme => ({
     root: {
       ...theme.mixins.gutters(),
@@ -54,9 +55,10 @@ const styles = theme => ({
         height:"60%",
     },
     fab:{
-        position:'relative',
+        position:'fixed',
         float:'right',
-        top:10,
+        
+
         backgroundColor:"#FA7268",
         color:'white',
     },
