@@ -13,7 +13,6 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Clear';
 import queryString from 'query-string';
 import firebase from 'firebase';
-import MailSentPopup from './MailSentPopup';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -69,12 +68,10 @@ class ReadMail extends React.Component {
    }
 
   onSendClicked = () => {
-    this.setState({popup: true});
-	if(this.props.onClose){
-		this.props.onClose();
-		this.sendMail();
-		
-	}
+		if(this.props.onClose){
+			this.props.onClose();
+			this.sendMail();
+		}
   }
 
 
@@ -101,10 +98,6 @@ class ReadMail extends React.Component {
 				replied: new Date().toLocaleString()
 			})
 		}
-
-		if(this.props.onClose){
-			this.props.onClose();
-		}
 	}
 
 
@@ -127,8 +120,8 @@ class ReadMail extends React.Component {
 	const { anchorEl } = this.state;
 
     return (
-      <Card className={classes.card}>
-		{this.state.popup ? <MailSentPopup ></MailSentPopup> : null}
+			<div>
+				<Card className={classes.card}>
 	    
         <CardHeader 
 		  style={{ marginLeft: 8 }}
@@ -155,8 +148,8 @@ class ReadMail extends React.Component {
 				<MuiThemeProvider theme={theme}>
 					<Fab size="small" color="primary" aria-label="Add" className={classes.margin}
 						onClick={() => {
-							if(this.props.onClose){
-								this.props.onClose();
+							if(this.props.onJustClose){
+								this.props.onJustClose();
 							}
 						}}
 					>
@@ -226,6 +219,8 @@ class ReadMail extends React.Component {
         </CardActions>
         
       </Card>
+			</div>
+      
     );
   }
 }

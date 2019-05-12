@@ -6,6 +6,8 @@ import CloseIcon from '@material-ui/icons/Clear';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
+import Format from './Format';
+
 
 
 const theme = createMuiTheme({
@@ -41,7 +43,15 @@ class SimpleSnackbar extends React.Component {
       return;
     }
 
-    this.setState({ open: false });
+    this.setState({ 
+      open: false,
+      isFormat: true 
+    });
+
+    console.log(this.props.onPopupClosed);
+    if(this.props.onPopupClosed){
+      this.props.onPopupClosed();
+    }
   };
 
   render() {
@@ -55,14 +65,14 @@ class SimpleSnackbar extends React.Component {
           }}
           open={this.state.open}
           autoHideDuration={6000}
-          onClose={this.handleClose}
+          onClose={this.handleClose.bind(this)}
           ContentProps={{
             'aria-describedby': 'message-id',
           }}
           message={<span id="message-id">Email Sent. Do you want to save format?</span>}
           action={[
 		    <MuiThemeProvider theme={theme}>
-				<Button color="primary" size="small" style={{ marginRight: 5 }} onClick={this.handleClose}>
+				<Button color="primary" size="small" style={{ marginRight: 5 }} onClick={this.handleClose.bind(this)}>
 					Save Format
 				  </Button>
 			</MuiThemeProvider>,
@@ -72,13 +82,15 @@ class SimpleSnackbar extends React.Component {
 				  aria-label="Close"
 				  color="primary"
 				  className={classes.close}
-				  onClick={this.handleClose}
+				  onClick={this.handleClose.bind(this)}
 				>
 				  <CloseIcon />
 				</IconButton>
 			</MuiThemeProvider>,
           ]}
         />
+
+        {this.state.isFormat ? <Format /> : null}
       </div>
     );
   }

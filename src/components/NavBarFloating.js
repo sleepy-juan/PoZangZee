@@ -38,19 +38,16 @@ class FabButton extends React.Component{
           >
               Compose
           </Fab>
-          {this.state.compose ? <WriteMail onClose={() => {
+          {this.state.compose ? <WriteMail onJustClose={()=>{
             this.setState({
               compose: false
             })
-
-			this.setState({
-				popup: true
-			})
-          }} /> : null}
-		  {
-		  	  this.state.popup?
-			  <MailSentPopup /> : null
-		  }
+          }} onClose={() => {
+            this.setState({
+              compose: false,
+              popup: true
+            })}} /> : null}
+          {this.state.popup ? <MailSentPopup onPopupClosed={()=>this.setState({popup: false})} /> : null}
       </MuiThemeProvider>
     );
   }
