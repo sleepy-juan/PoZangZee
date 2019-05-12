@@ -49,7 +49,7 @@ const styles = theme => ({
         textAlign: 'justify',
         position: 'absolute',
         lineHeight:1,
-        height: "100%"
+        height: "90%"
     },
     text2:{
         position:'absolute',
@@ -65,7 +65,8 @@ const styles = theme => ({
     },
     fab:{
         position:'fixed',
-        float:'right',
+        bottom:'6%',
+        right:'6%',
         
 
         backgroundColor:"#FA7268",

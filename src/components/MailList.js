@@ -159,7 +159,8 @@ class CheckboxList extends React.Component {
 
 //This function Makes you Move up and down the focus by pressing up and down arrow key (Made by Hyunchang)
   handleKeydown = e => {
-    if(!this.state.compose){
+    console.log(e.keyCode);
+    if(!this.state.compose && this.state.mails.length>0 && !window.compose){
         //when up
       if(e.keyCode==40){
         if(this.state.index+1 != this.state.mails.length){
@@ -191,9 +192,7 @@ class CheckboxList extends React.Component {
 
       //when pressed enter
       if(e.keyCode==13){
-        if(!this.state.compose){
-          this.readMail(this.state.mails[this.state.index])();
-        }
+        this.readMail(this.state.mails[this.state.index])();
       }
 
       if(e.keyCode==73||e.keyCode==75){
@@ -211,12 +210,19 @@ class CheckboxList extends React.Component {
   }
 
   handleKeyup=e=>{
-    if(!this.state.compose){
+    if(!this.state.compose && !window.compose){
       if(e.keyCode==82){
         this.onDirectReplied(this.state.mails[this.state.index])();
       }
+
+      if(e.keyCode==8 && this.state.mails.length>0){
+        var mails = this._sortMails(this.state.mails);
+        var mail = mails[this.state.index];
+
+        this.onDeleted(mail)();
+        
+      }
     }
-    
   }
 
 
@@ -311,6 +317,8 @@ class CheckboxList extends React.Component {
     const { classes } = this.props;
     var { mails } = this.state;
     mails = this._sortMails(mails);
+
+    console.log(mails);
     
       //Look Here
     //mails[this.state.index].classes.focus;

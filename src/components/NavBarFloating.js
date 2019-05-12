@@ -27,13 +27,15 @@ class FabButton extends React.Component{
   
   render() {
     const { classes } = this.props;
+
     return (
       <MuiThemeProvider theme={theme}>
           <Fab size="large" variant="extended" aria-label="Add" color="primary" className={classes.fab}
             onClick={() => {
+              window.compose = !this.state.compose;
               this.setState({
                 compose: !this.state.compose
-              })
+              });
             }}
           >
               Compose
@@ -41,12 +43,15 @@ class FabButton extends React.Component{
           {this.state.compose ? <WriteMail onJustClose={()=>{
             this.setState({
               compose: false
-            })
+            });
+            window.compose = false;
           }} onClose={() => {
             this.setState({
               compose: false,
               popup: true
-            })}} /> : null}
+            });
+            window.compose = false;
+            }} /> : null}
           {this.state.popup ? <MailSentPopup onPopupClosed={()=>this.setState({popup: false})} /> : null}
       </MuiThemeProvider>
     );

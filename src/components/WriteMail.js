@@ -109,12 +109,25 @@ class ReadMail extends React.Component {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleClose = (ev) => {
+  handleClose = () => {
     this.setState({ anchorEl: null });
 	//get info from db and fill onto the email context
-	this.setState({value: ev.nativeEvent.target.outerText})
+	this.setState({value: this.nativeEvent.target.outerText})
   };
+/* Hyunchang Tried to make shortkey here, but failed. How does handleClose() work??
+	componentDidMount(){
+		document.addEventListener('keyup', this.handleKeyup);
+	}
 
+	handleKeyup=e=>{
+		if(e.keyCode===27){
+			this.setState({
+				expanded: false,
+				popup: false,
+			})
+		}
+	}
+	*/
   render() {
     const { classes } = this.props;
 	const { anchorEl } = this.state;
@@ -170,7 +183,11 @@ class ReadMail extends React.Component {
 			  className={classes.textField}
 				margin="dense"
 				fullWidth
-				onChange={event => { this.to = event.target.value; }}
+				onChange={e => { 
+					this.to = e.target.value; 
+					e.stopPropagation();
+					e.nativeEvent.stopImmediatePropagation();
+				}}
 				defaultValue={this.props.replyInfo ? this.props.replyInfo.from : null}
 				autoFocus={!this.props.replyInfo}
 			/>
