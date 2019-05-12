@@ -30,7 +30,7 @@ const styles = theme => ({
 class SimpleSnackbar extends React.Component {
   state = {
     open: true,
-	vertical: 'bottom',
+	  vertical: 'bottom',
     horizontal: 'right',
   };
 

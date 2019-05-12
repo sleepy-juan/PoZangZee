@@ -23,24 +23,26 @@ const styles = theme => ({
 
 var drawerWidth = 300;
 
-function NavBar(props) {
-    const { classes } = props;
+class NavBar extends React.Component{
+  render(){
+    const { classes } = this.props;
 
     return (
-        <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor="left"
-      >
-        <NavBarFloating />
-        <NavBarList onSelect={props.onSelect} />
+      <Drawer
+      className={classes.drawer}
+      variant="permanent"
+      classes={{
+        paper: classes.drawerPaper,
+      }}
+      anchor="left"
+    >
+      <NavBarFloating />
+      <NavBarList onSelect={this.props.onSelect} />
 
-        <img src={logo} alt="logo" style={{width: "60%", position: "absolute", bottom: 0, marginLeft: "-30%", left: "50%"}}></img>
-      </Drawer>
-    )
+      <img src={logo} alt="logo" style={{width: "60%", position: "absolute", bottom: 0, marginLeft: "-30%", left: "50%"}}></img>
+    </Drawer>
+  )
+  }
 }
 
 export default withStyles(styles)(NavBar);
