@@ -61,7 +61,13 @@ const theme = createMuiTheme({
   },
 });
 
-class ReadMail extends React.Component {
+class WriteMail extends React.Component {
+	constructor(props){
+		super(props);
+
+		this.content = '';
+	}
+
   state = {
 	expanded: false,
 	popup: false
@@ -225,8 +231,8 @@ class ReadMail extends React.Component {
   }
 }
 
-ReadMail.propTypes = {
+WriteMail.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ReadMail);
+export default withStyles(styles)(WriteMail);
