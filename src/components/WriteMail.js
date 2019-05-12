@@ -203,7 +203,12 @@ class ReadMail extends React.Component {
 			  InputLabelProps={{
 				shrink: true,
 				}}
-				onChange={event => { this.content = event.target.value; }}
+				onChange={event => { 
+					this.content = event.target.value;
+					if(this.props.deliverContent){
+						this.props.deliverContent(this.content);
+					}
+				}}
 				autoFocus={this.props.replyInfo}
 			/>
 		  </Typography>
