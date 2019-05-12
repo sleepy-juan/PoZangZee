@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 
-import TextInput from '../components/TextInput';
+import TextInput from './TextInput';
 import { isUndefined } from 'util';
 
 const DialogTitle = withStyles(theme => ({
@@ -72,25 +72,14 @@ class CustomizedDialogDemo extends React.Component {
   highlight = (event) => {
     
 
-    var sel = window.getSelection(), range;
-    if (sel.getRangeAt) {
-        console.log(sel)
-
-        range = sel.getRangeAt(0);
-         
-    }
+    var sel = window.getSelection();
     
-    var length =0;
     var startIndex, endIndex;
     var previous = 0;
     
     let current = sel.anchorNode;
     let current_end = sel.focusNode;
     
-  
-    
-    
-
     /* get highlited index of the text */
     if (this.state.hightext.length === 0) {
       startIndex = sel.anchorOffset;
@@ -241,7 +230,7 @@ class CustomizedDialogDemo extends React.Component {
     console.log(indexTable);
     //console.log(this.state.hightext)
 
-    var html = this.ref.innerHTML;
+    html = this.ref.innerHTML;
     html = html.slice(0, endIndex+13*index) + "</mark>" + html.slice(endIndex+13*index);
     html = html.slice(0, startIndex+13*index) + "<mark>" + html.slice(startIndex+13*index);
     this.ref.innerHTML = html;

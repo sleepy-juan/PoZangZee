@@ -5,7 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import ReadMail from '../components/readmail/ReadMail'
 import NavBar from '../components/NavBar';
 import MailList from '../components/MailList';
-
+import Format from "../components/Format";
 
 const drawerWidth = 270;
 const styles = theme => ({
@@ -50,7 +50,7 @@ class PermanentDrawerLeft extends React.Component{
             <MailList onRead={mail => this.setState({mail, readMail: true})} selected={this.state.selected_menu} />}
           </main>
         </div>
-    );
+    ); // <Format />
   }
 }
 

@@ -96,6 +96,12 @@ class ReadMail extends React.Component {
 		var inbox = firebase.database().ref(`/${to}/inbox`).push();
 		inbox.set({from, to, subject, content, id: inbox.key, sent: new Date().toLocaleString()});
 
+		if(this.props.replyInfo){
+			firebase.database().ref(`/${from}/inbox/${this.props.replyInfo.id}`).update({
+				replied: new Date().toLocaleString()
+			})
+		}
+
 		if(this.props.onClose){
 			this.props.onClose();
 		}
