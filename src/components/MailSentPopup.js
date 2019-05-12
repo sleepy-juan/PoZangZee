@@ -42,6 +42,11 @@ class SimpleSnackbar extends React.Component {
     }
 
     this.setState({ open: false });
+
+    console.log(this.props.onPopupClosed);
+    if(this.props.onPopupClosed){
+      this.props.onPopupClosed();
+    }
   };
 
   render() {
@@ -55,14 +60,14 @@ class SimpleSnackbar extends React.Component {
           }}
           open={this.state.open}
           autoHideDuration={6000}
-          onClose={this.handleClose}
+          onClose={this.handleClose.bind(this)}
           ContentProps={{
             'aria-describedby': 'message-id',
           }}
           message={<span id="message-id">Email Sent. Do you want to save format?</span>}
           action={[
 		    <MuiThemeProvider theme={theme}>
-				<Button color="primary" size="small" style={{ marginRight: 5 }} onClick={this.handleClose}>
+				<Button color="primary" size="small" style={{ marginRight: 5 }} onClick={this.handleClose.bind(this)}>
 					Save Format
 				  </Button>
 			</MuiThemeProvider>,
@@ -72,7 +77,7 @@ class SimpleSnackbar extends React.Component {
 				  aria-label="Close"
 				  color="primary"
 				  className={classes.close}
-				  onClick={this.handleClose}
+				  onClick={this.handleClose.bind(this)}
 				>
 				  <CloseIcon />
 				</IconButton>
