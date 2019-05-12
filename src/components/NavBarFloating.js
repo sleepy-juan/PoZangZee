@@ -5,6 +5,7 @@ import Fab from '@material-ui/core/Fab';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import WriteMail from './WriteMail';
+import MailSentPopup from './MailSentPopup';
 
 const theme = createMuiTheme({
   palette: {
@@ -41,7 +42,15 @@ class FabButton extends React.Component{
             this.setState({
               compose: false
             })
+
+			this.setState({
+				popup: true
+			})
           }} /> : null}
+		  {
+		  	  this.state.popup?
+			  <MailSentPopup /> : null
+		  }
       </MuiThemeProvider>
     );
   }

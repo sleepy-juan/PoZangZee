@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\components",
+    "\\src\\pages",
+    "\\src\\utils"
   ],
+  "SelectedNode": "\\src\\pages\\Docs-En.js",
   "PreviewInSolutionExplorer": false
 }
