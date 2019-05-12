@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
 import { Divider, ListItemSecondaryAction, Button, Icon } from '@material-ui/core';
 import queryString from 'query-string';
 import firebase from 'firebase';
@@ -17,7 +16,8 @@ const styles = theme => ({
   },
   text: {
       maxWidth: "300px",
-      font: "bold"
+      font: "bold",
+      padding: "7px 14px 7px 14px",
   },
   replied: {
     backgroundColor: "#FFFFFF"
@@ -30,14 +30,18 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
+  },
+  focus:{
+    backgroundColor: "#FFC2BB"
   }
 });
 
 class CheckboxList extends React.Component {
   state = {
-    checked: [],
     mails: [],
     compose: false,
+    index:0,
+    alwaystrue: true,
   };
 
   _sortCategoryMail(mails){
@@ -79,7 +83,8 @@ class CheckboxList extends React.Component {
   componentDidMount(){
     const query = queryString.parse(window.location.search);
     var user = query.username;
-
+    document.addEventListener('keydown', this.handleKeydown);
+    document.addEventListener('keyup', this.handleKeyup);
     firebase.database().ref(`/${user}/inbox`).once('value').then(snapshot => {
       if(snapshot.val() === null) return;
 
@@ -89,6 +94,7 @@ class CheckboxList extends React.Component {
         mails
       })
     });
+
   }
 
   componentWillReceiveProps(props){
@@ -138,23 +144,8 @@ class CheckboxList extends React.Component {
     }
   }
 
-  handleToggle = value => () => {
-    const { checked } = this.state;
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    this.setState({
-      checked: newChecked,
-    });
-  };
-
   readMail = mail => () => {
+    console.log("readMail Triggered")
     if(this.props.onRead){
       this.props.onRead(mail);
 
@@ -165,6 +156,69 @@ class CheckboxList extends React.Component {
       })
     }
   }
+
+//This function Makes you Move up and down the focus by pressing up and down arrow key (Made by Hyunchang)
+  handleKeydown = e => {
+    if(!this.state.compose){
+        //when up
+      if(e.keyCode==40){
+        if(this.state.index+1 != this.state.mails.length){
+          this.setState({
+            index : this.state.index +1,
+          })
+        }
+        else{
+          this.setState({
+            index : 0,
+          })
+        }
+      };
+
+      //when down
+      if(e.keyCode==38){
+        
+        if(this.state.index-1 == -1){
+          this.setState({
+            index : this.state.mails.length-1,
+          })
+        }
+        else{
+          this.setState({
+            index : this.state.index -1,
+          })
+        }
+      }
+
+      //when pressed enter
+      if(e.keyCode==13){
+        if(!this.state.compose){
+          this.readMail(this.state.mails[this.state.index])();
+        }
+      }
+
+      if(e.keyCode==73||e.keyCode==75){
+        var mails = this._sortMails(this.state.mails);
+        var mail = mails[this.state.index];
+
+        if(mail.replied){
+          this.onKept(mail)();
+        }
+        else{
+          this.onIgnored(mail)();
+        }
+      }
+    }
+  }
+
+  handleKeyup=e=>{
+    if(!this.state.compose){
+      if(e.keyCode==82){
+        this.onDirectReplied(this.state.mails[this.state.index])();
+      }
+    }
+    
+  }
+
 
   onIgnored = mail => () => {
     const query = queryString.parse(window.location.search);
@@ -229,19 +283,17 @@ class CheckboxList extends React.Component {
     const { classes } = this.props;
     var { mails } = this.state;
     mails = this._sortMails(mails);
+    
+      //Look Here
+    //mails[this.state.index].classes.focus;
 
+    //  a ? b : (c? d: e);
     return (
       <div>
         <List className={classes.root}>
           {mails.map((mail, index) => (
           <div key={index}>
-            <ListItem className={mail.replied ? classes.replied : classes.unreplied} key={index} role={undefined} dense button onClick={this.readMail(mail)} >
-              <Checkbox
-                checked={this.state.checked.indexOf(index) !== -1}
-                tabIndex={-1}
-                disableRipple
-                onClick={this.handleToggle(index)}
-              />
+            <ListItem className={mail.replied ? (index==this.state.index ? classes.focus : classes.replied) : (index==this.state.index ? classes.focus : classes.unreplied) } key={index} role={undefined} dense button onClick={this.readMail(mail)} >
               <ListItemText className={classes.text} >
                 {mail.read ? mail.from : <strong>{mail.from}</strong>}
               </ListItemText>

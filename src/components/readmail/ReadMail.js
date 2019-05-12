@@ -65,15 +65,10 @@ const styles = theme => ({
     },
     fab:{
         position:'fixed',
-<<<<<<< HEAD
         float:'right',
         
 
         backgroundColor:"#FA7268",
-=======
-        right: 30,
-        bottom:30,
->>>>>>> 0c45eed895e07a3e54dddd383392bc70c74e5dff
         color:'white',
     },
     
