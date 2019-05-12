@@ -321,7 +321,7 @@ class CheckboxList extends React.Component {
           <List className={classes.root}>
             {mails.map((mail, index) => (
             <div key={index}>
-              <ListItem className={mail.replied ? classes.replied : classes.unreplied} key={index} role={undefined} dense button onClick={this.readMail(mail)} >
+              <ListItem className={mail.replied ? (index==this.state.index ? classes.focus : classes.replied) : (index==this.state.index ? classes.focus : classes.unreplied) } key={index} role={undefined} dense button onClick={this.readMail(mail)} >
                 <ListItemText className={classes.text} >
                   {mail.read ? mail.from : <strong>{mail.from}</strong>}
                 </ListItemText>
