@@ -22,6 +22,7 @@ const theme = createMuiTheme({
 
 var wid = $(window).width()-300;
 var heigh = $(window).height()-15;
+var textheight = $(window).height()-15;
 const styles = theme => ({
     root: {
       ...theme.mixins.gutters(),
@@ -64,8 +65,10 @@ const styles = theme => ({
     },
     fab:{
         position:'fixed',
-        right: 30,
-        bottom:30,
+        float:'right',
+        
+
+        backgroundColor:"#FA7268",
         color:'white',
     },
     
