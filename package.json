@@ -6,9 +6,11 @@
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
     "firebase": "^5.10.0",
-    "query-string": "^6.4.2",
+    "jquery": "^3.4.1",
+    "query-string": "^6.5.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-render-html": "^0.6.0",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0"
   },

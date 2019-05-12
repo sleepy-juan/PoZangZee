@@ -4,8 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
 const styles = theme => ({
   button: {
@@ -25,11 +23,11 @@ function IconButtons(props) {
   const { classes } = props;
   return (
     <div>
-      <IconButton className={classes.button}  aria-label="Delete">
+      <IconButton className={classes.button} onClick={props.onBack} aria-label="Delete">
       <Icon size="large" >keyboard_arrow_left</Icon>
       </IconButton>
 
-      <IconButton className={classes.button2} aria-label="Delete" >
+      <IconButton className={classes.button2} onClick={props.onDelete} aria-label="Delete" >
         <DeleteIcon />
       </IconButton>
 

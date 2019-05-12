@@ -36,7 +36,7 @@ function NavBar(props) {
         anchor="left"
       >
         <NavBarFloating />
-        <NavBarList />
+        <NavBarList onSelect={props.onSelect} />
 
         <img src={logo} alt="logo" style={{width: "60%", position: "absolute", bottom: 0, marginLeft: "-30%", left: "50%"}}></img>
       </Drawer>

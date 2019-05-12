@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
@@ -54,17 +52,9 @@ function SignIn(props) {
         <img src={logo} alt="logo" style={{width: "60%", margin: "1em"}}></img>
         <form className={classes.form} action="/home">
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input id="email" name="email" autoComplete="email" autoFocus />
+            <InputLabel htmlFor="username">Username</InputLabel>
+            <Input id="username" name="username" autoComplete="username" autoFocus />
           </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input name="password" type="password" id="password" autoComplete="current-password" />
-          </FormControl>
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
           <Button
             type="submit"
             fullWidth

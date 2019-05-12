@@ -1,6 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\readmail",
+    "\\src\\pages",
+    "\\src\\utils"
   ],
+  "SelectedNode": "\\node_modules",
   "PreviewInSolutionExplorer": false
 }

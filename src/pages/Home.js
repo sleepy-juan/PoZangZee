@@ -5,7 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import ReadMail from '../components/readmail/ReadMail'
 import NavBar from '../components/NavBar';
 import MailList from '../components/MailList';
-import WriteMail from '../components/WriteMail';
+import Format from "../components/Format";
 
 const drawerWidth = 270;
 const styles = theme => ({
@@ -31,18 +31,27 @@ const styles = theme => ({
   }
 });
 
-function PermanentDrawerLeft(props) {
-  const { classes } = props;
+class PermanentDrawerLeft extends React.Component{
+  state = {
+    readMail: false,
+    selected_menu: "Inbox",
+  }
 
-  return (
-      <div className={classes.root}>
-        <CssBaseline />
-        <NavBar />
-        
-        
-        <ReadMail />
-      </div>
-  );
+  render() {
+    const { classes } = this.props;
+  
+    return (
+        <div className={classes.root}>
+          <CssBaseline />
+          <NavBar onSelect={selected_menu=>this.setState({selected_menu})} />
+          <main className={classes.content}>
+            {this.state.readMail? 
+            <ReadMail mail={this.state.mail} onBack={() => {this.setState({readMail: false})}}/>: 
+            <MailList onRead={mail => this.setState({mail, readMail: true})} selected={this.state.selected_menu} />}
+          </main>
+        </div>
+    ); // <Format />
+  }
 }
 
 PermanentDrawerLeft.propTypes = {

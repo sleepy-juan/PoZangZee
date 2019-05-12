@@ -7,9 +7,18 @@ import './readmail.css';
 import Button2 from './button.js'
 import NavigationIcon from '@material-ui/icons/Navigation';
 import Fab from '@material-ui/core/Fab';
-import Button from '@material-ui/core/Button';
-import Dropdown from './dropdown.js';
 import $ from 'jquery';
+import queryString from 'query-string';
+import firebase from 'firebase';
+
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import WriteMail from '../WriteMail';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: "#FA7268" }, // Purple and green play nicely together.
+  },
+});
 
 var wid = $(window).width()-300;
 var heigh = $(window).height()-15;
@@ -32,7 +41,7 @@ const styles = theme => ({
         border: '0.5px solid rgba(240,240,240,1)',
         padding: 20,
         boxSizing: 'border-box',
-        overflow: 'hidden',
+        overflow: 'scroll',
     },
     text:{
         left: 40,
@@ -48,39 +57,73 @@ const styles = theme => ({
     },
     text3:{
         position:'absolute',
-        right:200,
+        right:400,
     },
     scro:{
         overflow: 'auto',
-        height:"60%",
+
     },
     fab:{
         position:'fixed',
+<<<<<<< HEAD
         float:'right',
         
 
         backgroundColor:"#FA7268",
+=======
+        right: 30,
+        bottom:30,
+>>>>>>> 0c45eed895e07a3e54dddd383392bc70c74e5dff
         color:'white',
     },
     
   });
+
+class PaperSheet extends React.Component{
+  state = {
+    compose: false,
+  }
+
+  onDelete(){
+    const query = queryString.parse(window.location.search);
+    var user = query.username;
+    const {from, to, id} = this.props.mail;
+    if(from === user){
+      firebase.database().ref(`/${user}/sent/${id}`).once('value').then(snapshot => {
+        if(snapshot.val() === null) return 0;
+
+        firebase.database().ref(`/${user}/sent/${id}`).remove().then(() => {
+          firebase.database().ref(`/${user}/trash/${id}`).set(snapshot.val());
+        })
+      })
+    }
+    else if(to === user){
+      firebase.database().ref(`/${user}/inbox/${id}`).once('value').then(snapshot => {
+        if(snapshot.val() === null) return 0;
+
+        firebase.database().ref(`/${user}/inbox/${id}`).remove().then(() => {
+          firebase.database().ref(`/${user}/trash/${id}`).set(snapshot.val());
+        })
+      })
+    }
+  }
   
-  function PaperSheet(props) {
-    const { classes } = props;
+  render() {
+    const { classes } = this.props;
   
-    return (
+    return (//
         
       <div>
         <Paper className={classes.read} elevation={1}>
-        <Button2/>
+        <Button2 onBack={this.props.onBack} onDelete={this.onDelete.bind(this)}/>
             <div className={classes.text}>
           <Typography variant="h5" component="h3">
-              Who are you? <Dropdown/> 
+              {this.props.mail.subject}
           </Typography>
           <br/>
           <Typography component="p">
-            <b> Juana Leer </b> 	&lt;juana@leer.com&gt;
-            <a href="www.google.com"> Block </a> <span className={classes.text3}> Received: 4/24 8:15pm </span> <span className={classes.text2}>  Reply by: 5/1 </span>
+            <b> {this.props.mail.from} </b> 	&lt;{this.props.mail.from}@pozangzee.com&gt;
+            <span className={classes.text3}> Received {this.props.mail.sent} </span> <span className={classes.text2}> </span>
           </Typography>
           <Typography component="p" className={classes.text2}>
           
@@ -89,27 +132,33 @@ const styles = theme => ({
 
           <br/>
 
-          <Typography component="p" className={classes.scro}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean condimentum tellus massa, sit amet ornare ex imperdiet dictum. Donec convallis, urna a bibendum hendrerit, ipsum quam pellentesque nisl, vitae euismod augue mauris ut nisl. Sed convallis, nulla tincidunt malesuada sodales, lectus ante consectetur velit, non eleifend lorem nibh ac mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel tortor velit. Donec consectetur faucibus lorem ac elementum. Mauris sagittis ipsum eu euismod interdum. Phasellus laoreet diam nec ex ullamcorper, quis rhoncus sem imperdiet. Nulla dui ante, semper id ligula non, gravida volutpat lacus. Ut malesuada, lorem at blandit rhoncus, nulla ipsum consectetur velit, vel venenatis orci elit quis libero. Nam turpis augue, congue facilisis lorem vel, pulvinar placerat mi.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean condimentum tellus massa, sit amet ornare ex imperdiet dictum. Donec convallis, urna a bibendum hendrerit, ipsum quam pellentesque nisl, vitae euismod augue mauris ut nisl. Sed convallis, nulla tincidunt malesuada sodales, lectus ante consectetur velit, non eleifend lorem nibh ac mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel tortor velit. Donec consectetur faucibus lorem ac elementum. Mauris sagittis ipsum eu euismod interdum. Phasellus laoreet diam nec ex ullamcorper, quis rhoncus sem imperdiet. Nulla dui ante, semper id ligula non, gravida volutpat lacus. Ut malesuada, lorem at blandit rhoncus, nulla ipsum consectetur velit, vel venenatis orci elit quis libero. Nam turpis augue, congue facilisis lorem vel, pulvinar placerat mi.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean condimentum tellus massa, sit amet ornare ex imperdiet dictum. Donec convallis, urna a bibendum hendrerit, ipsum quam pellentesque nisl, vitae euismod augue mauris ut nisl. Sed convallis, nulla tincidunt malesuada sodales, lectus ante consectetur velit, non eleifend lorem nibh ac mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel tortor velit. Donec consectetur faucibus lorem ac elementum. Mauris sagittis ipsum eu euismod interdum. Phasellus laoreet diam nec ex ullamcorper, quis rhoncus sem imperdiet. Nulla dui ante, semper id ligula non, gravida volutpat lacus. Ut malesuada, lorem at blandit rhoncus, nulla ipsum consectetur velit, vel venenatis orci elit quis libero. Nam turpis augue, congue facilisis lorem vel, pulvinar placerat mi.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean condimentum tellus massa, sit amet ornare ex imperdiet dictum. Donec convallis, urna a bibendum hendrerit, ipsum quam pellentesque nisl, vitae euismod augue mauris ut nisl. Sed convallis, nulla tincidunt malesuada sodales, lectus ante consectetur velit, non eleifend lorem nibh ac mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel tortor velit. Donec consectetur faucibus lorem ac elementum. Mauris sagittis ipsum eu euismod interdum. Phasellus laoreet diam nec ex ullamcorper, quis rhoncus sem imperdiet. Nulla dui ante, semper id ligula non, gravida volutpat lacus. Ut malesuada, lorem at blandit rhoncus, nulla ipsum consectetur velit, vel venenatis orci elit quis libero. Nam turpis augue, congue facilisis lorem vel, pulvinar placerat mi.
+          <Typography component="pre" className={classes.scro}>
+          {this.props.mail.content}
           </Typography>
-          <Fab variant="extended" aria-label="Delete" className={classes.fab}>
+
+          <MuiThemeProvider theme={theme}>
+          <Fab color="primary" variant="extended" aria-label="Delete" className={classes.fab} onClick={()=>this.setState({compose: !this.state.compose})}>
              <NavigationIcon className={classes.extendedIcon} />
                Reply
-             </Fab>
+          </Fab>
+          </MuiThemeProvider>
           </div>
         </Paper>
-        
+
+        {this.state.compose ? <WriteMail onClose={() => {
+            this.setState({
+              compose: false
+            })
+          }} replyInfo = {this.props.mail} /> : null}
       </div>
       
           
     );
   }
-  
-  PaperSheet.propTypes = {
-    classes: PropTypes.object.isRequired,
-  };
-  
-  export default withStyles(styles)(PaperSheet);
+}
+
+PaperSheet.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(PaperSheet);
