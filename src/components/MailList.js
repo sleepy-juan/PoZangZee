@@ -43,11 +43,15 @@ class CheckboxList extends React.Component {
     else if(selected === "Sent"){
       getSentMails(user, mails => this.setState({mails}));
     }
+	else if (selected === "Formats") {
+		//add format list (add function in utils/Database.js)
+		this.setState({mails: ["a", "b"]})
+	}
     else if(selected === 'Trash'){
       getTrashMails(user, mails => this.setState({mails}));
     }
     else {
-      this.setState({mails: []})
+      this.setState({mails: [{from: "format title", content: "format content"}]})
     }
   }
 

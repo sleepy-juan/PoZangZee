@@ -63,6 +63,7 @@ export function getMails(user, what){
                 mails.push(mail);
             }
         })
+		console.log(mails)
         what(mails);
     })
 }
