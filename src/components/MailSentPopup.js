@@ -6,6 +6,8 @@ import CloseIcon from '@material-ui/icons/Clear';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
+import Format from './Format';
+
 
 
 const theme = createMuiTheme({
@@ -41,7 +43,10 @@ class SimpleSnackbar extends React.Component {
       return;
     }
 
-    this.setState({ open: false });
+    this.setState({ 
+      open: false,
+      isFormat: true 
+    });
 
     console.log(this.props.onPopupClosed);
     if(this.props.onPopupClosed){
@@ -84,6 +89,8 @@ class SimpleSnackbar extends React.Component {
 			</MuiThemeProvider>,
           ]}
         />
+
+        {this.state.isFormat ? <Format /> : null}
       </div>
     );
   }

@@ -122,7 +122,6 @@ class ReadMail extends React.Component {
     return (
 			<div>
 				<Card className={classes.card}>
-				
 	    
         <CardHeader 
 		  style={{ marginLeft: 8 }}

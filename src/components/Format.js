@@ -274,9 +274,6 @@ class CustomizedDialogDemo extends React.Component {
             save format: Highlight the part you wish to change
           </DialogTitle>
         <TextInput text = "FormatName" id="Format-name" />
-        <TextInput text = "Subject" id="Subject" />
-
-
           <DialogContent>
             
             <Typography gutterBottom>
