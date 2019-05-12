@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
 import { Divider, ListItemSecondaryAction, Button, Icon } from '@material-ui/core';
 import queryString from 'query-string';
 import firebase from 'firebase';
@@ -17,7 +16,8 @@ const styles = theme => ({
   },
   text: {
       maxWidth: "300px",
-      font: "bold"
+      font: "bold",
+      padding: "7px 14px 7px 14px"
   },
   replied: {
     backgroundColor: "#FFFFFF"
@@ -230,18 +230,55 @@ class CheckboxList extends React.Component {
     var { mails } = this.state;
     mails = this._sortMails(mails);
 
+    if(this.props.selected === "Inbox"){
+      return (
+        <div>
+          <List className={classes.root}>
+            {mails.map((mail, index) => (
+            <div key={index}>
+              <ListItem className={mail.replied ? classes.replied : classes.unreplied} key={index} role={undefined} dense button onClick={this.readMail(mail)} >
+                <ListItemText className={classes.text} >
+                  {mail.read ? mail.from : <strong>{mail.from}</strong>}
+                </ListItemText>
+                <ListItemText className={classes.text} >
+                {mail.read ? mail.subject : <strong>{mail.subject}</strong>}
+                </ListItemText>
+                <ListItemText className={classes.text} >
+                {mail.read ? mail.sent : <strong>{mail.sent}</strong>}
+                </ListItemText>
+                <ListItemSecondaryAction>
+                  {
+                    mail.replied ?
+                    <Button color="primary" className={classes.button} onClick={this.onKept(mail)} >
+                    Keep
+                    <Icon className={classes.rightIcon}>check</Icon>
+                  </Button> :
+                    <Button color="primary" className={classes.button} onClick={this.onIgnored(mail)} >
+                    Ignore
+                    <Icon className={classes.rightIcon}>clear</Icon>
+                  </Button>
+                  }
+                  <Button color="secondary" className={classes.button} onClick={this.onDirectReplied(mail)}>
+                    Reply
+                    <Icon className={classes.rightIcon}>send</Icon>
+                  </Button>
+                </ListItemSecondaryAction>
+              </ListItem>
+              <Divider />
+            </div>
+            ))}
+          </List>
+          {this.state.compose ? <WriteMail onClose={this.onDirectReplyClosed(this.state.replyInfo).bind(this)} replyInfo = {this.state.replyInfo} /> : null}
+        </div>
+      );
+    }
+
     return (
       <div>
         <List className={classes.root}>
           {mails.map((mail, index) => (
           <div key={index}>
-            <ListItem className={mail.replied ? classes.replied : classes.unreplied} key={index} role={undefined} dense button onClick={this.readMail(mail)} >
-              <Checkbox
-                checked={this.state.checked.indexOf(index) !== -1}
-                tabIndex={-1}
-                disableRipple
-                onClick={this.handleToggle(index)}
-              />
+            <ListItem className={classes.replied} key={index} role={undefined} dense button onClick={this.readMail(mail)} >
               <ListItemText className={classes.text} >
                 {mail.read ? mail.from : <strong>{mail.from}</strong>}
               </ListItemText>
@@ -251,23 +288,6 @@ class CheckboxList extends React.Component {
               <ListItemText className={classes.text} >
               {mail.read ? mail.sent : <strong>{mail.sent}</strong>}
               </ListItemText>
-              <ListItemSecondaryAction>
-                {
-                  mail.replied ?
-                  <Button color="primary" className={classes.button} onClick={this.onKept(mail)} >
-                  Keep
-                  <Icon className={classes.rightIcon}>check</Icon>
-                </Button> :
-                  <Button color="primary" className={classes.button} onClick={this.onIgnored(mail)} >
-                  Ignore
-                  <Icon className={classes.rightIcon}>clear</Icon>
-                </Button>
-                }
-                <Button color="secondary" className={classes.button} onClick={this.onDirectReplied(mail)}>
-                  Reply
-                  <Icon className={classes.rightIcon}>send</Icon>
-                </Button>
-              </ListItemSecondaryAction>
             </ListItem>
             <Divider />
           </div>
