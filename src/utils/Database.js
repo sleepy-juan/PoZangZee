@@ -3,25 +3,6 @@
     - a module to handle firebase
 */
 
-/********************************************************************************/
-// Database.js USAGE
-// 
-// initDatabase(): must call in index.js
-// 
-// sendMail(email): send email
-//      user_from, [user_to], timestamp_sent, [timestamp_needtoreply], timestamp_open, subject, content
-//      [category], state, 
-// getOutbox(user, func): get mails in outbox of user and run func with the mails
-// getUnreadOutbox(user, func): get unread mails in outbox of user and run func with the mails
-// getInbox(user, func): get mails in inbox of user and run func with the mails
-// getUnreadInbox(user, func): get unread mails in outbox of user and run func with the mails
-//
-// setMailRead(email_id): set email as read
-// setMailUnread(email_id): set email as unread
-// setMailCategory(email_id, category): set email category
-// setMailState(email_id, state): set email state
-/********************************************************************************/
-
 import firebase from 'firebase';
 require("firebase/firestore");  // for side-effects
 
@@ -52,111 +33,86 @@ export function initDatabase(){
 //      timestamp_sent, [timestamp_needtoreply], timestamp_open,
 //      subject, content,
 // }
-export function sendMail(email){
-    // denormalize the db for performance
-
-    var parsed_email = {
-        ...email,
-        timestamp_sent: email.timestamp_sent || Date.now(),
-        timestamp_needtoreply: email.timestamp_needtoreply || [],
-        timestamp_open: null,
-        subject: email.subject || new Date().toLocaleString(),
-        content: email.content || '',
-        category: email.category || [],
-        state: email.category || 'sent',
+export function sendMail(from, to, subject, content){
+    var mail = {
+        from,
+        to,
+        subject,
+        content,
+        sent: Date.now(),
+        replyBy: null,
+        category: null,
+        status: null,
     }
-    
-    db.collection('mailbox').add(parsed_email);
+
+    db.collection('inbox').add(mail);
+    db.collection('outbox').add(mail);
 }
 
-// function getOutbox: user, func -> void
-export function getOutbox(user, func){
-    db.collection('mailbox').get().then(snapshot=>{
-        var mails = []
+export function getMails(user, what){
+    db.collection('inbox').get().then(snapshot => {
+        var mails = [];
         snapshot.forEach(mail => {
+            var id = mail.id
             mail = mail.data();
-            if(mail.user_from === user){
+
+            if(mail.to === user && mail.category !== 'Trash'){
+                mail.sent = new Date(mail.sent).toLocaleString();
+                mail.id = id;
+
                 mails.push(mail);
             }
-        });
-
-        // call
-        func(mails);
-    });
-}
-
-// function getUnreadOutbox: user, func -> void
-export function getUnreadOutbox(user, func){
-    db.collection('mailbox').get().then(snapshot=>{
-        var mails = []
-        snapshot.forEach(mail => {
-            mail = mail.data();
-            if(mail.user_from === user && mail.timestamp_open === null){
-                mails.push(mail);
-            }
-        });
-
-        // call
-        func(mails);
-    });
-}
-
-// function getInbox: user, func -> void
-export function getInbox(user, func){
-    db.collection('mailbox').get().then(snapshot=>{
-        var mails = []
-        snapshot.forEach(mail => {
-            mail = mail.data();
-            if(mail.user_to.includes(user)){
-                mails.push(mail);
-            }
-        });
-
-        // call
-        func(mails);
-    });
-}
-
-// function getUnreadInbox: user, func -> void
-export function getUnreadInbox(user, func){
-    db.collection('mailbox').get().then(snapshot=>{
-        var mails = []
-        snapshot.forEach(mail => {
-            mail = mail.data();
-            if(mail.user_to.includes(user) && mail.timestamp_open === null){
-                mails.push(mail);
-            }
-        });
-
-        // call
-        func(mails);
-    });
-}
-
-// function setMailRead: email_id -> void
-export function setMailRead(email_id){
-    db.collection('mailbox').doc(email_id).update({
-        timestamp_open: Date.now()
+        })
+        what(mails);
     })
 }
 
-// function setMailUnread: email_id -> void
-export function setMailUnread(email_id){
-    db.collection('mailbox').doc(email_id).update({
-        timestamp_open: null
+export function getSentMails(user, what){
+    db.collection('outbox').get().then(snapshot => {
+        var mails = [];
+        snapshot.forEach(mail => {
+            var id = mail.id
+            mail = mail.data();
+
+            if(mail.from === user && mail.category !== 'Trash'){
+                mail.sent = new Date(mail.sent).toLocaleString();
+                mail.id = id;
+
+                mails.push(mail);
+            }
+        })
+        what(mails);
     })
 }
 
-// function setMailCategory: email_id, category -> void
-export function setMailCategory(email_id, category){
-    db.collection('mailbox').doc(email_id).update({
+export function setCategory(id, category){
+    db.collection('inbox').doc(id).update({
         category
     })
 }
 
-// function setMailState: email_id, state -> void
-export function setMailState(email_id, state){
-    db.collection('mailbox').doc(email_id).update({
-        state
+export function getTrashMails(user, what){
+    db.collection('inbox').get().then(snapshot => {
+        var mails = [];
+        snapshot.forEach(mail => {
+            var id = mail.id
+            mail = mail.data();
+
+            if(mail.to === user && mail.category === 'Trash'){
+                mail.sent = new Date(mail.sent).toLocaleString();
+                mail.id = id;
+
+                mails.push(mail);
+            }
+        })
+        what(mails);
+    })
+}
+
+export function setReplyBy(id, date){
+    console.log(id, date)
+    
+    db.collection('inbox').doc(id).update({
+        replyBy: date
     })
 }
