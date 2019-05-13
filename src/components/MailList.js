@@ -218,7 +218,8 @@ class CheckboxList extends React.Component {
         this.onDirectReplied(this.state.mails[this.state.index])();
       }
 
-      if(e.keyCode===8 && this.state.mails.length>0){
+
+      if(e.keyCode==68 && this.state.mails.length>0){
         var mails = this._sortMails(this.state.mails);
         var mail = mails[this.state.index];
 

@@ -140,7 +140,7 @@ class WriteMail extends React.Component {
   state = {
     anchorEl: null,
 
-	numberformat: '1320',
+		numberformat: '1320',
 
   };
 
@@ -298,12 +298,8 @@ class WriteMail extends React.Component {
 				onChange={this.handleChange('numberformat')}
 				InputProps={{
 					inputComponent: NumberFormatCustom,
-				}}
-				style={{ marginTop: 40, height: 160}}
-				placeholder="Enter here"
-				fullWidth
-				multiline={true}
-				variant="outlined"
+
+
 			  />
 			</div>*/}
 			
