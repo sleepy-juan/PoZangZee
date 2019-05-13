@@ -142,7 +142,7 @@ class CustomizedDialogDemo extends React.Component {
       endIndex = startIndex;
       startIndex = temp;
     } else if (endIndex === startIndex) {
-      break;
+      return;
     }
 
     

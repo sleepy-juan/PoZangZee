@@ -16,6 +16,7 @@ import firebase from 'firebase';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import NumberFormat from 'react-number-format';
+import FormattedInput from './FormattedInput';
 
 
 const styles = theme => ({
@@ -298,13 +299,7 @@ class WriteMail extends React.Component {
 			  <label for="my-input"></label>	
 				{
 					this.state.selected_format ? 
-					<p>{this.state.selected_format.context}</p> 
-					
-					
-					
-					
-					
-					: 
+					<FormattedInput format = {this.state.selected_format} /> : 
 					<TextField
 
 				  ref="context"
