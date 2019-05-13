@@ -16,6 +16,9 @@ import firebase from 'firebase';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import NumberFormat from 'react-number-format';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
 import $ from 'jquery';
 
 const styles = theme => ({
@@ -103,7 +106,9 @@ class WriteMail extends React.Component {
 
   state = {
 	expanded: false,
-	popup: false
+	popup: false,
+	to: "",
+	subject:"",
    }
 
   onSendClicked = () => {
@@ -199,10 +204,11 @@ class WriteMail extends React.Component {
 	}
 
 
-  handleChange = name => event => {
+  handleChange = (name) => event => {
     this.setState({
       [name]: event.target.value,
     });
+	console.log("to check: " + this.state.to)
   };
 
 	
@@ -260,7 +266,7 @@ class WriteMail extends React.Component {
 
   render() {
     const { classes } = this.props;
-		const { anchorEl } = this.state;
+	const { anchorEl } = this.state;
 
 		console.log(this.state.replyInfo)
 
@@ -312,23 +318,33 @@ class WriteMail extends React.Component {
         
         <CardContent >
 		  <Typography style={{ marginLeft: 8 }}>
-			<TextField
-			  required
-			  id="to"
-			  label="To"
-			  className={classes.textField}
+		  <FormControl margin="normal" required fullWidth>
+            
+            <TextField
+				required
+				id="to"
+				label="To"
+				name="to"
+				value={this.state.to}
+				className={classes.textField}
 				margin="dense"
 				fullWidth
 				onChange={e => { 
+					
 					this.to = e.target.value; 
 					e.stopPropagation();
 					e.nativeEvent.stopImmediatePropagation();
+					this.handleChange();
+					console.log("this.to: " + this.to)
+					console.log("state.to: " + this.state.to)
 				}}
 				defaultValue={this.props.replyInfo ? this.props.replyInfo.from : null}
 				autoFocus={!this.props.replyInfo}
 			/>
+          </FormControl>
+			
 		  </Typography>
-		  <Typography style={{ marginLeft: 8 }}>
+		  <Typography style={{ marginLeft: 8 }} >
 			<TextField
 			  required
 			  id="subject"
@@ -366,7 +382,6 @@ class WriteMail extends React.Component {
 					shrink: true,
 					}}
 
-					//onChange={this.handleChange('numberformat')}
 
 					onChange={event => { 
 						this.content = event.target.value;
@@ -376,34 +391,18 @@ class WriteMail extends React.Component {
 					}}
 
 					autoFocus={this.props.replyInfo}
-					//InputProps={{
-					//	inputComponent: NumberFormatCustom,
-					//}}
+
 				/>
 				}		
-				{/*<span id="my-helper-text">We'll never share your email.</span>*/}
 			</div>
 
-			{/*
-			<div class="form-control">  
-			  <TextField 
-				id="my-input" 
-				aria-describedby="my-helper-text" 
-				value={numberformat}
-				onChange={this.handleChange('numberformat')}
-				InputProps={{
-					inputComponent: NumberFormatCustom,
-
-
-			  />
-			</div>*/}
 			
 		  </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing style={{justifyContent: 'center'}}>
 		  <MuiThemeProvider theme={theme}>
 			<Button variant="contained" color="primary" className={classes.margin} style={{ marginBottom: 20  }} 
-				onClick={this.onSendClicked}>
+				onClick={this.onSendClicked} disabled={this.to}>
 				SEND
 			</Button>
 		  </MuiThemeProvider>

@@ -79,6 +79,15 @@ class SimpleSnackbar extends React.Component {
     }
   };
 
+  handleActualClose = (event, reason) => {
+  	  if (reason === 'clickaway') {
+	  	  return;
+	  }
+	  this.setState({
+		open:false
+	  });
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -89,7 +98,7 @@ class SimpleSnackbar extends React.Component {
             horizontal: 'right',
           }}
           open={this.state.open}
-          autoHideDuration={6000}
+          autoHideDuration={4000}
           onClose={this.handleClose.bind(this)}
           ContentProps={{
             'aria-describedby': 'message-id',
@@ -108,7 +117,7 @@ class SimpleSnackbar extends React.Component {
 				  aria-label="Close"
 				  color="primary"
 				  className={classes.close}
-				  onClick={this.handleClose.bind(this)}
+				  onClick={this.handleActualClose.bind(this)}
 				>
 				  <CloseIcon />
 				</IconButton>

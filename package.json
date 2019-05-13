@@ -13,7 +13,8 @@
     "react-number-format": "^4.0.8",
     "react-render-html": "^0.6.0",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "3.0.0"
+    "react-scripts": "3.0.0",
+    "yarn": "^1.16.0"
   },
   "scripts": {
     "start": "react-scripts start",
