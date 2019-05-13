@@ -86,13 +86,10 @@ const styles = theme => ({
   }
 
   handleKeyup=e=>{
-    if(e.keyCode===8){
+    if(e.keyCode===8 || e.keyCode === 37 || e.keyCode === 27){
       this.props.onBack();
     }
 
-    if(e.keyCode===68){
-        this.props.onBack();
-    }
 
   }
 
