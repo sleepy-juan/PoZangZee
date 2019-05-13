@@ -16,7 +16,6 @@ import firebase from 'firebase';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import NumberFormat from 'react-number-format';
-import FormControl from '@material-ui/core/FormControl';
 
 const styles = theme => ({
   card: {

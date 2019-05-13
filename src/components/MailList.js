@@ -194,7 +194,7 @@ class CheckboxList extends React.Component {
       }
 
       //when pressed enter
-      if(e.keyCode==13){
+      if(e.keyCode===13){
         this.readMail(this.state.mails[this.state.index])();
       }
 
@@ -214,11 +214,11 @@ class CheckboxList extends React.Component {
 
   handleKeyup=e=>{
     if(!this.state.compose && !window.compose){
-      if(e.keyCode==82){
+      if(e.keyCode===82){
         this.onDirectReplied(this.state.mails[this.state.index])();
       }
 
-      if(e.keyCode==8 && this.state.mails.length>0){
+      if(e.keyCode===8 && this.state.mails.length>0){
         var mails = this._sortMails(this.state.mails);
         var mail = mails[this.state.index];
 

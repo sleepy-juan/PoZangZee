@@ -15,8 +15,9 @@ const theme = createMuiTheme({
 
 const styles = theme => ({
     fab: {
-        margin: theme.spacing.unit * 8,
+        margin: "25%",
         color: "white",
+        width: "50%",
     },
 });
 
