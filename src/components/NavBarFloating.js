@@ -6,7 +6,7 @@ import Fab from '@material-ui/core/Fab';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import WriteMail from './WriteMail';
 import MailSentPopup from './MailSentPopup';
-
+import Format from './Format'
 const theme = createMuiTheme({
   palette: {
     primary: { main: "#FA7268" }, // Purple and green play nicely together.
@@ -22,36 +22,43 @@ const styles = theme => ({
 
 class FabButton extends React.Component{
   state = {
-    compose: false
+    compose: false,
+    isFormat: false
   }
   
   render() {
     const { classes } = this.props;
+
     return (
+      <div>
       <MuiThemeProvider theme={theme}>
           <Fab size="large" variant="extended" aria-label="Add" color="primary" className={classes.fab}
             onClick={() => {
+              window.compose = !this.state.compose;
               this.setState({
                 compose: !this.state.compose
-              })
+              });
             }}
           >
               Compose
           </Fab>
-          {this.state.compose ? <WriteMail onClose={() => {
+          {this.state.compose ? <WriteMail onJustClose={()=>{
             this.setState({
               compose: false
-            })
-
-			this.setState({
-				popup: true
-			})
-          }} /> : null}
-		  {
-		  	  this.state.popup?
-			  <MailSentPopup /> : null
-		  }
+            });
+            window.compose = false;
+          }} onClose={() => {
+            this.setState({
+              compose: false,
+              popup: true
+            });
+            window.compose = false;
+            }} /> : null}
+          {this.state.popup ? <MailSentPopup onPopupClosed={()=>this.setState({popup: false})} /> : null}
       </MuiThemeProvider>
+      
+      {this.state.isFormat ? <Format context = {this.content}/> : null}
+      </div>
     );
   }
 }

@@ -9,8 +9,11 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 
-import TextInput from '../components/TextInput';
+import TextInput from './TextInput';
 import { isUndefined } from 'util';
+
+import queryString from 'query-string';
+import firebase from 'firebase';
 
 const DialogTitle = withStyles(theme => ({
   root: {
@@ -62,7 +65,8 @@ class CustomizedDialogDemo extends React.Component {
     this.state = {
       open: true,
       hightext: [],
-      num: 0
+      num: 0,
+      text: ""
 
     }
     
@@ -72,25 +76,14 @@ class CustomizedDialogDemo extends React.Component {
   highlight = (event) => {
     
 
-    var sel = window.getSelection(), range;
-    if (sel.getRangeAt) {
-        console.log(sel)
-
-        range = sel.getRangeAt(0);
-         
-    }
+    var sel = window.getSelection();
     
-    var length =0;
     var startIndex, endIndex;
     var previous = 0;
     
     let current = sel.anchorNode;
     let current_end = sel.focusNode;
     
-  
-    
-    
-
     /* get highlited index of the text */
     if (this.state.hightext.length === 0) {
       startIndex = sel.anchorOffset;
@@ -241,7 +234,7 @@ class CustomizedDialogDemo extends React.Component {
     console.log(indexTable);
     //console.log(this.state.hightext)
 
-    var html = this.ref.innerHTML;
+    html = this.ref.innerHTML;
     html = html.slice(0, endIndex+13*index) + "</mark>" + html.slice(endIndex+13*index);
     html = html.slice(0, startIndex+13*index) + "<mark>" + html.slice(startIndex+13*index);
     this.ref.innerHTML = html;
@@ -266,10 +259,22 @@ class CustomizedDialogDemo extends React.Component {
     });
   };
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
 
+
+
+  saveFormat = () => {
+    const query = queryString.parse(window.location.search);
+    var username = query.username;
+    var name = this.state.text;
+    var context = this.props.context;
+    var index = this.state.hightext;
+   
+    
+    var format = firebase.database().ref(`/${username}/format`).push();
+		format.set({name, context, index, time: new Date().getTime()});
+
+    this.setState({ open: false });
+  }
   
 
   render() {
@@ -284,10 +289,7 @@ class CustomizedDialogDemo extends React.Component {
           <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
             save format: Highlight the part you wish to change
           </DialogTitle>
-        <TextInput text = "FormatName" id="Format-name" />
-        <TextInput text = "Subject" id="Subject" />
-
-
+        <TextInput onChangeText={(text) => this.setState({text})} text = "FormatName" id="Format-name" />
           <DialogContent>
             
             <Typography gutterBottom>
@@ -296,24 +298,14 @@ class CustomizedDialogDemo extends React.Component {
             <Typography gutterBottom>
               
             </Typography>
-            <p ref={c=>this.ref = c} id='content' onClick={this.highlight} rows='15' style={{width: "100%"}} >
-            
-             Cras consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-              facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
-              at eros.
-
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-              lacus vel augue laoreet rutrum faucibus dolor auctor.
-              Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-              scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-              auctor fringilla.
-              blahblahblahblah
-
+            <p ref={c=>this.ref = c}  id='content' onClick={this.highlight} rows='15' style={{width: "100%"}} >
+              {this.props.context}
+      
             </p>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Save changes
+            <Button onClick={this.saveFormat} color="primary">
+              Save format
             </Button>
           </DialogActions>
         </Dialog>

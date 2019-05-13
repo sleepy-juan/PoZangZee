@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 //import { withStyles } from '@material-ui/core/styles';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
 import CloseIcon from '@material-ui/icons/Clear';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
+import Format from './Format';
+
 
 
 const theme = createMuiTheme({
@@ -30,7 +30,7 @@ const styles = theme => ({
 class SimpleSnackbar extends React.Component {
   state = {
     open: true,
-	vertical: 'bottom',
+	  vertical: 'bottom',
     horizontal: 'right',
   };
 
@@ -43,12 +43,21 @@ class SimpleSnackbar extends React.Component {
       return;
     }
 
-    this.setState({ open: false });
+    this.setState({ 
+      open: false
+      
+    });
+    if(this.props.deliverFormat) {
+      this.props.deliverFormat(true);
+    }
+
+    if(this.props.onPopupClosed){
+      this.props.onPopupClosed();
+    }
   };
 
   render() {
     const { classes } = this.props;
-	const { vertical, horizontal, open } = this.state;
     return (
       <div>
         <Snackbar
@@ -58,14 +67,14 @@ class SimpleSnackbar extends React.Component {
           }}
           open={this.state.open}
           autoHideDuration={6000}
-          onClose={this.handleClose}
+          onClose={this.handleClose.bind(this)}
           ContentProps={{
             'aria-describedby': 'message-id',
           }}
           message={<span id="message-id">Email Sent. Do you want to save format?</span>}
           action={[
 		    <MuiThemeProvider theme={theme}>
-				<Button color="primary" size="small" style={{ marginRight: 5 }} onClick={this.handleClose}>
+				<Button color="primary" size="small" style={{ marginRight: 5 }} onClick={this.handleClose.bind(this)}>
 					Save Format
 				  </Button>
 			</MuiThemeProvider>,
@@ -75,13 +84,15 @@ class SimpleSnackbar extends React.Component {
 				  aria-label="Close"
 				  color="primary"
 				  className={classes.close}
-				  onClick={this.handleClose}
+				  onClick={this.handleClose.bind(this)}
 				>
 				  <CloseIcon />
 				</IconButton>
 			</MuiThemeProvider>,
           ]}
         />
+
+        {this.state.isFormat ? <Format context = {this.props.content}/> : null}
       </div>
     );
   }

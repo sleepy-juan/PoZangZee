@@ -13,7 +13,6 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Clear';
 import queryString from 'query-string';
 import firebase from 'firebase';
-import MailSentPopup from './MailSentPopup';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import NumberFormat from 'react-number-format';
@@ -91,19 +90,24 @@ NumberFormatCustom.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-class ReadMail extends React.Component {
+
+class WriteMail extends React.Component {
+	constructor(props){
+		super(props);
+
+		this.content = '';
+	}
+
   state = {
 	expanded: false,
 	popup: false
    }
 
   onSendClicked = () => {
-    this.setState({popup: true});
-	if(this.props.onClose){
-		this.props.onClose();
-		this.sendMail();
-		
-	}
+		if(this.props.onClose){
+			this.props.onClose();
+			this.sendMail();
+		}
   }
 
 
@@ -120,31 +124,41 @@ class ReadMail extends React.Component {
 		var content = this.content;
 
 		var sent = firebase.database().ref(`/${from}/sent`).push();
-		sent.set({from, to, subject, content, id: sent.key});
+		sent.set({from, to, subject, content, id: sent.key, sent: new Date().getTime()});
 
 		var inbox = firebase.database().ref(`/${to}/inbox`).push();
-		inbox.set({from, to, subject, content, id: inbox.key});
+		inbox.set({from, to, subject, content, id: inbox.key, sent: new Date().getTime()});
 
-		if(this.props.onClose){
-			this.props.onClose();
+		if(this.props.replyInfo){
+			firebase.database().ref(`/${from}/inbox/${this.props.replyInfo.id}`).update({
+				replied: new Date().getTime()
+			})
 		}
 	}
 
 
   state = {
     anchorEl: null,
+<<<<<<< HEAD
 	numberformat: '1320',
+=======
+>>>>>>> 331836372705e3698ba18424f2f8c33712886a98
   };
 
   handleClick = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleClose = (ev) => {
+  handleClose = () => {
     this.setState({ anchorEl: null });
 	//get info from db and fill onto the email context
-	this.setState({value: ev.nativeEvent.target.outerText})
+	this.setState({value: this.nativeEvent.target.outerText})
   };
+/* Hyunchang Tried to make shortkey here, but failed. How does handleClose() work??
+	componentDidMount(){
+		document.addEventListener('keyup', this.handleKeyup);
+	}
+
 
   handleChange = name => event => {
     this.setState({
@@ -152,13 +166,24 @@ class ReadMail extends React.Component {
     });
   };
 
+
+	handleKeyup=e=>{
+		if(e.keyCode===27){
+			this.setState({
+				expanded: false,
+				popup: false,
+			})
+		}
+	}
+	*/
+
   render() {
     const { classes } = this.props;
 	const { anchorEl, numberformat } = this.state;
 
     return (
-      <Card className={classes.card}>
-		{this.state.popup ? <MailSentPopup ></MailSentPopup> : null}
+			<div>
+				<Card className={classes.card}>
 	    
         <CardHeader 
 		  style={{ marginLeft: 8 }}
@@ -185,8 +210,8 @@ class ReadMail extends React.Component {
 				<MuiThemeProvider theme={theme}>
 					<Fab size="small" color="primary" aria-label="Add" className={classes.margin}
 						onClick={() => {
-							if(this.props.onClose){
-								this.props.onClose();
+							if(this.props.onJustClose){
+								this.props.onJustClose();
 							}
 						}}
 					>
@@ -207,7 +232,11 @@ class ReadMail extends React.Component {
 			  className={classes.textField}
 				margin="dense"
 				fullWidth
-				onChange={event => { this.to = event.target.value; }}
+				onChange={e => { 
+					this.to = e.target.value; 
+					e.stopPropagation();
+					e.nativeEvent.stopImmediatePropagation();
+				}}
 				defaultValue={this.props.replyInfo ? this.props.replyInfo.from : null}
 				autoFocus={!this.props.replyInfo}
 			/>
@@ -242,7 +271,16 @@ class ReadMail extends React.Component {
 			  InputLabelProps={{
 				shrink: true,
 				}}
-				onChange={this.handleChange('numberformat')}
+
+				//onChange={this.handleChange('numberformat')}
+
+				onChange={event => { 
+					this.content = event.target.value;
+					if(this.props.deliverContent){
+						this.props.deliverContent(this.content);
+					}
+				}}
+
 				autoFocus={this.props.replyInfo}
 				InputProps={{
 					inputComponent: NumberFormatCustom,
@@ -280,12 +318,14 @@ class ReadMail extends React.Component {
         </CardActions>
         
       </Card>
+			</div>
+      
     );
   }
 }
 
-ReadMail.propTypes = {
+WriteMail.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ReadMail);
+export default withStyles(styles)(WriteMail);

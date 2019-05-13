@@ -31,7 +31,7 @@ class InputAdornments extends React.Component {
     return (
       <div className={classes.root}>
         <TextField
-          
+          onChange={e => this.props.onChangeText(e.target.value)}
           id="simple-start-adornment"
           className={classNames(classes.margin, classes.textField)}
           InputProps={{

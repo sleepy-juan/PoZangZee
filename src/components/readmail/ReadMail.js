@@ -7,7 +7,6 @@ import './readmail.css';
 import Button2 from './button.js'
 import NavigationIcon from '@material-ui/icons/Navigation';
 import Fab from '@material-ui/core/Fab';
-import Dropdown from './dropdown.js';
 import $ from 'jquery';
 import queryString from 'query-string';
 import firebase from 'firebase';
@@ -49,7 +48,7 @@ const styles = theme => ({
         textAlign: 'justify',
         position: 'absolute',
         lineHeight:1,
-        height: "100%"
+        height: "90%"
     },
     text2:{
         position:'absolute',
@@ -65,8 +64,11 @@ const styles = theme => ({
     },
     fab:{
         position:'fixed',
-        right: 30,
-        bottom:30,
+        bottom:'6%',
+        right:'6%',
+        
+
+        backgroundColor:"#FA7268",
         color:'white',
     },
     
@@ -111,12 +113,12 @@ class PaperSheet extends React.Component{
         <Button2 onBack={this.props.onBack} onDelete={this.onDelete.bind(this)}/>
             <div className={classes.text}>
           <Typography variant="h5" component="h3">
-              {this.props.mail.subject} <Dropdown/> 
+              {this.props.mail.subject}
           </Typography>
           <br/>
           <Typography component="p">
             <b> {this.props.mail.from} </b> 	&lt;{this.props.mail.from}@pozangzee.com&gt;
-            <a href="www.google.com"> Block </a> <span className={classes.text3}> Received {this.props.mail.sent} </span> <span className={classes.text2}> </span>
+            <span className={classes.text3}> Received {this.props.mail.sent} </span> <span className={classes.text2}> </span>
           </Typography>
           <Typography component="p" className={classes.text2}>
           

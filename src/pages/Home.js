@@ -6,7 +6,6 @@ import ReadMail from '../components/readmail/ReadMail'
 import NavBar from '../components/NavBar';
 import MailList from '../components/MailList';
 
-
 const drawerWidth = 270;
 const styles = theme => ({
   root: {
@@ -50,7 +49,7 @@ class PermanentDrawerLeft extends React.Component{
             <MailList onRead={mail => this.setState({mail, readMail: true})} selected={this.state.selected_menu} />}
           </main>
         </div>
-    );
+    ); // <Format />
   }
 }
 
