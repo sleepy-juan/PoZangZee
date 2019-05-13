@@ -18,6 +18,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import NumberFormat from 'react-number-format';
 import FormControl from '@material-ui/core/FormControl';
 
+
 const styles = theme => ({
   card: {
 		maxWidth: 600,
@@ -153,9 +154,10 @@ class WriteMail extends React.Component {
 	//get info from db and fill onto the email context
 	this.setState({value: this.nativeEvent.target.outerText})
   };
-/* Hyunchang Tried to make shortkey here, but failed. How does handleClose() work??
+
 	componentDidMount(){
 		document.addEventListener('keyup', this.handleKeyup);
+		document.addEventListener('keydown', this.handleKeydown);
 	}
 
 
@@ -165,16 +167,19 @@ class WriteMail extends React.Component {
     });
   };
 
-
+	
 	handleKeyup=e=>{
 		if(e.keyCode===27){
-			this.setState({
-				expanded: false,
-				popup: false,
-			})
+			this.props.onJustClose();
 		}
 	}
-	*/
+/*
+	handleKeydown=e=>{
+		var keymap = {};
+		map[e.keyCode] = true;
+		onSendClicked
+	}
+*/
 
   render() {
     const { classes } = this.props;
@@ -199,7 +204,8 @@ class WriteMail extends React.Component {
 					  id="simple-menu"
 					  anchorEl={anchorEl}
 					  open={Boolean(anchorEl)}
-					  onClose={this.handleClose}
+						onClose={this.handleClose}
+						
 					>
 					  <MenuItem onClick={this.handleClose}>Format1</MenuItem>
 					  <MenuItem onClick={this.handleClose}>Format2</MenuItem>
