@@ -139,10 +139,7 @@ class WriteMail extends React.Component {
 
   state = {
     anchorEl: null,
-<<<<<<< HEAD
 	numberformat: '1320',
-=======
->>>>>>> 331836372705e3698ba18424f2f8c33712886a98
   };
 
   handleClick = event => {
@@ -296,6 +293,12 @@ class WriteMail extends React.Component {
 				InputProps={{
 					inputComponent: NumberFormatCustom,
 				}}*/
+				onChange={event => { 
+					this.content = event.target.value;
+					if(this.props.deliverContent){
+						this.props.deliverContent(this.content);
+					}
+				}}
 				style={{ marginTop: 40, height: 160}}
 				placeholder="Enter here"
 				fullWidth

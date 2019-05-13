@@ -53,8 +53,11 @@ class FabButton extends React.Component{
               popup: true
             });
             window.compose = false;
-            }} /> : null}
-          {this.state.popup ? <MailSentPopup onPopupClosed={()=>this.setState({popup: false})} /> : null}
+            }}
+            deliverContent={(content) =>this.content = content} 
+            /> : null}
+          {this.state.popup ? <MailSentPopup onPopupClosed={()=>this.setState({popup: false})}
+          deliverFormat={(isFormat) => this.setState({isFormat}) } /> : null}
       </MuiThemeProvider>
       
       {this.state.isFormat ? <Format context = {this.content}/> : null}
