@@ -43,7 +43,6 @@ class CheckboxList extends React.Component {
     mails: [],
     compose: false,
     index:0,
-    alwaystrue: true,
   };
 
   _sortCategoryMail(mails){
@@ -81,21 +80,30 @@ class CheckboxList extends React.Component {
   componentDidMount(){
     const query = queryString.parse(window.location.search);
     var user = query.username;
-    document.addEventListener('keydown', this.handleKeydown);
-    document.addEventListener('keyup', this.handleKeyup);
+    
     firebase.database().ref(`/${user}/inbox`).once('value').then(snapshot => {
       if(snapshot.val() === null) return;
 
       var keys = Object.keys(snapshot.val());
       var mails = keys.map(key => snapshot.val()[key]);
+
+      console.log("this isdddd the length")
+      console.log(this.state.mails.length)
       this.setState({
         mails
       })
+    
+    document.addEventListener('keyup', this.handleKeyup);
     });
+
+    console.log("this is the length")
+    console.log(this.state.mails.length)
 
   }
 
   componentWillReceiveProps(props){
+    console.log("this is the length")
+    console.log(this.state.mails.length)
     var selected = props.selected;
     const query = queryString.parse(window.location.search);
     var user = query.username;
@@ -107,7 +115,7 @@ class CheckboxList extends React.Component {
         var keys = Object.keys(snapshot.val());
         var mails = keys.map(key => snapshot.val()[key]);
 		
-		window.mails = mails;
+		
         this.setState({
           mails
         })
@@ -164,8 +172,16 @@ class CheckboxList extends React.Component {
 
 //This function Makes you Move up and down the focus by pressing up and down arrow key (Made by Hyunchang)
   handleKeydown = e => {
+    
+  }
+
+  handleKeyup=e=>{
+    console.log("this is the length")
+    console.log(this.state.mails.length)
     console.log(e.keyCode);	
-    if(!this.state.compose && this.state.mails.length>0 && !window.compose){
+    var mails = this._sortMails(this.state.mails);
+    var mail = mails[this.state.index];
+    if(!this.state.compose && mails.length>0 && !window.compose){
         //when up
       if(e.keyCode===40){
         if(this.state.index+1 !== this.state.mails.length){
@@ -184,8 +200,7 @@ class CheckboxList extends React.Component {
       if(e.keyCode===38){
         
         if(this.state.index-1 === -1){
-          var mails = this._sortMails(this.state.mails);
-          var mail = mails[this.state.index];
+          
 
           this.setState({
             index : mails.length-1,
@@ -199,17 +214,15 @@ class CheckboxList extends React.Component {
       }
 
       //when pressed enter
-      if(e.keyCode==13){
-        var mails = this._sortMails(this.state.mails);
-        var mail = mails[this.state.index];
+      if(e.keyCode===13){
+        this.readMail(mail)();
+      }
 
+      if(e.keyCode===39){
         this.readMail(mail)();
       }
 
       if(e.keyCode===73||e.keyCode===75){
-        var mails = this._sortMails(this.state.mails);
-        var mail = mails[this.state.index];
-
         if(mail.replied){
           this.onKept(mail)();
         }
@@ -218,22 +231,15 @@ class CheckboxList extends React.Component {
         }
       }
     }
-  }
-
-  handleKeyup=e=>{
     if(!this.state.compose && !window.compose){
-      var mails = this._sortMails(this.state.mails);
-      var mail = mails[this.state.index];
-      if(e.keyCode==82){
+      
+      
+      if(e.keyCode===82){
         this.onDirectReplied(mail)();
       }
 
-      if(e.keyCode===68 && this.state.mails.length>0){
-        var mails = this._sortMails(this.state.mails);
-        var mail = mails[this.state.index];
-
+      if(e.keyCode===68){
         this.onDeleted(mail)();
-        
       }
     }
   }
@@ -302,6 +308,7 @@ class CheckboxList extends React.Component {
     const query = queryString.parse(window.location.search);
     var user = query.username;
     const {from, to, id} = mail;
+
     if(from === user){
       firebase.database().ref(`/${user}/sent/${id}`).once('value').then(snapshot => {
         if(snapshot.val() === null) return 0;

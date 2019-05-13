@@ -278,6 +278,16 @@ class CustomizedDialogDemo extends React.Component {
 
     this.setState({ open: false });
   }
+
+  handleClose = () => {
+    this.setState({
+      open: false
+    });
+
+    if(this.props.onFormatClosed){
+      this.props.onFormatClosed();
+    }
+  }
   
 
   render() {
@@ -288,15 +298,10 @@ class CustomizedDialogDemo extends React.Component {
           aria-labelledby="customized-dialog-title"
           open={this.state.open}
         >
-        <DialogActions>
-            <Button onClick={() => this.setState({open: false})} color="primary">
-              Close
-            </Button>
-          </DialogActions>
-        
           <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-            save format: Highlight the part you wish to change
+            save format: Highlight the part you wish to change&nbsp; &nbsp; &nbsp; &nbsp; 
           </DialogTitle>
+          
         <TextInput onChangeText={(text) => this.setState({text})} text = "FormatName" id="Format-name" />
           <DialogContent>
             

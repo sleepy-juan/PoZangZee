@@ -189,7 +189,7 @@ class WriteMail extends React.Component {
 
   render() {
     const { classes } = this.props;
-	const { anchorEl, numberformat } = this.state;
+		const { anchorEl } = this.state;
 
     return (
 			<div>
