@@ -299,7 +299,7 @@ class CustomizedDialogDemo extends React.Component {
           open={this.state.open}
         >
           <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-            save format: Highlight the part you wish to change&nbsp; &nbsp; &nbsp; &nbsp; 
+            Save Format: Highlight the part you wish to change later&nbsp; &nbsp; &nbsp; &nbsp; 
           </DialogTitle>
           
         <TextInput onChangeText={(text) => this.setState({text})} text = "FormatName" id="Format-name" />
