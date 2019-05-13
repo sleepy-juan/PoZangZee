@@ -15,9 +15,13 @@ const theme = createMuiTheme({
 
 const styles = theme => ({
     fab: {
-        margin: theme.spacing.unit * 8,
+        margin: "25%",
         color: "white",
+        width: "50%",
     },
+	extendedIcon: {
+		marginRight: theme.spacing.unit,
+	},
 });
 
 class FabButton extends React.Component{
@@ -40,7 +44,7 @@ class FabButton extends React.Component{
               });
             }}
           >
-              Compose
+            Compose
           </Fab>
           {this.state.compose ? <WriteMail onJustClose={()=>{
             this.setState({

@@ -27,6 +27,8 @@ const styles = theme => ({
   },
 });
 
+
+
 class SimpleSnackbar extends React.Component {
   state = {
     open: true,
@@ -50,6 +52,7 @@ class SimpleSnackbar extends React.Component {
     if(this.props.deliverFormat) {
       this.props.deliverFormat(true);
     }
+	
 
     if(this.props.onPopupClosed){
       this.props.onPopupClosed();
@@ -75,6 +78,7 @@ class SimpleSnackbar extends React.Component {
           action={[
 		    <MuiThemeProvider theme={theme}>
 				<Button color="primary" size="small" style={{ marginRight: 5 }} onClick={this.handleClose.bind(this)}>
+				
 					Save Format
 				  </Button>
 			</MuiThemeProvider>,
