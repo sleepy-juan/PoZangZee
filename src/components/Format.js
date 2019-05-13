@@ -260,13 +260,14 @@ class CustomizedDialogDemo extends React.Component {
     var context = this.props.context;
 	//var context ="";
     var index = this.state.hightext;
-   
-   console.log(username, name, context, index);
     
     var format = firebase.database().ref(`/${username}/format`).push();
 		format.set({name, context, index, time: new Date().getTime()});
 
     this.setState({ open: false });
+    if(this.props.resetIsformat) {
+      this.props.resetIsformat();
+    }
   }
 
   handleClose = () => {
