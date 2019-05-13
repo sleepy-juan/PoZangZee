@@ -74,9 +74,26 @@ const styles = theme => ({
     
   });
 
-class PaperSheet extends React.Component{
-  state = {
+
+  class PaperSheet extends React.Component{
+    state = {
     compose: false,
+    forrerender: true,
+    }
+  
+  componentWillMount(){
+    document.addEventListener('keyup', this.handleKeyup);
+  }
+
+  handleKeyup=e=>{
+    if(e.keyCode===8){
+      this.props.onBack();
+    }
+
+    if(e.keyCode===68){
+        this.props.onBack();
+    }
+
   }
 
   onDelete(){
@@ -103,6 +120,10 @@ class PaperSheet extends React.Component{
     }
   }
   
+
+  on
+
+
   render() {
     const { classes } = this.props;
   
@@ -110,7 +131,7 @@ class PaperSheet extends React.Component{
         
       <div>
         <Paper className={classes.read} elevation={1}>
-        <Button2 onBack={this.props.onBack} onDelete={this.onDelete.bind(this)}/>
+        <Button2 onBack={this.props.onBack} onDelete={this.onDelete.bind(this)} ref="backbutton"/>
             <div className={classes.text}>
           <Typography variant="h5" component="h3">
               {this.props.mail.subject}

@@ -300,6 +300,19 @@ class CustomizedDialogDemo extends React.Component {
             </Typography>
             <p ref={c=>this.ref = c}  id='content' onClick={this.highlight} rows='15' style={{width: "100%"}} >
               {this.props.context}
+              Dear All, 
+              I will hand out your HW 2 sheets in Monday's class. If you miss the class or have some questions, you can visit one of following two sessions.
+
+              1. Mon, May 13, 8:00PM ~ 9:30PM, N1 403
+
+              2. Thu, May 16, 4:00PM ~ 5:30PM, E3-1 3420
+
+              In case you cannot make it for some special reason, please contact me via email by the middle of next week. 
+
+
+              Thanks, 
+
+              Hangyeol Yu
       
             </p>
           </DialogContent>

@@ -139,7 +139,7 @@ class WriteMail extends React.Component {
   state = {
     anchorEl: null,
 
-	numberformat: '1320',
+		numberformat: '1320',
 
   };
 
@@ -253,55 +253,54 @@ class WriteMail extends React.Component {
 			
 		  </Typography>
 		  <Typography>
-						
-			<TextField
-
-			  ref="context"
-			  label=""
-			  value={numberformat}
-			  style={{ marginTop: 40, height: 160}}
-			  placeholder="Enter here"
-			  fullWidth
-			  multiline={true}
-			  rows={6}
-			  marginTop="normal"
-			  variant="outlined"
-			  InputLabelProps={{
-				shrink: true,
-				}}
-
-				//onChange={this.handleChange('numberformat')}
-
-				onChange={event => { 
-					this.content = event.target.value;
-					if(this.props.deliverContent){
-						this.props.deliverContent(this.content);
-					}
-				}}
-
-				autoFocus={this.props.replyInfo}
-				InputProps={{
-					inputComponent: NumberFormatCustom,
-				  }}
-			/>
 			<div class="form-control">
-			  <label for="my-input"></label>
+			  <label for="my-input"></label>			
+				<TextField
+
+				  ref="context"
+				  label=""
+				  value={numberformat}
+				  style={{ marginTop: 40, height: 160}}
+				  placeholder="Enter here"
+				  fullWidth
+				  multiline={true}
+				  rows={6}
+				  marginTop="normal"
+				  variant="outlined"
+				  InputLabelProps={{
+					shrink: true,
+					}}
+
+					//onChange={this.handleChange('numberformat')}
+
+					onChange={event => { 
+						this.content = event.target.value;
+						if(this.props.deliverContent){
+							this.props.deliverContent(this.content);
+						}
+					}}
+
+					autoFocus={this.props.replyInfo}
+					InputProps={{
+						inputComponent: NumberFormatCustom,
+					  }}
+				/>
+				{/*<span id="my-helper-text">We'll never share your email.</span>*/}
+			</div>
+
+			{/*
+			<div class="form-control">  
 			  <TextField 
 				id="my-input" 
 				aria-describedby="my-helper-text" 
-				/*value={numberformat}
+				value={numberformat}
 				onChange={this.handleChange('numberformat')}
 				InputProps={{
 					inputComponent: NumberFormatCustom,
-				}}*/
-				style={{ marginTop: 40, height: 160}}
-				placeholder="Enter here"
-				fullWidth
-				multiline={true}
-				variant="outlined"
+
+
 			  />
-			  {/*<span id="my-helper-text">We'll never share your email.</span>*/}
-			</div>
+			</div>*/}
 			
 		  </Typography>
         </CardContent>
