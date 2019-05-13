@@ -346,7 +346,6 @@ class WriteMail extends React.Component {
 			
 		  </Typography>
 		  <Typography>
-
 			<div class="form-control">
 			  <label for="my-input"></label>	
 				{
@@ -369,10 +368,8 @@ class WriteMail extends React.Component {
 				  variant="outlined"
 				  InputLabelProps={{
 					shrink: true,
-
 					}}
 
-					//onChange={this.handleChange('numberformat')}
 
 					onChange={event => { 
 						this.content = event.target.value;
@@ -382,27 +379,11 @@ class WriteMail extends React.Component {
 					}}
 
 					autoFocus={this.props.replyInfo}
-					//InputProps={{
-					//	inputComponent: NumberFormatCustom,
-					//}}
+
 				/>
 				}		
-				{/*<span id="my-helper-text">We'll never share your email.</span>*/}
-			</FormControl>
+			</div>
 
-			{/*
-			<div class="form-control">  
-			  <TextField 
-				id="my-input" 
-				aria-describedby="my-helper-text" 
-				value={numberformat}
-				onChange={this.handleChange('numberformat')}
-				InputProps={{
-					inputComponent: NumberFormatCustom,
-
-
-			  />
-			</div>*/}
 			
 		  </Typography>
         </CardContent>
