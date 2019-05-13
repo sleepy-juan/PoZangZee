@@ -16,8 +16,7 @@ import firebase from 'firebase';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import NumberFormat from 'react-number-format';
-import FormattedInput from './FormattedInput';
-
+import $ from 'jquery';
 
 const styles = theme => ({
   card: {
@@ -107,6 +106,23 @@ class WriteMail extends React.Component {
    }
 
   onSendClicked = () => {
+		if(this.state.selected_format){
+			var format = this.state.selected_format;
+			var content = "";
+			var lastIndex = 0;
+			format.index.forEach((i, idx) => {
+					var s = i[0], e = i[1];
+					
+					content += format.context.slice(lastIndex, s);
+					content += $(`#input_${idx}`).val();
+
+					lastIndex = e;
+			});
+			content += format.context.slice(lastIndex, format.context.length);
+
+			this.content = content;
+		}
+
 		if(this.props.onClose){
 			this.props.onClose();
 			this.sendMail();
@@ -143,7 +159,8 @@ class WriteMail extends React.Component {
   state = {
     anchorEl: null,
 		numberformat: "This is a default.",
-		formats: []
+		formats: [],
+		html: ""
   };
 
   handleClick = event => {
@@ -208,6 +225,24 @@ class WriteMail extends React.Component {
 			selected_format: format
 		})
 		this.handleClose();
+
+		setTimeout(() => {
+			var html = "";
+			var lastIndex = 0;
+			format.index.forEach((i, idx) => {
+					var s = i[0], e = i[1];
+					
+					html += format.context.slice(lastIndex, s);
+					html += `<input id="input_${idx}" placeholder=${format.context.slice(s, e)} />`;
+
+					lastIndex = e;
+			});
+			html += format.context.slice(lastIndex, format.context.length);
+			
+			if(this.formatRef){
+					this.formatRef.innerHTML = html;
+			}
+		}, 100);
 	}
 
 
@@ -215,7 +250,7 @@ class WriteMail extends React.Component {
     const { classes } = this.props;
 		const { anchorEl } = this.state;
 
-		console.log(this.state.selected_format)
+		console.log(this.state.replyInfo)
 
     return (
 			<div>
@@ -299,7 +334,10 @@ class WriteMail extends React.Component {
 			  <label for="my-input"></label>	
 				{
 					this.state.selected_format ? 
-					<FormattedInput format = {this.state.selected_format} /> : 
+					<pre style={{fontFamily: "arial"}}>
+            <div ref={c => this.formatRef = c} style={{margin: "1em"}}>
+            </div>
+            </pre> : 
 					<TextField
 
 				  ref="context"
