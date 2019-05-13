@@ -14,6 +14,9 @@ const styles = theme => ({
     width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
+  underline:{
+    textDecoration:"underline",
+  },
   text: {
       maxWidth: "300px",
       font: "bold",
@@ -25,7 +28,7 @@ const styles = theme => ({
     backgroundColor: "#FFFFFF"
   },
   unreplied: {
-    backgroundColor: "#FA726810"
+    backgroundColor: "#FA726820"
   },
   rightIcon: {
     marginLeft: theme.spacing.unit,
@@ -380,20 +383,20 @@ class CheckboxList extends React.Component {
                   {
                     mail.replied ?
                     <Button color="primary" className={classes.button} onClick={this.onKept(mail)} >
-                    Keep
+                    <span className={classes.underline}>K</span>eep
                     <Icon className={classes.rightIcon}>check</Icon>
                   </Button> :
                     <Button color="primary" className={classes.button} onClick={this.onIgnored(mail)} >
-                    Ignore
+                    <span className={classes.underline}>I</span>gnore
                     <Icon className={classes.rightIcon}>clear</Icon>
                   </Button>
                   }
                   <Button color="secondary" className={classes.button} onClick={this.onDirectReplied(mail)}>
-                    Reply
+                  <span className={classes.underline}>R</span>eply
                     <Icon className={classes.rightIcon}>send</Icon>
                   </Button>
                   <Button className={classes.button} onClick={this.onDeleted(mail)}>
-                    Delete
+                  <span className={classes.underline}>D</span>elete
                     <Icon className={classes.rightIcon}>delete</Icon>
                   </Button>
                 </ListItemSecondaryAction>

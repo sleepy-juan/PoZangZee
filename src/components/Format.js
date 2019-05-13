@@ -288,6 +288,7 @@ class CustomizedDialogDemo extends React.Component {
 
 		if(window.keymap[13] && e.keyCode===17){
       window.keymap={};
+      window.format=false;
       this.saveFormat();
 			window.keymap={};
 		}
