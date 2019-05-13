@@ -17,7 +17,9 @@ const styles = theme => ({
   text: {
       maxWidth: "300px",
       font: "bold",
-      padding: "7px 14px 7px 14px"
+      padding: "7px 14px 7px 14px",
+      marginLeft: "15px",
+      marginRight: "15px"
   },
   replied: {
     backgroundColor: "#FFFFFF"
