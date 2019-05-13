@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -104,7 +104,8 @@ class CheckboxList extends React.Component {
   
         var keys = Object.keys(snapshot.val());
         var mails = keys.map(key => snapshot.val()[key]);
-        console.log(mails); window.mails = mails;
+		
+		window.mails = mails;
         this.setState({
           mails
         })
@@ -118,12 +119,17 @@ class CheckboxList extends React.Component {
         var mails = keys.map(key => snapshot.val()[key]);
         this.setState({
           mails
+		  
         })
       });
     }
 	else if (selected === "Formats") {
 		//add format list (add function in utils/Database.js)
-		this.setState({mails: ["a", "b"]})
+		console.log("Format column selected")
+		var formats = [{from: "Format Title 1", content: "Hello. This is juan.", sent: "1557697639820", subject: "Format Preview"}, {from: "Format Title 2", content: "Hello. This is juan.", sent: "1557697639820", subject: "Format Preview 2"}]
+		this.setState({
+			mails: formats
+		})
 	}
     else if(selected === 'Trash'){
       firebase.database().ref(`/${user}/trash`).once('value').then(snapshot => {
@@ -137,7 +143,7 @@ class CheckboxList extends React.Component {
       });
     }
     else {
-      this.setState({mails: [{from: "format title", content: "format content"}]})
+      this.setState({mails: [{from: "format title", subject: "format content"}]})
     }
   }
 
@@ -156,7 +162,7 @@ class CheckboxList extends React.Component {
 
 //This function Makes you Move up and down the focus by pressing up and down arrow key (Made by Hyunchang)
   handleKeydown = e => {
-    console.log(e.keyCode);
+    console.log(e.keyCode);	
     if(!this.state.compose && this.state.mails.length>0 && !window.compose){
         //when up
       if(e.keyCode===40){

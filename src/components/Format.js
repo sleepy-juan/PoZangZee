@@ -12,6 +12,9 @@ import Typography from '@material-ui/core/Typography';
 import TextInput from './TextInput';
 import { isUndefined } from 'util';
 
+import queryString from 'query-string';
+import firebase from 'firebase';
+
 const DialogTitle = withStyles(theme => ({
   root: {
     borderBottom: `1px solid ${theme.palette.divider}`,
@@ -62,7 +65,8 @@ class CustomizedDialogDemo extends React.Component {
     this.state = {
       open: true,
       hightext: [],
-      num: 0
+      num: 0,
+      text: ""
 
     }
     
@@ -255,10 +259,22 @@ class CustomizedDialogDemo extends React.Component {
     });
   };
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
 
+
+
+  saveFormat = () => {
+    const query = queryString.parse(window.location.search);
+    var username = query.username;
+    var name = this.state.text;
+    var context = this.props.context;
+    var index = this.state.hightext;
+   
+    
+    var format = firebase.database().ref(`/${username}/format`).push();
+		format.set({name, context, index, time: new Date().getTime()});
+
+    this.setState({ open: false });
+  }
   
 
   render() {
@@ -273,7 +289,7 @@ class CustomizedDialogDemo extends React.Component {
           <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
             save format: Highlight the part you wish to change
           </DialogTitle>
-        <TextInput text = "FormatName" id="Format-name" />
+        <TextInput onChangeText={(text) => this.setState({text})} text = "FormatName" id="Format-name" />
           <DialogContent>
             
             <Typography gutterBottom>
@@ -282,24 +298,27 @@ class CustomizedDialogDemo extends React.Component {
             <Typography gutterBottom>
               
             </Typography>
-            <p ref={c=>this.ref = c} id='content' onClick={this.highlight} rows='15' style={{width: "100%"}} >
-            
-             Cras consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-              facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
-              at eros.
+            <p ref={c=>this.ref = c}  id='content' onClick={this.highlight} rows='15' style={{width: "100%"}} >
+              {this.props.context}
+              Dear All, 
+              I will hand out your HW 2 sheets in Monday's class. If you miss the class or have some questions, you can visit one of following two sessions.
 
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-              lacus vel augue laoreet rutrum faucibus dolor auctor.
-              Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-              scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-              auctor fringilla.
-              blahblahblahblah
+              1. Mon, May 13, 8:00PM ~ 9:30PM, N1 403
 
+              2. Thu, May 16, 4:00PM ~ 5:30PM, E3-1 3420
+
+              In case you cannot make it for some special reason, please contact me via email by the middle of next week. 
+
+
+              Thanks, 
+
+              Hangyeol Yu
+      
             </p>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Save changes
+            <Button onClick={this.saveFormat} color="primary">
+              Save format
             </Button>
           </DialogActions>
         </Dialog>

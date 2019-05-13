@@ -44,11 +44,13 @@ class SimpleSnackbar extends React.Component {
     }
 
     this.setState({ 
-      open: false,
-      isFormat: true 
+      open: false
+      
     });
+    if(this.props.deliverFormat) {
+      this.props.deliverFormat(true);
+    }
 
-    console.log(this.props.onPopupClosed);
     if(this.props.onPopupClosed){
       this.props.onPopupClosed();
     }
@@ -90,7 +92,7 @@ class SimpleSnackbar extends React.Component {
           ]}
         />
 
-        {this.state.isFormat ? <Format /> : null}
+        {this.state.isFormat ? <Format context = {this.props.content}/> : null}
       </div>
     );
   }

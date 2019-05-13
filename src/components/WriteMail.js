@@ -15,6 +15,8 @@ import queryString from 'query-string';
 import firebase from 'firebase';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import NumberFormat from 'react-number-format';
+import FormControl from '@material-ui/core/FormControl';
 
 const styles = theme => ({
   card: {
@@ -60,6 +62,34 @@ const theme = createMuiTheme({
     useNextVariants: true,
   },
 });
+
+
+function NumberFormatCustom(props) {
+  const { inputRef, onChange, ...other } = props;
+
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={inputRef}
+      onValueChange={values => {
+        onChange({
+          target: {
+            value: values.value,
+          },
+        });
+      }}
+      thousandSeparator
+      prefix="$"
+	  format="(###) ###-####"
+    />
+  );
+}
+
+NumberFormatCustom.propTypes = {
+  inputRef: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
 
 class WriteMail extends React.Component {
 	constructor(props){
@@ -109,6 +139,9 @@ class WriteMail extends React.Component {
 
   state = {
     anchorEl: null,
+
+		numberformat: '1320',
+
   };
 
   handleClick = event => {
@@ -125,6 +158,14 @@ class WriteMail extends React.Component {
 		document.addEventListener('keyup', this.handleKeyup);
 	}
 
+
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
+
 	handleKeyup=e=>{
 		if(e.keyCode===27){
 			this.setState({
@@ -134,9 +175,10 @@ class WriteMail extends React.Component {
 		}
 	}
 	*/
+
   render() {
     const { classes } = this.props;
-	const { anchorEl } = this.state;
+	const { anchorEl, numberformat } = this.state;
 
     return (
 			<div>
@@ -212,10 +254,12 @@ class WriteMail extends React.Component {
 			
 		  </Typography>
 		  <Typography>
+						
 			<TextField
+
 			  ref="context"
 			  label=""
-			  value={this.state.value}
+			  value={numberformat}
 			  style={{ marginTop: 40, height: 160}}
 			  placeholder="Enter here"
 			  fullWidth
@@ -226,9 +270,46 @@ class WriteMail extends React.Component {
 			  InputLabelProps={{
 				shrink: true,
 				}}
-				onChange={event => { this.content = event.target.value; }}
+
+				//onChange={this.handleChange('numberformat')}
+
+				onChange={event => { 
+					this.content = event.target.value;
+					if(this.props.deliverContent){
+						this.props.deliverContent(this.content);
+					}
+				}}
+
 				autoFocus={this.props.replyInfo}
+				InputProps={{
+					inputComponent: NumberFormatCustom,
+				  }}
 			/>
+			<div class="form-control">
+			  <label for="my-input"></label>
+			  <TextField 
+				id="my-input" 
+				aria-describedby="my-helper-text" 
+				/*value={numberformat}
+				onChange={this.handleChange('numberformat')}
+				InputProps={{
+					inputComponent: NumberFormatCustom,
+				}}*/
+				onChange={event => { 
+					this.content = event.target.value;
+					if(this.props.deliverContent){
+						this.props.deliverContent(this.content);
+					}
+				}}
+				style={{ marginTop: 40, height: 160}}
+				placeholder="Enter here"
+				fullWidth
+				multiline={true}
+				variant="outlined"
+			  />
+			  {/*<span id="my-helper-text">We'll never share your email.</span>*/}
+			</div>
+			
 		  </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing style={{justifyContent: 'center'}}>
