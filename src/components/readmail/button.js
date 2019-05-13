@@ -19,8 +19,12 @@ const styles = theme => ({
   },
 });
 
+
+
 function IconButtons(props) {
   const { classes } = props;
+  
+
   return (
     <div>
       <IconButton className={classes.button} onClick={props.onBack} aria-label="Delete">
@@ -36,6 +40,7 @@ function IconButtons(props) {
     </div>
   );
 }
+
 
 IconButtons.propTypes = {
   classes: PropTypes.object.isRequired,
