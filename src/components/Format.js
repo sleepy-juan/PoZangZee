@@ -267,8 +267,10 @@ class CustomizedDialogDemo extends React.Component {
     var username = query.username;
     var name = this.state.text;
     var context = this.props.context;
+	//var context ="";
     var index = this.state.hightext;
    
+   console.log(username, name, context, index);
     
     var format = firebase.database().ref(`/${username}/format`).push();
 		format.set({name, context, index, time: new Date().getTime()});
@@ -300,7 +302,7 @@ class CustomizedDialogDemo extends React.Component {
             </Typography>
             <p ref={c=>this.ref = c}  id='content' onClick={this.highlight} rows='15' style={{width: "100%"}} >
               {this.props.context}
-              Dear All, 
+              {/*Dear All, 
               I will hand out your HW 2 sheets in Monday's class. If you miss the class or have some questions, you can visit one of following two sessions.
 
               1. Mon, May 13, 8:00PM ~ 9:30PM, N1 403
@@ -312,7 +314,7 @@ class CustomizedDialogDemo extends React.Component {
 
               Thanks, 
 
-              Hangyeol Yu
+              Hangyeol Yu*/}
       
             </p>
           </DialogContent>
