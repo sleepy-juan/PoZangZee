@@ -38,7 +38,7 @@ class FabButton extends React.Component{
       <MuiThemeProvider theme={theme}>
           <Fab size="large" variant="extended" aria-label="Add" color="primary" className={classes.fab}
             onClick={() => {
-              window.compose = !this.state.compose;
+              window.compose = true;
               this.setState({
                 compose: !this.state.compose
               });

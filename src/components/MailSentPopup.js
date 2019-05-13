@@ -36,6 +36,25 @@ class SimpleSnackbar extends React.Component {
     horizontal: 'right',
   };
 
+  componentDidMount(){
+    document.addEventListener('keyup', this.handleKeyup);
+		document.addEventListener('keydown', this.handleKeydown);
+  }
+
+  handleKeyup=e=>{
+    if(e.keyCode===83){
+      this.props.deliverFormat(true);
+      window.format=true;
+    }
+
+    
+  }
+  handleKeydown=e=>{
+
+		
+		
+	}
+
   handleClick = () => {
     this.setState({ open: true });
   };
@@ -51,6 +70,7 @@ class SimpleSnackbar extends React.Component {
     });
     if(this.props.deliverFormat) {
       this.props.deliverFormat(true);
+      window.compose=true;
     }
 	
 

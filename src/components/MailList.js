@@ -196,7 +196,7 @@ class CheckboxList extends React.Component {
     console.log(e.keyCode);	
     var mails = this._sortMails(this.state.mails);
     var mail = mails[this.state.index];
-    if(!this.state.compose && mails.length>0 && !window.compose){
+    if(!this.state.compose && mails.length>0 && !window.compose && !window.format){
         //when up
       if(e.keyCode===40){
         if(this.state.index+1 !== this.state.mails.length){
@@ -246,7 +246,7 @@ class CheckboxList extends React.Component {
         }
       }
     }
-    if(!this.state.compose && !window.compose){
+    if(!this.state.compose && !window.compose && !window.format){
       
       
       if(e.keyCode===82){
@@ -299,6 +299,7 @@ class CheckboxList extends React.Component {
   }
 
   onDirectReplied = mail => () => {
+    window.compose=true;
     this.setState({
       compose: true,
       replyInfo: mail,
@@ -306,6 +307,7 @@ class CheckboxList extends React.Component {
   }
 
   onDirectReplyClosed = mail => () => {
+    window.compose=false;
     var mails = this.state.mails;
     mails.forEach(fmail => {
       if(fmail.id === mail.id){

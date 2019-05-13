@@ -265,12 +265,43 @@ class CustomizedDialogDemo extends React.Component {
 		format.set({name, context, index, time: new Date().getTime()});
 
     this.setState({ open: false });
+    window.compose=false;
     if(this.props.resetIsformat) {
       this.props.resetIsformat();
     }
   }
+  componentDidMount(){
+    document.addEventListener('keyup', this.handleKeyup);
+		document.addEventListener('keydown', this.handleKeydown);
+  }
+  handleKeyup=e=>{
+		if(e.keyCode===27){
+			window.format=false;
+    this.setState({
+      open: false
+    });
 
+    if(this.props.onFormatClosed){
+      this.props.onFormatClosed();
+    }
+		}
+
+		if(window.keymap[13] && e.keyCode===17){
+      window.keymap={};
+      this.saveFormat();
+			window.keymap={};
+		}
+	}
+	
+	handleKeydown=e=>{
+
+		window.keymap[e.keyCode] = true;
+		
+		
+	}
+  
   handleClose = () => {
+    window.format=false;
     this.setState({
       open: false
     });
@@ -290,10 +321,10 @@ class CustomizedDialogDemo extends React.Component {
           open={this.state.open}
         >
           <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-            save format: Highlight the part you wish to change&nbsp; &nbsp; &nbsp; &nbsp; 
+            save format: Highlight the parts to be amended &nbsp; &nbsp; &nbsp; &nbsp; 
           </DialogTitle>
           
-        <TextInput onChangeText={(text) => this.setState({text})} text = "FormatName" id="Format-name" />
+        <TextInput  autoFocus={window.format} onChangeText={(text) => this.setState({text})} text = "FormatName" id="Format-name" />
           <DialogContent>
             
             <Typography gutterBottom>

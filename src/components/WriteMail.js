@@ -98,6 +98,7 @@ class WriteMail extends React.Component {
 		super(props);
 
 		this.content = '';
+		this.subject = '';
 	}
 
   state = {
@@ -106,6 +107,8 @@ class WriteMail extends React.Component {
    }
 
   onSendClicked = () => {
+		if(!this.to && !this.props.replyInfo) return;
+
 		if(this.state.selected_format){
 			var format = this.state.selected_format;
 			var content = "";
@@ -204,18 +207,27 @@ class WriteMail extends React.Component {
 
 	
 	handleKeyup=e=>{
-		if(e.keyCode===27){
-			this.props.onJustClose();
+		if(window.compose && !window.format){
+			if(e.keyCode===27){
+				window.compose=false;
+				this.props.onJustClose();
+			}
+	
+			if(window.keymap[13] && e.keyCode===17){
+				window.compose=false;
+				this.onSendClicked();
+				window.keymap={};
+			}
 		}
+		
 	}
 	
 	handleKeydown=e=>{
-
-		window.keymap[e.keyCode] = true;
-		if(window.keymap[13] && window.keymap[17]){
-			this.onSendClicked();
-			window.keymap={};
+		if(window.compose && !window.format){
+			window.keymap[e.keyCode] = true;
 		}
+		
+		
 		
 	}
 
