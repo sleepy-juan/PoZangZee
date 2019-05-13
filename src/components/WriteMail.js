@@ -139,7 +139,9 @@ class WriteMail extends React.Component {
 
   state = {
     anchorEl: null,
-	numberformat: '1320',
+
+		numberformat: '1320',
+
   };
 
   handleClick = event => {
