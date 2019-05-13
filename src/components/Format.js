@@ -136,9 +136,14 @@ class CustomizedDialogDemo extends React.Component {
 
     }
 
-
-    console.log("startIndex :",startIndex);
-    console.log("endIndex :", endIndex);
+    var temp;
+    if (endIndex < startIndex) {
+      temp = endIndex;
+      endIndex = startIndex;
+      startIndex = temp;
+    } else if (endIndex === startIndex) {
+      break;
+    }
 
     
     var indexTable =this.state.hightext;
@@ -147,27 +152,27 @@ class CustomizedDialogDemo extends React.Component {
 
     var index=0;
     if (indexTable.length === 0) {
-      console.log('case1')
+      
       indexTable.push([startIndex,endIndex])
     } else if (indexTable[indexTable.length-1][1] < startIndex) {
-      console.log('case2')
+     
       index = indexTable.length;
       indexTable.push([startIndex,endIndex]);
     }
 
     else if ( indexTable[0][0] > endIndex) {
-      console.log('case3')
+     
       indexTable.unshift([startIndex,endIndex])
       
     } else {
-      console.log("case4")
+     
 
       var table_startIndex, table_endIndex;
 
       var j=0;
-      console.log(indexTable.length)
+     
       while (j< indexTable.length) {
-        console.log(j)
+       
         if (startIndex <= indexTable[j][1]) {
           table_startIndex = j;
           break;
@@ -178,12 +183,12 @@ class CustomizedDialogDemo extends React.Component {
       index = j;
       
       if (endIndex < indexTable[j][0]) {
-        console.log('case4-1')
+     
         indexTable.splice(j,0,[startIndex,endIndex]);
         
 
       } else {
-        console.log('case4-2')
+       
         var k = indexTable.length -1;
 
         while (k >= j) {
@@ -227,13 +232,6 @@ class CustomizedDialogDemo extends React.Component {
       }
 
     }
-      
-  
-
-    
-
-    console.log(indexTable);
-    //console.log(this.state.hightext)
 
     html = this.ref.innerHTML;
     html = html.slice(0, endIndex+13*index) + "</mark>" + html.slice(endIndex+13*index);
@@ -241,26 +239,18 @@ class CustomizedDialogDemo extends React.Component {
     this.ref.innerHTML = html;
 
 
-    
-
     this.setState({
       hightext: indexTable,
       num: this.state.num + 1
 
     })
-
-   
   }
-
-  
 
   handleClickOpen = () => {
     this.setState({
       open: true,
     });
   };
-
-
 
 
   saveFormat = () => {
@@ -313,19 +303,6 @@ class CustomizedDialogDemo extends React.Component {
             </Typography>
             <p ref={c=>this.ref = c}  id='content' onClick={this.highlight} rows='15' style={{width: "100%"}} >
               {this.props.context}
-              {/*Dear All, 
-              I will hand out your HW 2 sheets in Monday's class. If you miss the class or have some questions, you can visit one of following two sessions.
-
-              1. Mon, May 13, 8:00PM ~ 9:30PM, N1 403
-
-              2. Thu, May 16, 4:00PM ~ 5:30PM, E3-1 3420
-
-              In case you cannot make it for some special reason, please contact me via email by the middle of next week. 
-
-
-              Thanks, 
-
-              Hangyeol Yu*/}
       
             </p>
           </DialogContent>
