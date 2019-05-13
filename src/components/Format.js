@@ -14,6 +14,8 @@ import { isUndefined } from 'util';
 
 import queryString from 'query-string';
 import firebase from 'firebase';
+import DialogActions from '@material-ui/core/DialogActions';
+
 
 const DialogTitle = withStyles(theme => ({
   root: {
@@ -287,6 +289,11 @@ class CustomizedDialogDemo extends React.Component {
           aria-labelledby="customized-dialog-title"
           open={this.state.open}
         >
+        <DialogActions>
+            <Button onClick={() => this.setState({open: false})} color="primary">
+              Close
+            </Button>
+          </DialogActions>
         
           <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
             save format: Highlight the part you wish to change
