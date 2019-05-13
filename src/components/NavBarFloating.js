@@ -18,6 +18,9 @@ const styles = theme => ({
         margin: theme.spacing.unit * 8,
         color: "white",
     },
+	extendedIcon: {
+		marginRight: theme.spacing.unit,
+	},
 });
 
 class FabButton extends React.Component{
@@ -40,7 +43,7 @@ class FabButton extends React.Component{
               });
             }}
           >
-              Compose
+            Compose
           </Fab>
           {this.state.compose ? <WriteMail onJustClose={()=>{
             this.setState({
