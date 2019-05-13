@@ -110,7 +110,12 @@ class CheckboxList extends React.Component {
 
     if(selected === "Inbox"){
       firebase.database().ref(`/${user}/inbox`).once('value').then(snapshot => {
-        if(snapshot.val() === null) return;
+        if(snapshot.val() === null) {
+          this.setState({
+            mails: []
+          })
+          return;
+        };
   
         var keys = Object.keys(snapshot.val());
         var mails = keys.map(key => snapshot.val()[key]);
@@ -123,7 +128,12 @@ class CheckboxList extends React.Component {
     }
     else if(selected === "Sent"){
       firebase.database().ref(`/${user}/sent`).once('value').then(snapshot => {
-        if(snapshot.val() === null) return;
+        if(snapshot.val() === null) {
+          this.setState({
+            mails: []
+          })
+          return;
+        };
   
         var keys = Object.keys(snapshot.val());
         var mails = keys.map(key => snapshot.val()[key]);
@@ -143,7 +153,12 @@ class CheckboxList extends React.Component {
 	}
     else if(selected === 'Trash'){
       firebase.database().ref(`/${user}/trash`).once('value').then(snapshot => {
-        if(snapshot.val() === null) return;
+        if(snapshot.val() === null) {
+          this.setState({
+            mails: []
+          })
+          return;
+        };
   
         var keys = Object.keys(snapshot.val());
         var mails = keys.map(key => snapshot.val()[key]);
