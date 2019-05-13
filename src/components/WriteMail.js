@@ -79,8 +79,10 @@ function NumberFormatCustom(props) {
         });
       }}
       thousandSeparator
-      prefix="$"
-	  format="(###) ###-####"
+	  //format="(###)##-##"
+      //prefix="$"
+	  //prefix="Dear All, I will hand out your HW 2 sheets in Monday's class. If you miss the class or have some questions, you can visit one of following two sessions. 1. Mon, May 13, 8:00PM ~ 9:30PM, N1 403 2. Thu, May 16, 4:00PM ~ 5:30PM, E3-1 3420 In case you cannot make it for some special reason, please contact me via email by the middle of next week. Thanks, Hangyeol Yu";
+
     />
   );
 }
@@ -140,7 +142,7 @@ class WriteMail extends React.Component {
   state = {
     anchorEl: null,
 
-		numberformat: '1320',
+	numberformat: "This is a default."
 
   };
 
@@ -265,7 +267,7 @@ class WriteMail extends React.Component {
 
 				  ref="context"
 				  label=""
-				  value={numberformat}
+				  //value={numberformat}
 				  style={{ marginTop: 40, height: 160}}
 				  placeholder="Enter here"
 				  fullWidth
@@ -287,9 +289,9 @@ class WriteMail extends React.Component {
 					}}
 
 					autoFocus={this.props.replyInfo}
-					InputProps={{
-						inputComponent: NumberFormatCustom,
-					  }}
+					//InputProps={{
+					//	inputComponent: NumberFormatCustom,
+					//}}
 				/>
 				{/*<span id="my-helper-text">We'll never share your email.</span>*/}
 			</div>
