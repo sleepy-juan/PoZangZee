@@ -6,6 +6,7 @@ import ReadMail from '../components/readmail/ReadMail'
 import NavBar from '../components/NavBar';
 import MailList from '../components/MailList';
 import queryString from 'query-string';
+import ImageDialog from '../ImageDialog';
 
 const drawerWidth = 270;
 const styles = theme => ({
@@ -52,6 +53,7 @@ class PermanentDrawerLeft extends React.Component{
             <MailList onRead={mail => this.setState({mail, readMail: true})} selected={this.state.selected_menu} />}
           </main>
           <p style={{position:"fixed", right: "1em", top: "0", fontFamily: "arial", color: "white"}}>Hi, {user}. <a href="/" style={{textDecoration: "none"}}>Logout?</a></p>
+          <ImageDialog />
         </div>
     ); // <Format />
   }

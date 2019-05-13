@@ -383,12 +383,12 @@ class CheckboxList extends React.Component {
                   {
                     mail.replied ?
                     <Button color="primary" className={classes.button} onClick={this.onKept(mail)} >
-                    <span className={classes.underline}>K</span>eep
-                    <Icon className={classes.rightIcon}>check</Icon>
+                    <span className={classes.underline}>P</span>in
+                    <Icon className={classes.rightIcon}>where_to_vote</Icon>
                   </Button> :
                     <Button color="primary" className={classes.button} onClick={this.onIgnored(mail)} >
-                    <span className={classes.underline}>I</span>gnore
-                    <Icon className={classes.rightIcon}>clear</Icon>
+                    <span className={classes.underline}>P</span>inned
+                    <Icon className={classes.rightIcon}>where_to_vote</Icon>
                   </Button>
                   }
                   <Button color="secondary" className={classes.button} onClick={this.onDirectReplied(mail)}>
