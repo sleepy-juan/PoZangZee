@@ -155,6 +155,7 @@ class WriteMail extends React.Component {
   };
 
 	componentDidMount(){
+		window.keymap={};
 		document.addEventListener('keyup', this.handleKeyup);
 		document.addEventListener('keydown', this.handleKeydown);
 	}
@@ -172,13 +173,17 @@ class WriteMail extends React.Component {
 			this.props.onJustClose();
 		}
 	}
-/*
+	
 	handleKeydown=e=>{
-		var keymap = {};
-		map[e.keyCode] = true;
-		onSendClicked
+
+		window.keymap[e.keyCode] = true;
+		if(window.keymap[13] && window.keymap[17]){
+			this.onSendClicked();
+			window.keymap={};
+		}
+		
 	}
-*/
+
 
   render() {
     const { classes } = this.props;
