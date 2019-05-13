@@ -19,7 +19,7 @@ import NumberFormat from 'react-number-format';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-
+import $ from 'jquery';
 
 const styles = theme => ({
   card: {
@@ -111,6 +111,23 @@ class WriteMail extends React.Component {
    }
 
   onSendClicked = () => {
+		if(this.state.selected_format){
+			var format = this.state.selected_format;
+			var content = "";
+			var lastIndex = 0;
+			format.index.forEach((i, idx) => {
+					var s = i[0], e = i[1];
+					
+					content += format.context.slice(lastIndex, s);
+					content += $(`#input_${idx}`).val();
+
+					lastIndex = e;
+			});
+			content += format.context.slice(lastIndex, format.context.length);
+
+			this.content = content;
+		}
+
 		if(this.props.onClose){
 			this.props.onClose();
 			this.sendMail();
@@ -146,9 +163,9 @@ class WriteMail extends React.Component {
 
   state = {
     anchorEl: null,
-
-	numberformat: "This is a default."
-
+		numberformat: "This is a default.",
+		formats: [],
+		html: ""
   };
 
   handleClick = event => {
@@ -156,15 +173,31 @@ class WriteMail extends React.Component {
   };
 
   handleClose = () => {
-    this.setState({ anchorEl: null });
-	//get info from db and fill onto the email context
-	this.setState({value: this.nativeEvent.target.outerText})
+		this.setState({ anchorEl: null });
   };
 
 	componentDidMount(){
 		window.keymap={};
 		document.addEventListener('keyup', this.handleKeyup);
 		document.addEventListener('keydown', this.handleKeydown);
+
+		const query = queryString.parse(window.location.search);
+		var user = query.username;
+		firebase.database().ref(`/${user}/format`).once('value').then(snapshot => {
+			if(snapshot.val() === null){
+				this.setState({
+					formats: []
+				})
+				return;
+			}
+
+			var keys = Object.keys(snapshot.val());
+      var formats = keys.map(key => snapshot.val()[key]);
+		
+			this.setState({
+				formats
+			})
+		})
 	}
 
 
@@ -192,10 +225,38 @@ class WriteMail extends React.Component {
 		
 	}
 
+	onFormatSelected = format => () => {
+		console.log('selected', format)
+		this.setState({
+			selected_format: format
+		})
+		this.handleClose();
+
+		setTimeout(() => {
+			var html = "";
+			var lastIndex = 0;
+			format.index.forEach((i, idx) => {
+					var s = i[0], e = i[1];
+					
+					html += format.context.slice(lastIndex, s);
+					html += `<input id="input_${idx}" placeholder=${format.context.slice(s, e)} />`;
+
+					lastIndex = e;
+			});
+			html += format.context.slice(lastIndex, format.context.length);
+			
+			if(this.formatRef){
+					this.formatRef.innerHTML = html;
+			}
+		}, 100);
+	}
+
 
   render() {
     const { classes } = this.props;
 	const { anchorEl } = this.state;
+
+		console.log(this.state.replyInfo)
 
     return (
 			<div>
@@ -215,13 +276,16 @@ class WriteMail extends React.Component {
 					<Menu
 					  id="simple-menu"
 					  anchorEl={anchorEl}
-					  open={Boolean(anchorEl)}
+						open={Boolean(anchorEl)}
 						onClose={this.handleClose}
-						
 					>
-					  <MenuItem onClick={this.handleClose}>Format1</MenuItem>
-					  <MenuItem onClick={this.handleClose}>Format2</MenuItem>
-					  <MenuItem onClick={this.handleClose}>format3</MenuItem>
+					{
+						this.state.formats.map((format, index) => {
+							return (
+								<MenuItem key={index} onClick={this.onFormatSelected(format)}>{format.name}</MenuItem>
+							)
+						})
+					}
 					</Menu>
 				</MuiThemeProvider>
 				<MuiThemeProvider theme={theme}>
@@ -282,22 +346,30 @@ class WriteMail extends React.Component {
 			
 		  </Typography>
 		  <Typography>
-			<FormControl margin="normal" required fullWidth>
-			  <label for="my-input"></label>			
-				<TextField
-					required
-					ref="context"
-					label=""
-					//value={numberformat}
-					style={{ marginTop: 40, height: 160}}
-					placeholder="Enter here"
-					fullWidth
-					multiline={true}
-					rows={6}
-					marginTop="normal"
-					variant="outlined"
-					InputLabelProps={{
-						shrink: true,
+
+			<div class="form-control">
+			  <label for="my-input"></label>	
+				{
+					this.state.selected_format ? 
+					<pre style={{fontFamily: "arial"}}>
+            <div ref={c => this.formatRef = c} style={{margin: "1em"}}>
+            </div>
+            </pre> : 
+					<TextField
+
+				  ref="context"
+				  label=""
+				  //value={numberformat}
+				  style={{ marginTop: 40, height: 160}}
+				  placeholder="Enter here"
+				  fullWidth
+				  multiline={true}
+				  rows={6}
+				  marginTop="normal"
+				  variant="outlined"
+				  InputLabelProps={{
+					shrink: true,
+
 					}}
 
 					//onChange={this.handleChange('numberformat')}
@@ -314,6 +386,7 @@ class WriteMail extends React.Component {
 					//	inputComponent: NumberFormatCustom,
 					//}}
 				/>
+				}		
 				{/*<span id="my-helper-text">We'll never share your email.</span>*/}
 			</FormControl>
 
