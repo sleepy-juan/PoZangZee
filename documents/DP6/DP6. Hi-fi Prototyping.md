@@ -38,13 +38,13 @@
 
 - This is the main page of [pozangzee.com](pozangzee.com). The highlight in the first email shows which email the computer is currently focused on.
 
-  ![Main Page](C:\Users\patricia01\Desktop\ddddd\documents\DP6\Main Page.png)
+  ![Main Page](.\Main Page.png)
 
   
 
 - Task 1: Label the emails as pinned & pin it - **Sort emails by pinned & pin it**
 
-  ![Sorted Inbox](C:\Users\patricia01\Desktop\ddddd\documents\DP6\Sorted Inbox.png)
+  ![Sorted Inbox](.\Sorted Inbox.png)
 
   > Apart from the bold character which shows if the mail is read or not, there is the lightly highlighted emails to show that they are still pinned for later use.
 
@@ -52,11 +52,11 @@
 
 - Task 2: Send emails with similar contexts to multiple people - **Format Saving Function**
 
-  ![Save Format](C:\Users\patricia01\Desktop\ddddd\documents\DP6\Save Format.png)
+  ![Save Format](.\Save Format.png)
 
   > After an email is sent, you can save the whole content. By highlighting some parts, you can change the specifically highlighted parts when sending new emails.
 
-  ![Get Format](C:\Users\patricia01\Desktop\ddddd\documents\DP6\Get Format.png)
+  ![Get Format](./Get Format.png)
 
   > After pressing the "get format" button, the most recent formats are rendered. You can see how the saved formats are being called from the database.
 
@@ -64,7 +64,7 @@
 
 - Task 3: Explore the email system with keyboard inputs - **Keyboard Shortcuts**
 
-  ![Keyboard Input](C:\Users\patricia01\Desktop\ddddd\documents\DP6\Keyboard Input.png)
+  ![Keyboard Input](.\Keyboard Input.png)
 
   > Since the system is designed for frequent and diverse email users, we thought getting rid of some mouse / touchpad inputs will help in reducing the overall time. 
 
