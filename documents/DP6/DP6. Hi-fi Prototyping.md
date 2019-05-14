@@ -41,9 +41,9 @@
 
 - This is the main page of [pozangzee.com](http://pozangzee.com). The highlight in the first email shows which email the computer is currently focused on.
 
-  <img src="https://github.com/sleepy-juan/PoZangZee/blob/master/documents/DP6/Main%20Page.png?raw=true"/>
+  <img src="https://github.com/sleepy-juan/PoZangZee/blob/master/documents/DP6/MainPage.png?raw=true"/>
 
-  
+
 
 - Task 1: Label the emails as pinned & pin it - **Sort emails by pinned & pin it**
 
@@ -51,7 +51,7 @@
 
   > Apart from the bold character which shows if the mail is read or not, there is the lightly highlighted emails to show that they are still pinned for later use.
 
-  
+
 
 - Task 2: Send emails with similar contexts to multiple people - **Format Saving Function**
 
@@ -59,11 +59,13 @@
 
   > After an email is sent, you can save the whole content. By highlighting some parts, you can change the specifically highlighted parts when sending new emails.
 
+  
+
   <img src="https://github.com/sleepy-juan/PoZangZee/blob/master/documents/DP6/Get%20Format.png?raw=true"/>
 
   > After pressing the "get format" button, the most recent format list is rendered. You can see how the saved formats are being called from the database.
 
-  
+
 
 - Task 3: Explore the email system with keyboard inputs - **Keyboard Shortcuts**
 
