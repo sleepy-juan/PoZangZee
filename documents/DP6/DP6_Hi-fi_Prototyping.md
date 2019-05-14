@@ -20,10 +20,10 @@
 
 > Through the iteration process, we re-considered our POV and target users. This resulted in a change of our core functions as well as the tasks. Calendar function was removed because we all agreed that calendar does not resolve the second POV (categorizing emails by its status), and keyboard shortcut can be more critical for those who use emails as their primary working resource.
 
-1. There are multiple unread emails in your Inbox. **Label the emails** as pinned & pin-it just by reading the subject, for keeping track of certain emails later on. Carefully look at how they are sorted.
-2. **Send emails** with similar contexts to multiple people using the format saving function.
+1. There are multiple unread emails in your Inbox. Let's say that you, at the moment, do not have enough time to read all the Emails. **Label the emails** as pinned & pin-it just by reading the subject, for keeping track of certain emails later on. Carefully look at how they are sorted.
+2. Let's say that you need to inform many students their summer courses. **Send emails** with similar contexts to multiple people.
 
-3. With the provided shortcut keys in the tutorial, please **explore the email system** with keyboard inputs.
+3. Assume that you need to go through the system with a limited amount of time. With the provided shortcut keys in the tutorial, please get used to the keyboard input system and **explore the email system**.
 
 ------
 
