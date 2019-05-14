@@ -14,6 +14,9 @@ const styles = theme => ({
     width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
+  underline:{
+    textDecoration:"underline",
+  },
   text: {
       maxWidth: "300px",
       font: "bold",
@@ -25,7 +28,7 @@ const styles = theme => ({
     backgroundColor: "#FFFFFF"
   },
   unreplied: {
-    backgroundColor: "#FA726810"
+    backgroundColor: "#FA726820"
   },
   rightIcon: {
     marginLeft: theme.spacing.unit,
@@ -196,7 +199,7 @@ class CheckboxList extends React.Component {
     console.log(e.keyCode);	
     var mails = this._sortMails(this.state.mails);
     var mail = mails[this.state.index];
-    if(!this.state.compose && mails.length>0 && !window.compose){
+    if(!this.state.compose && mails.length>0 && !window.compose && !window.format){
         //when up
       if(e.keyCode===40){
         if(this.state.index+1 !== this.state.mails.length){
@@ -237,7 +240,7 @@ class CheckboxList extends React.Component {
         this.readMail(mail)();
       }
 
-      if(e.keyCode===73||e.keyCode===75){
+      if(e.keyCode===80){
         if(mail.replied){
           this.onKept(mail)();
         }
@@ -246,7 +249,7 @@ class CheckboxList extends React.Component {
         }
       }
     }
-    if(!this.state.compose && !window.compose){
+    if(!this.state.compose && !window.compose && !window.format){
       
       
       if(e.keyCode===82){
@@ -299,6 +302,7 @@ class CheckboxList extends React.Component {
   }
 
   onDirectReplied = mail => () => {
+    window.compose=true;
     this.setState({
       compose: true,
       replyInfo: mail,
@@ -306,6 +310,7 @@ class CheckboxList extends React.Component {
   }
 
   onDirectReplyClosed = mail => () => {
+    window.compose=false;
     var mails = this.state.mails;
     mails.forEach(fmail => {
       if(fmail.id === mail.id){
@@ -378,20 +383,20 @@ class CheckboxList extends React.Component {
                   {
                     mail.replied ?
                     <Button color="primary" className={classes.button} onClick={this.onKept(mail)} >
-                    Keep
-                    <Icon className={classes.rightIcon}>check</Icon>
+                    <span className={classes.underline}>P</span>in it
+                    <Icon className={classes.rightIcon}>where_to_vote</Icon>
                   </Button> :
                     <Button color="primary" className={classes.button} onClick={this.onIgnored(mail)} >
-                    Ignore
-                    <Icon className={classes.rightIcon}>clear</Icon>
+                    <span className={classes.underline}>P</span>inned
+                    <Icon className={classes.rightIcon}>where_to_vote</Icon>
                   </Button>
                   }
                   <Button color="secondary" className={classes.button} onClick={this.onDirectReplied(mail)}>
-                    Reply
+                  <span className={classes.underline}>R</span>eply
                     <Icon className={classes.rightIcon}>send</Icon>
                   </Button>
                   <Button className={classes.button} onClick={this.onDeleted(mail)}>
-                    Delete
+                  <span className={classes.underline}>D</span>elete
                     <Icon className={classes.rightIcon}>delete</Icon>
                   </Button>
                 </ListItemSecondaryAction>

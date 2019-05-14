@@ -11,6 +11,10 @@ import Format from './Format';
 
 
 const theme = createMuiTheme({
+  underline:{
+    borderBottom: '1px solid #FA7268',
+    color: '#Fa7268',
+  },
   palette: {
     primary: {
 		main: '#FA7268'
@@ -36,6 +40,25 @@ class SimpleSnackbar extends React.Component {
     horizontal: 'right',
   };
 
+  componentDidMount(){
+    document.addEventListener('keyup', this.handleKeyup);
+		document.addEventListener('keydown', this.handleKeydown);
+  }
+
+  handleKeyup=e=>{
+    if(e.keyCode===83 && !window.compose){
+      this.props.deliverFormat(true);
+      window.format=true;
+    }
+
+    
+  }
+  handleKeydown=e=>{
+
+		
+		
+	}
+
   handleClick = () => {
     this.setState({ open: true });
   };
@@ -51,6 +74,7 @@ class SimpleSnackbar extends React.Component {
     });
     if(this.props.deliverFormat) {
       this.props.deliverFormat(true);
+      window.compose=true;
     }
 	
 
@@ -65,7 +89,11 @@ class SimpleSnackbar extends React.Component {
 	  }
 	  this.setState({
 		open:false
-	  });
+    });
+    
+    if(this.props.onPopupClosed){
+      this.props.onPopupClosed();
+    }
   }
 
   render() {
@@ -79,7 +107,7 @@ class SimpleSnackbar extends React.Component {
           }}
           open={this.state.open}
           autoHideDuration={4000}
-          onClose={this.handleClose.bind(this)}
+          onClose={this.handleActualClose.bind(this)}
           ContentProps={{
             'aria-describedby': 'message-id',
           }}
@@ -88,7 +116,7 @@ class SimpleSnackbar extends React.Component {
 		    <MuiThemeProvider theme={theme}>
 				<Button color="primary" size="small" style={{ marginRight: 5 }} onClick={this.handleClose.bind(this)}>
 				
-					Save Format
+        <span style={{textDecoration: "underline", textDecorationColor: "#FA7268"}}>S</span>ave Format
 				  </Button>
 			</MuiThemeProvider>,
 			<MuiThemeProvider theme={theme}>

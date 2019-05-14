@@ -5,12 +5,14 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import ReadMail from '../components/readmail/ReadMail'
 import NavBar from '../components/NavBar';
 import MailList from '../components/MailList';
+import queryString from 'query-string';
+import ImageDialog from '../ImageDialog';
 
 const drawerWidth = 270;
 const styles = theme => ({
   root: {
     display: 'flex',
-    borderTop: "15px solid #FA7268",
+    borderTop: "45px solid #FA7268",
   },
   appBar: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -38,6 +40,8 @@ class PermanentDrawerLeft extends React.Component{
 
   render() {
     const { classes } = this.props;
+    const query = queryString.parse(window.location.search);
+    var user = query.username;
   
     return (
         <div className={classes.root}>
@@ -48,6 +52,8 @@ class PermanentDrawerLeft extends React.Component{
             <ReadMail mail={this.state.mail} onBack={() => {this.setState({readMail: false})}}/>: 
             <MailList onRead={mail => this.setState({mail, readMail: true})} selected={this.state.selected_menu} />}
           </main>
+          <p style={{position:"fixed", right: "1em", top: "0", fontFamily: "arial", color: "white"}}>Hi, {user}. <a href="/" style={{textDecoration: "none"}}>Logout?</a></p>
+          <ImageDialog />
         </div>
     ); // <Format />
   }

@@ -31,6 +31,7 @@ class InputAdornments extends React.Component {
     return (
       <div className={classes.root}>
         <TextField
+          autoFocus = {true}
           onChange={e => this.props.onChangeText(e.target.value)}
           id="simple-start-adornment"
           className={classNames(classes.margin, classes.textField)}

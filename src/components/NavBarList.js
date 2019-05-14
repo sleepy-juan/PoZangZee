@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import queryString from 'query-string';
+import firebase from 'firebase';
 
 const styles = theme => ({
   root: {
@@ -39,6 +41,32 @@ class NestedList extends React.Component {
     }
   };
 
+  _queryLength(){
+    const query = queryString.parse(window.location.search);
+    var user = query.username;
+    
+    firebase.database().ref(`/${user}/inbox`).once('value').then(snapshot => {
+      var nInbox = 0;
+      if(snapshot.val() !== null){
+        nInbox = Object.keys(snapshot.val()).length;
+        firebase.database().ref(`/${user}/sent`).once('value').then(snapshot => {
+          var nSent = 0;
+          if(snapshot.val() !== null){
+            nSent = Object.keys(snapshot.val()).length;
+
+            this.setState({
+              nInbox, nSent
+            })
+          }
+        })
+      }
+    })
+  }
+
+  componentDidMount(){
+    this._queryLength();
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -48,10 +76,10 @@ class NestedList extends React.Component {
         className={classes.root}
       >
         <ListItem button className={classes.unnested} onClick={() => this.handleClick("Inbox")} selected={this.state.selected === "Inbox"} classes={{ selected: classes.selected }}>
-          <ListItemText inset primary="Inbox" />
+          <ListItemText inset primary={`Inbox (${this.state.nInbox})`} />
         </ListItem>
         <ListItem button className={classes.unnested} onClick={() => this.handleClick("Sent")} selected={this.state.selected === "Sent"} classes={{ selected: classes.selected }}>
-          <ListItemText inset primary="Sent" />
+          <ListItemText inset primary={`Sent (${this.state.nSent})`}  />
         </ListItem>
         <ListItem button className={classes.unnested} onClick={() => this.handleClick("Formats")} selected={this.state.selected === "Formats"} classes={{ selected: classes.selected }}>
           <ListItemText inset primary="Formats" />
