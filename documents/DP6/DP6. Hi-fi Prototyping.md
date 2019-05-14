@@ -29,22 +29,25 @@
 
 ### Implementation Notes
 
-- Prototype URL: [pozangzee.com](pozangzee.com)
+- Prototype URL: [pozangzee.com](<http://pozangzee.com/>)
+
 - Git Repository URL: <https://github.com/sleepy-juan/PoZangZee>
+
 - Libraries and frameworks: ReactJS, Material UI, jQuery, Firebase
-- Representative screenshots:
 
-> We sent sample emails to **jeongeon** (all lowercase) for user testing, so we recommend logging into **jeongeon**'s account from the log-in page. 
+  #### Representative screenshots:
 
-- This is the main page of [pozangzee.com](pozangzee.com). The highlight in the first email shows which email the computer is currently focused on.
+  > We sent sample emails to **jeongeon** (all lowercase) for user testing, so we recommend logging into **jeongeon**'s account from the log-in page. 
 
-  ![Main Page](.\Main Page.png)
+- This is the main page of [pozangzee.com](http://pozangzee.com). The highlight in the first email shows which email the computer is currently focused on.
+
+  <img src="https://github.com/sleepy-juan/PoZangZee/blob/master/documents/DP6/Main%20Page.png?raw=true"/>
 
   
 
 - Task 1: Label the emails as pinned & pin it - **Sort emails by pinned & pin it**
 
-  ![Sorted Inbox](.\Sorted Inbox.png)
+  <img src="https://github.com/sleepy-juan/PoZangZee/blob/master/documents/DP6/Sorted%20Inbox.png?raw=true"/>
 
   > Apart from the bold character which shows if the mail is read or not, there is the lightly highlighted emails to show that they are still pinned for later use.
 
@@ -52,19 +55,19 @@
 
 - Task 2: Send emails with similar contexts to multiple people - **Format Saving Function**
 
-  ![Save Format](.\Save Format.png)
+  <img src="https://github.com/sleepy-juan/PoZangZee/blob/master/documents/DP6/Save%20Format.png?raw=true"/>
 
   > After an email is sent, you can save the whole content. By highlighting some parts, you can change the specifically highlighted parts when sending new emails.
 
-  ![Get Format](./Get Format.png)
+  <img src="https://github.com/sleepy-juan/PoZangZee/blob/master/documents/DP6/Get%20Format.png?raw=true"/>
 
-  > After pressing the "get format" button, the most recent formats are rendered. You can see how the saved formats are being called from the database.
+  > After pressing the "get format" button, the most recent format list is rendered. You can see how the saved formats are being called from the database.
 
   
 
 - Task 3: Explore the email system with keyboard inputs - **Keyboard Shortcuts**
 
-  ![Keyboard Input](.\Keyboard Input.png)
+  <img src="https://github.com/sleepy-juan/PoZangZee/blob/master/documents/DP6/Keyboard%20Input.png?raw=true"/>
 
   > Since the system is designed for frequent and diverse email users, we thought getting rid of some mouse / touchpad inputs will help in reducing the overall time. 
 
