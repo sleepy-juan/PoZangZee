@@ -240,7 +240,7 @@ class CheckboxList extends React.Component {
         this.readMail(mail)();
       }
 
-      if(e.keyCode===73||e.keyCode===75){
+      if(e.keyCode===80){
         if(mail.replied){
           this.onKept(mail)();
         }
@@ -383,7 +383,7 @@ class CheckboxList extends React.Component {
                   {
                     mail.replied ?
                     <Button color="primary" className={classes.button} onClick={this.onKept(mail)} >
-                    <span className={classes.underline}>P</span>in
+                    <span className={classes.underline}>P</span>in it
                     <Icon className={classes.rightIcon}>where_to_vote</Icon>
                   </Button> :
                     <Button color="primary" className={classes.button} onClick={this.onIgnored(mail)} >

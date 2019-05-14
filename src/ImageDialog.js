@@ -1,6 +1,6 @@
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import shortcuts from './shortcuts.png';
+import shortcuts from './shortcuts.jpeg';
 import { Button } from '@material-ui/core';
 
 class ImageDialog extends React.Component {
