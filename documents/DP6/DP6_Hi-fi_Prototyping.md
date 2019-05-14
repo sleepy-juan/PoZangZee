@@ -90,7 +90,7 @@
 #### Changhyeon Park
 
 - Which part of the UI did you directly contribute to?
- - I worked on format saving dialog. I implemented text highlighting algorithm on it.
+    - I worked on format saving dialog. I implemented text highlighting algorithm on it.
 - What were some of the difficulties you faced?
    - We worked on it as a team, and each part of our implementation is distributed on each member. Working with Git was unfamiliar to me at the first time. Integrating with other member’s code fragment was really difficult. 
 - List one useful implementation skill you learned while working on DP5 and DP6.
