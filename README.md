@@ -19,14 +19,14 @@ Following a [user-centered design process](https://www.kixlab.org/courses/cs374-
 * [Design Project 2: Ideation](./documents/DP2/DP2_Ideation.md)
 * [Design Project 3: Paper Prototyping](./documents/DP3/DP3_PaperPrototyping.md)
 * [Design Project 4: Lo-fi Prototyping](./documents/DP4/DP4.md)
-* [Design Project 5: Mid-fi Prototyping](https://pozangzee.com/)
-* [Design Project 6: Hi-fi Prototyping](https://pozangzee.com/)
+* [Design Project 5: Mid-fi Prototyping](./documents/DP6/DP6_Hi-fi_Prototyping.md) and [Prototype](https://pozangzee.com/)
+* [Design Project 6: Hi-fi Prototyping](./documents/DP6/DP6_Hi-fi_Prototyping.md) and [Prototype](https://pozangzee.com/)
 * Design Project 7: User Testing
 * Design Project 8: Iteration & Wrap-up
 
 ## About the Project
-
-> TODO: Write *About* of the project
+A renovated email interface for email users with **frequent and diverse** uses  
+Come [pozangzee.com](https://pozangzee.com/) and try it!
 
 ### How to run?
 You can see our [demo](https://pozangzee.com/).  
