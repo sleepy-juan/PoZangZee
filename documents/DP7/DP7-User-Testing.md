@@ -224,6 +224,13 @@ We don't have 'I wish' and 'What if' parts for this studio.
 
 Some people liked our user choices and distributions. 
 
+### People liked...
+
+- I like various distribution of user through your user study.
+- I liked the simple but wide explanation of the tasks
+- the honesty
+- I like your choice of target users.
+
 ---
 
 ## Plan for iteration
