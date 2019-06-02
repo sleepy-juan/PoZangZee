@@ -58,6 +58,28 @@ class NestedList extends React.Component {
               nInbox, nSent
             })
           }
+          else {
+            this.setState({
+              nInbox, nSent: 0
+            })
+          }
+        })
+      }
+      else {
+        firebase.database().ref(`/${user}/sent`).once('value').then(snapshot => {
+          var nSent = 0;
+          if(snapshot.val() !== null){
+            nSent = Object.keys(snapshot.val()).length;
+
+            this.setState({
+              nInbox: 0, nSent
+            })
+          }
+          else {
+            this.setState({
+              nInbox: 0, nSent: 0
+            })
+          }
         })
       }
     })
