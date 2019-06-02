@@ -115,11 +115,8 @@ const styles = theme => ({
         })
       })
     }
+    this.props.onBack();
   }
-  
-
-  on
-
 
   render() {
     const { classes } = this.props;

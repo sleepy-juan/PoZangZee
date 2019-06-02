@@ -46,7 +46,7 @@ class PermanentDrawerLeft extends React.Component{
     return (
         <div className={classes.root}>
           <CssBaseline />
-          <NavBar onSelect={selected_menu=>this.setState({selected_menu})} />
+          <NavBar onSelect={selected_menu=>this.setState({selected_menu, readMail: false})} />
           <main className={classes.content}>
             {this.state.readMail? 
             <ReadMail mail={this.state.mail} onBack={() => {this.setState({readMail: false})}}/>: 

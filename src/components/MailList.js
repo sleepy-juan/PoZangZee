@@ -81,27 +81,76 @@ class CheckboxList extends React.Component {
   }
 
   componentDidMount(){
-    const query = queryString.parse(window.location.search);
-    var user = query.username;
-    
-    firebase.database().ref(`/${user}/inbox`).once('value').then(snapshot => {
-      if(snapshot.val() === null) return;
-
-      var keys = Object.keys(snapshot.val());
-      var mails = keys.map(key => snapshot.val()[key]);
-
-      console.log("this isdddd the length")
-      console.log(this.state.mails.length)
-      this.setState({
-        mails
-      })
-    
-    document.addEventListener('keyup', this.handleKeyup);
-    });
-
     console.log("this is the length")
     console.log(this.state.mails.length)
+    var selected = this.props.selected;
+    const query = queryString.parse(window.location.search);
+    var user = query.username;
 
+    if(selected === "Inbox"){
+      firebase.database().ref(`/${user}/inbox`).once('value').then(snapshot => {
+        if(snapshot.val() === null) {
+          this.setState({
+            mails: []
+          })
+          return;
+        };
+  
+        var keys = Object.keys(snapshot.val());
+        var mails = keys.map(key => snapshot.val()[key]);
+		
+		
+        this.setState({
+          mails
+        })
+      });
+    }
+    else if(selected === "Sent"){
+      firebase.database().ref(`/${user}/sent`).once('value').then(snapshot => {
+        if(snapshot.val() === null) {
+          this.setState({
+            mails: []
+          })
+          return;
+        };
+  
+        var keys = Object.keys(snapshot.val());
+        var mails = keys.map(key => snapshot.val()[key]);
+        this.setState({
+          mails
+		  
+        })
+      });
+    }
+	else if (selected === "Formats") {
+		//add format list (add function in utils/Database.js)
+		console.log("Format column selected")
+		var formats = [{from: "Format Title 1", content: "Hello. This is juan.", sent: "1557697639820", subject: "Format Preview"}, {from: "Format Title 2", content: "Hello. This is juan.", sent: "1557697639820", subject: "Format Preview 2"}]
+		this.setState({
+			mails: formats
+		})
+	}
+    else if(selected === 'Trash'){
+      firebase.database().ref(`/${user}/trash`).once('value').then(snapshot => {
+        if(snapshot.val() === null) {
+          this.setState({
+            mails: []
+          })
+          return;
+        };
+  
+        var keys = Object.keys(snapshot.val());
+        var mails = keys.map(key => snapshot.val()[key]);
+        this.setState({
+          mails
+        })
+      });
+    }
+    else {
+      this.setState({mails: [{from: "format title", subject: "format content"}]})
+    }
+
+    document.addEventListener('keyup', this.handleKeyup);
   }
 
   componentWillReceiveProps(props){
