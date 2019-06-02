@@ -53,7 +53,6 @@ class NestedList extends React.Component {
           var nSent = 0;
           if(snapshot.val() !== null){
             nSent = Object.keys(snapshot.val()).length;
-
             this.setState({
               nInbox, nSent
             })
