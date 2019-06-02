@@ -81,8 +81,6 @@ class CheckboxList extends React.Component {
   }
 
   componentDidMount(){
-    console.log("this is the length")
-    console.log(this.state.mails.length)
     var selected = this.props.selected;
     const query = queryString.parse(window.location.search);
     var user = query.username;
@@ -123,12 +121,27 @@ class CheckboxList extends React.Component {
       });
     }
 	else if (selected === "Formats") {
-		//add format list (add function in utils/Database.js)
-		console.log("Format column selected")
-		var formats = [{from: "Format Title 1", content: "Hello. This is juan.", sent: "1557697639820", subject: "Format Preview"}, {from: "Format Title 2", content: "Hello. This is juan.", sent: "1557697639820", subject: "Format Preview 2"}]
-		this.setState({
-			mails: formats
-		})
+		firebase.database().ref(`/${user}/format`).once('value').then(snapshot => {
+      if(snapshot.val() === null) {
+        this.setState({
+          mails: []
+        })
+        return;
+      };
+
+      var keys = Object.keys(snapshot.val());
+      var mails = keys.map(key => snapshot.val()[key]);
+      mails = mails.map(mail => ({
+        from: mail.name,
+        sent: mail.time,
+        content: mail.context
+      }))
+
+      this.setState({
+        mails
+    
+      })
+    });
 	}
     else if(selected === 'Trash'){
       firebase.database().ref(`/${user}/trash`).once('value').then(snapshot => {
@@ -154,8 +167,6 @@ class CheckboxList extends React.Component {
   }
 
   componentWillReceiveProps(props){
-    console.log("this is the length")
-    console.log(this.state.mails.length)
     var selected = props.selected;
     const query = queryString.parse(window.location.search);
     var user = query.username;
@@ -196,12 +207,27 @@ class CheckboxList extends React.Component {
       });
     }
 	else if (selected === "Formats") {
-		//add format list (add function in utils/Database.js)
-		console.log("Format column selected")
-		var formats = [{from: "Format Title 1", content: "Hello. This is juan.", sent: "1557697639820", subject: "Format Preview"}, {from: "Format Title 2", content: "Hello. This is juan.", sent: "1557697639820", subject: "Format Preview 2"}]
-		this.setState({
-			mails: formats
-		})
+		firebase.database().ref(`/${user}/format`).once('value').then(snapshot => {
+      if(snapshot.val() === null) {
+        this.setState({
+          mails: []
+        })
+        return;
+      };
+
+      var keys = Object.keys(snapshot.val());
+      var mails = keys.map(key => snapshot.val()[key]);
+      mails = mails.map(mail => ({
+        from: mail.name,
+        sent: mail.time,
+        content: mail.context
+      }))
+
+      this.setState({
+        mails
+    
+      })
+    });
 	}
     else if(selected === 'Trash'){
       firebase.database().ref(`/${user}/trash`).once('value').then(snapshot => {
@@ -225,7 +251,6 @@ class CheckboxList extends React.Component {
   }
 
   readMail = mail => () => {
-    console.log("readMail Triggered")
     if(this.props.onRead){
       this.props.onRead(mail);
 
@@ -243,9 +268,6 @@ class CheckboxList extends React.Component {
   }
 
   handleKeyup=e=>{
-    console.log("this is the length")
-    console.log(this.state.mails.length)
-    console.log(e.keyCode);	
     var mails = this._sortMails(this.state.mails);
     var mail = mails[this.state.index];
     if(!this.state.compose && mails.length>0 && !window.compose && !window.format){
@@ -406,8 +428,6 @@ class CheckboxList extends React.Component {
     const { classes } = this.props;
     var { mails } = this.state;
     mails = this._sortMails(mails);
-
-    console.log(mails);
     
       //Look Here
     //mails[this.state.index].classes.focus;

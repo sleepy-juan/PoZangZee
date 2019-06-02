@@ -86,8 +86,11 @@ const styles = theme => ({
   }
 
   handleKeyup=e=>{
-    if(e.keyCode===8 || e.keyCode === 37 || e.keyCode === 27){
-      this.props.onBack();
+    if(!this.state.compose && !window.compose && !window.format){
+      if(e.keyCode===8 || e.keyCode === 37 || e.keyCode === 27){
+        this.props.onBack();
+      }
+
     }
 
 
@@ -155,7 +158,11 @@ const styles = theme => ({
           </div>
         </Paper>
 
-        {this.state.compose ? <WriteMail onClose={() => {
+        {this.state.compose ? <WriteMail onJustClose={() => {
+            this.setState({
+              compose: false
+            })
+          }} onClose={() => {
             this.setState({
               compose: false
             })
