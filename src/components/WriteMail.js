@@ -400,7 +400,7 @@ class WriteMail extends React.Component {
         <CardActions className={classes.actions} disableActionSpacing style={{justifyContent: 'center'}}>
 		  <MuiThemeProvider theme={theme}>
 			<Button variant="contained" color="primary" className={classes.margin} style={{ marginBottom: 20  }} 
-				onClick={this.onSendClicked} disabled={this.to}>
+				onClick={this.onSendClicked} >
 				SEND
 			</Button>
 		  </MuiThemeProvider>
