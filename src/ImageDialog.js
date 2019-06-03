@@ -1,6 +1,6 @@
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import shortcuts from './shortcuts.jpg';
+import shortcuts from './shortcuts.png';
 import { Button } from '@material-ui/core';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
