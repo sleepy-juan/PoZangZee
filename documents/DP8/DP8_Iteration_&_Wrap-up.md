@@ -8,9 +8,15 @@
 
 #### Representative screenshots
 
-screenshots + show uniqueness using callouts, annotations, captions
+![](1_Main_Page.jpg)
 
-* 
+![](2_Format_Saving_Page.jpg)
+
+![](3_Saved_Format.jpg)
+
+![](4_Shortcut_Guide.jpg)
+
+
 
 #### Quality arguments
 
@@ -26,7 +32,7 @@ The *format saving function* is another brand-new feature that we brought to the
 
 Then, there are the *shortcut keys*. There are some systems that employ short keys, but not even nearly as extensively as *Pozangzee.com*. Our email system targets email users with frequent and diverse email uses. Being extensive users of computers (since we all are CS majors), we all know how much short keys can shorten our working time. We aimed to create an email system that requires as less mouse input as possible, and you can check that out by using the shortcut keys we provide.
 
-Lastly, the logo! According to Kahlil Gibran, "We live only to discover beauty. All else is a form of waiting." There is that beauty right there in our logo ;-)
+Lastly, the logo! A famous writer Kahlil Gibran once said, "We live only to discover beauty. All else is a form of waiting." There is that beauty right there in our logo ;-)
 
 ------
 
