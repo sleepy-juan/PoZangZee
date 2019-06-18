@@ -6,7 +6,7 @@
 
 #### Video URL: https://youtu.be/wG7Is5893oQ
 
-#### Representative screenshots
+### Representative screenshots
 
 ![](1_Main_Page.jpg)
 
@@ -18,7 +18,7 @@
 
 
 
-#### Quality arguments
+### Quality arguments
 
 We aimed to improve the currently existing email system, even though there are so many out there already. It was meaningful in that so many people may benefit from attempts like ours, and in that it was brave for a student project to challenge the currently existing email platforms. But then, there is no great leap without bravery!
 
@@ -48,7 +48,7 @@ For affordance problems, where were two major issues we noticed. The first probl
 
 ## Individual Reflection
 
-#### Juan Lee
+Juan Lee
 
 We all know that it is very difficult to evenly contribute to the project for the teamwork. However, I was really happy to make this possible through team Pozangzee. Every member has their own specialties, such as Hyunchang’s visual sketching and fast prototyping, Changhyeon’s stable codes and algorithmic thoughts, and Jeongeon’s insights for users and ability for project management. Of course, enthusiasm comes from everyone. From this stable basis of the team and the enthusiastic atmosphere of the team, I could also contribute to the project by implementing parts of a web prototype, designing a low-fi prototype with inVision studio and participating in the ideation stage.
 
@@ -68,7 +68,7 @@ I learned not only the user-centered design but also the collaborative web-based
 
 -----
 
-#### Hyunchang Oh
+### Hyunchang Oh
 
 The team was great in that everyone kept their enthusiasm high throughout the entire course. In most part of the design project, the tasks were those that did not require any specific skill sets, but more of enthusiasm. Those include ideation, interviews for user needs, and most of the process until low-fi prototyping.
 
@@ -89,7 +89,7 @@ ReactJS was a good tool, but was not suitable for our project. It is organised a
 
 -----
 
-#### Changhyeon Park
+### Changhyeon Park
 
 HCI course was very helpful in terms of experiencing design process that can be used in practical work as well as studying theoretical aspects of this area. Team-based design project was essence of this class and it would be one of the most valuable experience among the educations that I have taken in this college. My team consisted of four members who have the common major computer science. Some of us met each other for the first time in this team, but I felt that there’s no difficulty to work as a team due to that factor. 
 
@@ -101,7 +101,7 @@ We are required to make a GUI ‘not for us’, and I felt that user-centered de
 
 -----
 
-#### Jeongeon Park
+### Jeongeon Park
 
 As mentioned in class, I believe having a great team is what matters the most in making a successful project. Luckily, I was able to meet three other teammates who did not drop out, or procrastinate, and I felt like the overall process of the course went very smoothly.
 
